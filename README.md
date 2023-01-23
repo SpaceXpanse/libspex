@@ -10,7 +10,7 @@ can move around an infinite plane.  It is fully functional, although mainly
 meant as example and/or basis for more complex games.
 
 Similarly, [`nonfungible`](nonfungible/README.md) is a simple implementation
-of non-fungible assets on the Xaya platform.  It is useful as another example
+of non-fungible assets on the SpaceXpanse Multiverse platform.  It is useful as another example
 (of using the
 [SQLite integration](https://github.com/spacexpanse/libspex/blob/master/spexgame/sqlitegame.hpp)),
 for testing [Democrit](https://github.com/spacexpanse/democrit) but also as an actual
@@ -64,7 +64,7 @@ for the configuration and/or build to be successful:
 - [Protocol buffers](https://developers.google.com/protocol-buffers/)
   are used both in C++ and Python.  On Debian, the packages
   `libprotobuf-dev`, `protobuf-compiler` and `python-protobuf` can be used.
-- [`eth-utils`](https://github.com/xaya/eth-utils), which itself depends on
+- [`eth-utils`](https://github.com/spaceexpanse/eth-utils), which itself depends on
   [`libsecp256k1`](https://github.com/bitcoin-core/secp256k1).
   The latter is available on Debian as `libsecp256k1-dev`.
 
@@ -80,11 +80,11 @@ this is `python3-jsonrpclib-pelix`.
 ### Docker Image
 
 We also provide a
-[Dockerfile](https://github.com/xaya/libxayagame/blob/master/Dockerfile),
+[Dockerfile](https://github.com/spacexpanse/libspex/blob/master/Dockerfile),
 which can be used to build an image based on Debian that has all dependencies
-and libxayagame itself prebuilt and installed.  (Hint:  The file can also
+and libspex itself prebuilt and installed.  (Hint:  The file can also
 just serve as documentation for how to get all dependencies and build
-libxayagame yourself on a Debian system.)
+libspex yourself on a Debian system.)
 
 [Builds of this
 image](https://hub.docker.com/repository/docker/xaya/libxayagame)

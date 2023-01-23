@@ -15,7 +15,7 @@ Optionally, the player may be **moving for `n` more turns** into one of the
 
 ## Moves
 
-[Moves](https://github.com/spacexpanse/rod-core-wallet/blob/0.6.8/games.md#moves)
+[Moves](https://github.com/SpaceXpanse/rod-core-wallet/blob/0.6.8/doc/spacexpanse/games.md#moves-)
 are represented by a JSON object that specifies how the player
 should be moved in the game world:
 

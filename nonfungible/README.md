@@ -1,4 +1,4 @@
-# Non-Fungible Assets
+# Non-Fungible Assets /WIP/  
 
 While SpaceXpanse empowers gevelopers to build *fully decentralised
 and yet complex DApps*, there are also a lot of potential applications

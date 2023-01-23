@@ -18,7 +18,7 @@ application on SpaceXpanse Multiverse for issuing and trading fungible and non-f
 
 This repository also contains a framework for [**side
 channels**](https://www.ledgerjournal.org/ojs/index.php/ledger/article/view/15)
-as well as [SpeXShips](ships/README.md), which is an example game for
+as well as [Ships](ships/README.md), which is an example game for
 channels.
 
 ## Building

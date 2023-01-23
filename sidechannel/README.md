@@ -1,4 +1,4 @@
-# Side Channels
+# Side Channels /WIP/  
 
 [Side
 Channels](https://www.ledgerjournal.org/ojs/index.php/ledger/article/view/15)

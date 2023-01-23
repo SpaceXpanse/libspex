@@ -12,7 +12,7 @@ meant as example and/or basis for more complex games.
 Similarly, [`nonfungible`](nonfungible/README.md) is a simple implementation
 of non-fungible assets on the SpaceXpanse Multiverse platform.  It is useful as another example
 (of using the
-[SQLite integration](https://github.com/spacexpanse/libspex/blob/master/spexgame/sqlitegame.hpp)),
+[SQLite integration](https://github.com/spacexpanse/libspex/blob/master/game/sqlitegame.hpp)),
 for testing [Democrit](https://github.com/spaceexpanse/democrit) but also as an actual
 application on SpaceXpanse Multiverse for issuing and trading fungible and non-fungible tokens.
 

@@ -1,9 +1,9 @@
-# Xaya Game Library
+# SpeX Library
 
-`libxayagame` is a C++ library that makes it easy to implement games on the
-[Xaya platform](https://xaya.io/).  It takes care of the interaction with
-the Xaya Core daemon, so that game developers only have to implement the
-rules of their game.
+`libspex` is a C++ library that makes it easy to implement DApps on the
+[SpaceXpanse Multiverse platform](https://spacexpanse.org/).  It takes care of the interaction with
+the ROD Core daemon, so that developers only have to implement the
+rules of their DApp.
 
 [`mover`](mover/README.md) is a simple game using this library, where players
 can move around an infinite plane.  It is fully functional, although mainly
@@ -12,18 +12,18 @@ meant as example and/or basis for more complex games.
 Similarly, [`nonfungible`](nonfungible/README.md) is a simple implementation
 of non-fungible assets on the Xaya platform.  It is useful as another example
 (of using the
-[SQLite integration](https://github.com/xaya/libxayagame/blob/master/xayagame/sqlitegame.hpp)),
-for testing [Democrit](https://github.com/xaya/democrit) but also as an actual
-application on Xaya for issuing and trading fungible and non-fungible tokens.
+[SQLite integration](https://github.com/spacexpanse/libspex/blob/master/xayagame/sqlitegame.hpp)),
+for testing [Democrit](https://github.com/spacexpanse/democrit) but also as an actual
+application on SpaceXpanse Multiverse for issuing and trading fungible and non-fungible tokens.
 
-This repository also contains a framework for [**game
+This repository also contains a framework for [**side
 channels**](https://www.ledgerjournal.org/ojs/index.php/ledger/article/view/15)
-as well as [Xayaships](ships/README.md), which is an example game for
+as well as [SpeXShips](ships/README.md), which is an example game for
 channels.
 
 ## Building
 
-To build `libxayagame` and the example mover game, use the standard routine
+To build `libspex` and the example mover game, use the standard routine
 for building autotools-based software:
 
 ```autogen.sh && ./configure && make```
@@ -34,7 +34,7 @@ your system, respectively.
 
 ### Prerequisites
 
-`libxayagame` has a couple of dependencies which need to be installed
+`libspex` has a couple of dependencies which need to be installed
 for the configuration and/or build to be successful:
 
 - [`libjsoncpp`](https://github.com/open-source-parsers/jsoncpp):

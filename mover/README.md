@@ -15,7 +15,7 @@ Optionally, the player may be **moving for `n` more turns** into one of the
 
 ## Moves
 
-[Moves](https://github.com/spacexpanse/Specs/blob/master/games.md#moves)
+[Moves](https://github.com/spacexpanse/documentation/blob/master/games.md#moves)
 are represented by a JSON object that specifies how the player
 should be moved in the game world:
 

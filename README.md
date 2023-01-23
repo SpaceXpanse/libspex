@@ -12,7 +12,7 @@ meant as example and/or basis for more complex games.
 Similarly, [`nonfungible`](nonfungible/README.md) is a simple implementation
 of non-fungible assets on the Xaya platform.  It is useful as another example
 (of using the
-[SQLite integration](https://github.com/spacexpanse/libspex/blob/master/xayagame/sqlitegame.hpp)),
+[SQLite integration](https://github.com/spacexpanse/libspex/blob/master/spexgame/sqlitegame.hpp)),
 for testing [Democrit](https://github.com/spacexpanse/democrit) but also as an actual
 application on SpaceXpanse Multiverse for issuing and trading fungible and non-fungible tokens.
 
@@ -76,7 +76,7 @@ it should be built and installed from source instead.
 For running the integration tests based on Python, install Python3 and
 the [jsonrpclib](https://github.com/tcalmant/jsonrpclib/) library.  On Debian,
 this is `python3-jsonrpclib-pelix`.
-
+<!-- 
 ### Docker Image
 
 We also provide a
@@ -89,3 +89,4 @@ libxayagame yourself on a Debian system.)
 [Builds of this
 image](https://hub.docker.com/repository/docker/xaya/libxayagame)
 are also published on Docker Hub.
+-->

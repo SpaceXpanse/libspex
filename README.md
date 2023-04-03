@@ -1,7 +1,7 @@
 # SpeX Library /WIP/
 
 `libspex` is a C++ library that makes it easy to implement DApps on the
-[SpaceXpanse Multiverse platform](https://spacexpanse.org/).  It takes care of the interaction with
+[SpaceXpanse Multiverse platform](https://www.spacexpanse.org/).  It takes care of the interaction with
 the ROD Core daemon, so that developers only have to implement the
 rules of their DApp.
 
@@ -84,7 +84,7 @@ We also provide a
 which can be used to build an image based on Debian that has all dependencies
 and libspex itself prebuilt and installed.  (Hint:  The file can also
 just serve as documentation for how to get all dependencies and build
-libspex yourself on a Debian system.)
+libspex yourself on a Debian system.)  
 
 [Builds of this
 image](https://hub.docker.com/repository/docker/xaya/libxayagame)

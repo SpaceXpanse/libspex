@@ -6,7 +6,7 @@
 
 """
 Tests the "target block" feature in the GSP.  This is the main integration
-test for the feature in libspacexpansegame itself as well.
+test for the feature in libspex itself as well.
 """
 
 from nftest import NonFungibleTest

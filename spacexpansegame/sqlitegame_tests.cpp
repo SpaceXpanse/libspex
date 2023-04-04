@@ -655,7 +655,7 @@ TEST_F (ContextAvailabilityTests, Updates)
  * Modified ChatGame that uses a UNIQUE constraint on the message.  We use
  * that to test that the basic "delete + insert fresh" situation works
  * with undoing and UNIQUE constraints.  For more details, see
- * https://github.com/spacexpanse/libspacexpansegame/issues/86.
+ * https://github.com/spacexpanse/libspex/issues/86.
  */
 class UniqueMessageChat : public ChatGame
 {

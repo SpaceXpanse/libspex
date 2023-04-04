@@ -4,7 +4,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 """
-Tests how a game channel reacts to reorgs of important on-chain transactions
+Tests how a side channel reacts to reorgs of important on-chain transactions
 (channel creation, join, resolutions, loss declarations).
 """
 

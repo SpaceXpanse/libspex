@@ -6,7 +6,7 @@ syntax = "proto2";
 
 package spacexpanse.proto;
 
-/** A participant in a game channel.  */
+/** A participant in a side channel.  */
 message ChannelParticipant
 {
 
@@ -18,7 +18,7 @@ message ChannelParticipant
 
 }
 
-/** Metadata for a game channel.  */
+/** Metadata for a side channel.  */
 message ChannelMetadata
 {
 

@@ -28,7 +28,7 @@ message StateTransition
 }
 
 /**
- * A full proof of some state of the game channel and that every participant
+ * A full proof of some state of the side channel and that every participant
  * agrees to it.  This starts off some base state and then applies state
  * transitions ending at the target state.  This is valid as long as the
  * transitions themselves are valid and all channel participants signed one

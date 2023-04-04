@@ -22,7 +22,7 @@ class BoardRules;
  * we do not want "silent upgrades".  Instead, we need to control exactly
  * what rules are in effect at what time.
  *
- * Since SignedData and StateProof protos are used for game channels at the
+ * Since SignedData and StateProof protos are used for side channels at the
  * consensus layer (at least potentially), we need to make sure that games
  * have full control over what "version" of those protos to accept at what
  * time in case we update or extend the format for those protos in the

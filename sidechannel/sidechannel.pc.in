@@ -6,10 +6,10 @@ includedir=@includedir@
 Name: sidechannel
 Version: @PACKAGE_VERSION@
 
-Description: A library for SpaceXpanse games with game channels.
-URL: https://github.com/spacexpanse/libspacexpansegame
+Description: A library for SpaceXpanse games with side channels.
+URL: https://github.com/spacexpanse/libspex
 
-Requires: @AX_PACKAGE_REQUIRES@ channelcore libspacexpansegame libspacexpanseutil
+Requires: @AX_PACKAGE_REQUIRES@ channelcore libspex libspacexpanseutil
 Requires.private: @AX_PACKAGE_REQUIRES_PRIVATE@
 
 Cflags: -I${includedir}

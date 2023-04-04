@@ -1,9 +1,9 @@
-lib_LTLIBRARIES = libspacexpansegame.la
+lib_LTLIBRARIES = libspex.la
 bin_PROGRAMS = dumpspacexpansedb
 spacexpansegamedir = $(includedir)/spacexpansegame
 rpcstubdir = $(spacexpansegamedir)/rpc-stubs
 
-pkgconfig_DATA = libspacexpansegame.pc
+pkgconfig_DATA = libspex.pc
 
 EXTRA_DIST = rpc-stubs/game.json rpc-stubs/spacexpanse.json rpc-stubs/spacexpanse-wallet.json
 
@@ -17,20 +17,20 @@ RPC_STUBS = \
 BUILT_SOURCES = $(RPC_STUBS)
 CLEANFILES = $(RPC_STUBS)
 
-libspacexpansegame_la_CXXFLAGS = \
+libspex_la_CXXFLAGS = \
   -I$(top_srcdir) \
   $(OPENSSL_CFLAGS) \
   $(JSONCPP_CFLAGS) $(JSONRPCCLIENT_CFLAGS) $(JSONRPCSERVER_CFLAGS) \
   $(ZLIB_CFLAGS) $(CURL_CFLAGS) $(MHD_CFLAGS) \
   $(GLOG_CFLAGS) $(SQLITE3_CFLAGS) $(LMDB_CFLAGS) $(ZMQ_CFLAGS)
-libspacexpansegame_la_LIBADD = \
+libspex_la_LIBADD = \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
   $(OPENSSL_LIBS) \
   $(JSONCPP_LIBS) $(JSONRPCCLIENT_LIBS) $(JSONRPCSERVER_LIBS) \
   $(ZLIB_LIBS) $(CURL_LIBS) $(MHD_LIBS) \
   $(GLOG_LIBS) $(SQLITE3_LIBS) $(LMDB_LIBS) $(ZMQ_LIBS) \
   -lstdc++fs
-libspacexpansegame_la_SOURCES = \
+libspex_la_SOURCES = \
   defaultmain.cpp \
   game.cpp \
   gamelogic.cpp \
@@ -74,7 +74,7 @@ dumpspacexpansedb_CXXFLAGS = \
   -I$(top_srcdir) \
   $(GLOG_CFLAGS) $(SQLITE3_CFLAGS) $(GFLAGS_CFLAGS)
 dumpspacexpansedb_LDADD = \
-  $(builddir)/libspacexpansegame.la \
+  $(builddir)/libspex.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
   $(GLOG_LIBS) $(SQLITE3_LIBS) $(GFLAGS_LIBS)
 dumpspacexpansedb_SOURCES = main-dumpdb.cpp
@@ -88,7 +88,7 @@ libtestutils_la_CXXFLAGS = \
   $(JSONCPP_CFLAGS) $(JSONRPCCLIENT_CFLAGS) $(JSONRPCSERVER_CFLAGS) \
   $(GLOG_CFLAGS) $(GTEST_CFLAGS)
 libtestutils_la_LIBADD = \
-  $(builddir)/libspacexpansegame.la \
+  $(builddir)/libspex.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
   $(JSONCPP_LIBS) $(JSONRPCCLIENT_LIBS) $(JSONRPCSERVER_LIBS) \
   $(GLOG_LIBS) $(GTEST_LIBS)
@@ -102,7 +102,7 @@ tests_CXXFLAGS = \
   $(GLOG_CFLAGS) $(GTEST_CFLAGS) $(SQLITE3_CFLAGS) $(LMDB_CFLAGS) $(ZMQ_CFLAGS)
 tests_LDADD = \
   $(builddir)/libtestutils.la \
-  $(builddir)/libspacexpansegame.la \
+  $(builddir)/libspex.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
   $(JSONCPP_LIBS) $(JSONRPCCLIENT_LIBS) $(JSONRPCSERVER_LIBS) \
   $(GLOG_LIBS) $(GTEST_LIBS) $(SQLITE3_LIBS) $(LMDB_LIBS) $(ZMQ_LIBS)

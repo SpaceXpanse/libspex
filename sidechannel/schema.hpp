@@ -15,7 +15,7 @@ namespace spacexpanse
 
 /**
  * Sets up or updates the database schema for the internal representation
- * of game channels in the on-chain game state.
+ * of side channels in the on-chain game state.
  */
 void InternalSetupGameChannelsSchema (SQLiteDatabase& db);
 

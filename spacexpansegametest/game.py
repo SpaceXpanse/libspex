@@ -21,7 +21,7 @@ class Node ():
   An instance of a game daemon that is connected to a regtest SpaceXpanse Core node
   and used in an integration test.
 
-  It is implemented for the Mover game daemon included with libspacexpansegame, but
+  It is implemented for the Mover game daemon included with libspex, but
   other game daemons are supported as well if they:
 
   * Have the --spacexpanse_rpc_url, --game_rpc_port and --datadir flags that moverd

@@ -15,7 +15,7 @@ namespace spacexpanse
 
 /**
  * Utility class to hash data using SHA-256.  This is used for random numbers
- * in libspacexpansegame, but may also be used for games directly e.g. to implement
+ * in libspex, but may also be used for games directly e.g. to implement
  * hash commitments.
  */
 class SHA256

@@ -5,7 +5,7 @@
 void
 InternalSetupGameChannelsSchema (SQLiteDatabase& db)
 {
-  LOG (INFO) << "Setting up the database schema for game channels...";
+  LOG (INFO) << "Setting up the database schema for side channels...";
   db.Execute (SCHEMA_SQL);
 }
 

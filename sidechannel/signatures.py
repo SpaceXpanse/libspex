@@ -3,7 +3,7 @@
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 """
-Utility methods for working with SignedData objects from game channels.
+Utility methods for working with SignedData objects from side channels.
 """
 
 from .proto import (metadata_pb2, signatures_pb2)
@@ -40,7 +40,7 @@ def createForChannel (rpc, gameId, channel, topic, data):
   data and signatures for all participants of the channel for which the private
   key is known through the RPC connection.
 
-  channel should be an object similar to how game channels are represented
+  channel should be an object similar to how side channels are represented
   in the game state JSON.  In particular, it should have an "id" field with
   the channel ID as hex, and meta.proto should be the base64-encoded serialised
   metadata proto.

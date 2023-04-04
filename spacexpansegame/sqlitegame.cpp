@@ -125,7 +125,7 @@ private:
 
   /**
    * Verifies that the database state corresponds to the given "current state"
-   * from libspacexpansegame.  Returns false if not.
+   * from libspex.  Returns false if not.
    */
   bool CheckCurrentState (const SQLiteDatabase& db,
                           const GameStateData& state) const;
@@ -164,7 +164,7 @@ protected:
     /* If the `schema_version` volumn is missing from `spacexpansegame_gamevars`,
        add it in with the initial version value of "".  We do this here in
        a separate step rather than directly in the SQL above, so that it
-       also works with databases created in previous versions of libspacexpansegame
+       also works with databases created in previous versions of libspex
        (and just adds it to them as well now).  */
     auto stmt = db.PrepareRo (R"(
       SELECT `name`

@@ -19,7 +19,7 @@ namespace spacexpanse
 {
 
 /**
- * Implementation of a simple RPC server for game channel GSPs.  This extends
+ * Implementation of a simple RPC server for side channel GSPs.  This extends
  * the GameRpcServer for general GSPs by the "getchannel" method, which extracts
  * data about a single channel by ID.  This method is used by the channel
  * daemon to query states.

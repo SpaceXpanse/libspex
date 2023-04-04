@@ -72,7 +72,7 @@ private:
   /** OpenChannel instance for building moves.  */
   OpenChannel& game;
 
-  /** ID of the game channel this is for.  */
+  /** ID of the side channel this is for.  */
   const uint256 channelId;
 
   /** The SpaceXpanse name that should be updated (without p/ prefix).  */

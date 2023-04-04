@@ -3,7 +3,7 @@
 # light mode.
 
 # Note:  This image is based on spacexpanse/charon, which itself is based on
-# spacexpanse/libspacexpansegame, not on the libspacexpansegame image directly!
+# spacexpanse/libspex, not on the libspex image directly!
 
 FROM spacexpanse/charon AS build
 

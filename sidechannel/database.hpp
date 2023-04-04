@@ -171,13 +171,13 @@ public:
   void DeleteById (const uint256& id);
 
   /**
-   * Queries for all game channels.  The returned statement can be walked
+   * Queries for all side channels.  The returned statement can be walked
    * through and used with GetFromResult, but should not be freed.
    */
   SQLiteDatabase::Statement QueryAll ();
 
   /**
-   * Queries for all game channels which have a dispute height less than or
+   * Queries for all side channels which have a dispute height less than or
    * equal to the given height.
    */
   SQLiteDatabase::Statement QueryForDisputeHeight (unsigned height);

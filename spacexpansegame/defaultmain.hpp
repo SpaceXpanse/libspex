@@ -229,7 +229,7 @@ struct GameDaemonConfiguration
   /**
    * The base data directory for persistent storage.  Must be set unless memory
    * storage is selected.  The game ID is added as an additional directory part
-   * to it, so that multiple libspacexpansegame-based games can be in the same base
+   * to it, so that multiple libspex-based games can be in the same base
    * data directory.
    */
   std::string DataDirectory;
@@ -256,7 +256,7 @@ struct GameDaemonConfiguration
  * accepts a few configuration options through GameDaemonConfiguration and
  * starts up a game daemon waiting loop.
  *
- * This can be used to create game daemons even simpler than with libspacexpansegame
+ * This can be used to create game daemons even simpler than with libspex
  * itself for cases where no custom configuration / setup is required.  The
  * real main function only needs to instantiate an appropriate GameLogic
  * instance and pass this together with desired configuration flags to

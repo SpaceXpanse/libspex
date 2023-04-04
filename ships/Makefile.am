@@ -25,7 +25,7 @@ libships_la_CXXFLAGS = \
   $(JSONCPP_CFLAGS) $(SQLITE3_CFLAGS) $(GLOG_CFLAGS) $(PROTOBUF_CFLAGS)
 libships_la_LIBADD = \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(top_builddir)/sidechannel/libchannelcore.la \
   $(top_builddir)/sidechannel/libsidechannel.la \
   $(JSONCPP_LIBS) $(SQLITE3_CFLAGS) $(GLOG_LIBS) $(PROTOBUF_LIBS)
@@ -55,7 +55,7 @@ shipsd_CXXFLAGS = \
 shipsd_LDADD = \
   $(builddir)/libships.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(top_builddir)/sidechannel/libchannelcore.la \
   $(top_builddir)/sidechannel/libsidechannel.la \
   $(JSONCPP_LIBS) $(GLOG_LIBS) $(GFLAGS_LIBS) $(PROTOBUF_LIBS)
@@ -68,7 +68,7 @@ ships_channel_CXXFLAGS = \
 ships_channel_LDADD = \
   $(builddir)/libships.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(top_builddir)/sidechannel/libchannelcore.la \
   $(top_builddir)/sidechannel/libsidechannel.la \
   $(JSONCPP_LIBS) $(JSONRPCSERVER_LIBS) \
@@ -92,7 +92,7 @@ tests_LDADD = \
   $(builddir)/libships.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
   $(top_builddir)/spacexpansegame/libtestutils.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(top_builddir)/sidechannel/libchannelcore.la \
   $(top_builddir)/sidechannel/libsidechannel.la \
   $(top_builddir)/sidechannel/libtestutils.la \

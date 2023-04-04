@@ -87,6 +87,6 @@ just serve as documentation for how to get all dependencies and build
 libspex yourself on a Debian system.)  
 
 [Builds of this
-image](https://hub.docker.com/repository/docker/spacexpanse/libspacexpansegame)
+image](https://hub.docker.com/repository/docker/spacexpanse/libspex)
 are also published on Docker Hub.
 -->

@@ -2,7 +2,7 @@
 -- Distributed under the MIT software license, see the accompanying
 -- file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
--- The data for all open game channels that is part of the global game state.
+-- The data for all open side channels that is part of the global game state.
 CREATE TABLE IF NOT EXISTS `spacexpansegame_game_channels` (
 
   -- The ID of the channel, which is typically the txid that created it.

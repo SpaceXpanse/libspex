@@ -163,7 +163,7 @@ class Environment:
   def createSignerAddress (self):
     """
     Creates and returns a new address which can be used to sign messages
-    (e.g. for Xid authentication or game channels).
+    (e.g. for Xid authentication or side channels).
     """
 
     return self.node.rpc.getnewaddress ("", "legacy")

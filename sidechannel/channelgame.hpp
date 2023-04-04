@@ -20,7 +20,7 @@ namespace spacexpanse
 {
 
 /**
- * Games using game channels should base their core on-chain game daemon on
+ * Games using side channels should base their core on-chain game daemon on
  * this class.  It leaves it up to concrete implementations to fill in the
  * callbacks for SQLiteGame, but it provides some functions for general
  * handling of game-channel operations that can be utilised from the game's
@@ -48,7 +48,7 @@ protected:
 
   /**
    * Processes a request (e.g. sent in a move) to open a dispute at the
-   * current block height for the given game channel and based on the
+   * current block height for the given side channel and based on the
    * given state proof.  If the request is valid (mainly meaning that the
    * state proof is valid and for a "later" state than the current on-chain
    * state), then the dispute is opened on the ChannelData instance and
@@ -58,7 +58,7 @@ protected:
    * It is valid to open a dispute for the state that is currently on-chain
    * (same turn height but only if it actually Equals() that state) if there
    * was not already a dispute for it.  This is necessary to avoid a situation
-   * as in https://github.com/spacexpanse/libspacexpansegame/issues/51.
+   * as in https://github.com/spacexpanse/libspex/issues/51.
    */
   bool ProcessDispute (ChannelData& ch, unsigned height,
                        const proto::StateProof& proof);
@@ -82,7 +82,7 @@ protected:
 
   /**
    * This method needs to be overridden to provide an instance of BoardRules
-   * to the game channels framework.
+   * to the side channels framework.
    */
   virtual const BoardRules& GetBoardRules () const = 0;
 

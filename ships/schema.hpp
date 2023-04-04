@@ -12,7 +12,7 @@ namespace ships
 
 /**
  * Sets up or updates the database schema for the on-chain state of
- * SpaceXpanseships, not including data of the game channels themselves (which
+ * SpaceXpanseships, not including data of the side channels themselves (which
  * is managed by the game-channel framework).
  */
 void SetupShipsSchema (spacexpanse::SQLiteDatabase& db);

@@ -16,7 +16,7 @@ libnonfungible_la_CXXFLAGS = \
   $(JSONCPP_CFLAGS) $(SQLITE_CFLAGS) $(GLOG_CFLAGS)
 libnonfungible_la_LIBADD = \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(JSONCPP_LIBS) $(SQLITE_LIBS) $(GLOG_LIBS)
 libnonfungible_la_SOURCES = \
   assets.cpp \
@@ -42,7 +42,7 @@ nonfungibled_CXXFLAGS = \
 nonfungibled_LDADD = \
   $(builddir)/libnonfungible.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(GLOG_LIBS) $(GFLAGS_LIBS)
 nonfungibled_SOURCES = main.cpp \
   rpcserver.cpp
@@ -63,7 +63,7 @@ tests_CXXFLAGS = \
 tests_LDADD = \
   $(builddir)/libnonfungible.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(GTEST_LIBS) \
   $(JSONCPP_LIBS) $(SQLITE3_LIBS) $(GLOG_LIBS)
 tests_SOURCES = \

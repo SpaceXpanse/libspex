@@ -117,7 +117,7 @@ public:
 };
 
 /**
- * The tracker for pending moves, using the libspacexpansegame framework.
+ * The tracker for pending moves, using the libspex framework.
  */
 class PendingMoves : public spacexpanse::SQLiteGame::PendingMoves
 {

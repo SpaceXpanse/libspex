@@ -72,7 +72,7 @@ libsidechannel_la_CXXFLAGS = \
 libsidechannel_la_LIBADD = \
   $(builddir)/libchannelcore.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(JSONCPP_LIBS) $(JSONRPCCLIENT_LIBS) $(JSONRPCSERVER_LIBS) \
   $(GLOG_LIBS) $(SQLITE3_LIBS) $(PROTOBUF_LIBS)
 libsidechannel_la_SOURCES = \
@@ -144,7 +144,7 @@ tests_LDADD = \
   $(builddir)/libsidechannel.la \
   $(builddir)/libchannelcore.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(top_builddir)/spacexpansegame/libtestutils.la \
   $(JSONCPP_LIBS) $(JSONRPCCLIENT_LIBS) $(JSONRPCSERVER_LIBS) \
   $(GLOG_LIBS) $(GTEST_LIBS) $(SQLITE3_LIBS) $(PROTOBUF_LIBS)
@@ -186,7 +186,7 @@ test_rpcbroadcast_LDADD = \
   $(builddir)/libsidechannel.la \
   $(builddir)/libchannelcore.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(JSONCPP_LIBS) $(JSONRPCCLIENT_LIBS) $(JSONRPCSERVER_LIBS) \
   $(GLOG_LIBS) $(GFLAGS_LIBS) $(PROTOBUF_LIBS)
 test_rpcbroadcast_SOURCES = test_rpcbroadcast.cpp

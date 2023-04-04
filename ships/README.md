@@ -11,7 +11,7 @@ players compete against each other and scores are recorded in the
 on-chain game state for eternity.
 
 Note that Ships is mainly intended to be an example game for demonstrating
-the capabilities of game channels, testing the implementation and releasing
+the capabilities of side channels, testing the implementation and releasing
 code that can be used and extended for other games.  Nevertheless, it provides
 a fully-functional game, that is still fun to play.
 
@@ -22,7 +22,7 @@ of Ships is `g/xs`.
 
 The on-chain game state of Ships keeps track, for each SpaceXpanse username,
 of how many games that user has won and lost.  It also stores the
-currently open game channels as needed to process disputes.
+currently open side channels as needed to process disputes.
 
 Channels can be opened at any time by sending a move requesting to
 open a channel, and anyone can send a move to join an existing channel
@@ -140,7 +140,7 @@ consists of two types of data:
 
 1. The statistics of won and lost games per SpaceXpanse name are stored in a simple
    SQLite database table.
-1. Data about currently open game channels is stored through the game-channels
+1. Data about currently open side channels is stored through the game-channels
    framework (which has also its own table in the SQLite database).
 
 Each **move** of the game must be a *JSON object*, containing *at most one*

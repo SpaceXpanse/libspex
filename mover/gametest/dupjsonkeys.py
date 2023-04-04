@@ -35,7 +35,7 @@ class DupJsonKeysTest (MoverTest):
     }})
 
     # Try sending a move where the move itself contains duplicated keys.
-    # For this situation, libspacexpansegame dedups the key (based on JsonCpp's
+    # For this situation, libspex dedups the key (based on JsonCpp's
     # parsing) and returns the last value only.
     self.move ("a", "l", 1)
     mv = '{"d":"h","d":"l","n":1}'

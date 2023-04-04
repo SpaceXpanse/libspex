@@ -23,7 +23,7 @@ message KnownShips
 }
 
 /**
- * The full board state of a game channel of SpaceXpanseships.  The generic board state
+ * The full board state of a side channel of SpaceXpanseships.  The generic board state
  * for libsidechannel (std::string) is the serialised form of this message.
  *
  * This state applies only to channels that already have both participants.

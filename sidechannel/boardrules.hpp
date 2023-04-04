@@ -26,7 +26,7 @@ class BoardRules;
  */
 using BoardState = std::string;
 
-/** The game-specific encoded data of a move in a game channel.  */
+/** The game-specific encoded data of a move in a side channel.  */
 using BoardMove = std::string;
 
 /**

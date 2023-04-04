@@ -1,10 +1,10 @@
-# Builds a Docker image that has libspacexpansegame (and all its dependencies)
+# Builds a Docker image that has libspex (and all its dependencies)
 # installed into /usr/local.  This can then be used as basis for images
 # that build (and run) e.g. GSPs.
 
 # Start by setting up a base image with all packages that we need
 # both for the build but also in the final image.  These are the dependencies
-# that are required as dev packages also for using libspacexpansegame.
+# that are required as dev packages also for using libspex.
 FROM alpine AS base
 RUN apk add --no-cache \
   curl-dev \
@@ -118,9 +118,9 @@ RUN chmod a+x /usr/local/bin/cpld
 ENV PKG_CONFIG_PATH "/usr/local/lib64/pkgconfig"
 ENV LD_LIBRARY_PATH "/usr/local/lib:/usr/local/lib64"
 
-# Build and install libspacexpansegame itself.  Make sure to clean out any
+# Build and install libspex itself.  Make sure to clean out any
 # potential garbage copied over in the build context.
-WORKDIR /usr/src/libspacexpansegame
+WORKDIR /usr/src/libspex
 COPY . .
 RUN make distclean || true
 RUN ./autogen.sh && ./configure && make -j${N} && make install-strip
@@ -135,4 +135,4 @@ ENV LD_LIBRARY_PATH "/usr/local/lib:/usr/local/lib64"
 RUN apk add --no-cache \
   bash \
   gflags
-LABEL description="Development image with libspacexpansegame and dependencies"
+LABEL description="Development image with libspex and dependencies"

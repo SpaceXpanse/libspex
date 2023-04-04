@@ -1,4 +1,4 @@
-AC_INIT([libspacexpansegame], [0.1])
+AC_INIT([libspex], [0.1])
 AM_INIT_AUTOMAKE([subdir-objects])
 
 AC_CONFIG_MACRO_DIR([m4])
@@ -26,7 +26,7 @@ AX_CHECK_COMPILE_FLAG([-Wno-deprecated],
 # See https://hpc.nih.gov/development/glog.html.
 CXXFLAGS="${CXXFLAGS} -DGLOG_NO_ABBREVIATED_SEVERITIES"
 
-# Public dependencies (exposed in the headers of libspacexpansegame to
+# Public dependencies (exposed in the headers of libspex to
 # users of the library).
 # jsoncpp 1.7.5 first included a fix for
 # https://github.com/open-source-parsers/jsoncpp/issues/511.  We need this,
@@ -55,7 +55,7 @@ AX_PKG_CHECK_MODULES([ZLIB], [], [zlib >= 1.2.11])
 # which requires at least version 4.3.1.
 AX_PKG_CHECK_MODULES([ZMQ], [], [libzmq >= 4.3.1])
 
-# Private dependencies that are not needed for libspacexpansegame, but only for
+# Private dependencies that are not needed for libspex, but only for
 # the unit tests and the example binaries.
 PKG_CHECK_MODULES([GTEST], [gmock gtest_main])
 
@@ -76,7 +76,7 @@ AC_CONFIG_FILES([
   \
   sidechannel/channelcore.pc \
   sidechannel/sidechannel.pc \
-  spacexpansegame/libspacexpansegame.pc \
+  spacexpansegame/libspex.pc \
   spacexpanseutil/libspacexpanseutil.pc
 ])
 AC_OUTPUT

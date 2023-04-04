@@ -13,7 +13,7 @@ libmover_la_CXXFLAGS = \
   $(JSONCPP_CFLAGS) $(GLOG_CFLAGS) $(PROTOBUF_CFLAGS)
 libmover_la_LIBADD = \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(JSONCPP_LIBS) $(GLOG_LIBS) $(PROTOBUF_LIBS)
 libmover_la_SOURCES = \
   logic.cpp \
@@ -34,7 +34,7 @@ moverd_CXXFLAGS = \
 moverd_LDADD = \
   $(builddir)/libmover.la \
   $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
-  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libspex.la \
   $(GFLAGS_LIBS) $(PROTOBUF_LIBS)
 moverd_SOURCES = main.cpp
 

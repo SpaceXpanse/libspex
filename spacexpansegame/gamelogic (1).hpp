@@ -182,7 +182,7 @@ public:
 
 /**
  * The interface for actual games.  Implementing classes define the rules
- * of an actual game so that it can be plugged into libxayagame to form
+ * of an actual game so that it can be plugged into libspex to form
  * a complete game engine.
  *
  * If it is not easily possible to keep the entire state in memory as a
@@ -193,10 +193,10 @@ public:
  * external data structure accordingly.
  *
  * To make sure that changes to the externally-kept game state are consistent
- * with the state that libxayagame keeps, games should leverage the transactions
+ * with the state that libspex keeps, games should leverage the transactions
  * mechanism present in StorageInterface.  For instance, they can define a
  * custom storage implementation that keeps both the external game-state data
- * and the libxayagame-stored data, and allows atomic transactions spanning
+ * and the libspex-stored data, and allows atomic transactions spanning
  * both of them.
  */
 class GameLogic : public GameProcessorWithContext

@@ -30,11 +30,11 @@ namespace xaya
  * SQLiteGame, using the SQLite session extension internally.
  *
  * To ensure consistency and atomic operation between the game's internal
- * data in the database and libxayagame's state, the underlying SQLiteStorage
+ * data in the database and libspex's state, the underlying SQLiteStorage
  * used by SQLiteGame should be used as the main storage in Game (so that it
  * also holds undo data and the current game state).
  *
- * With this GameLogic implementation, the "game state" as seen by libxayagame
+ * With this GameLogic implementation, the "game state" as seen by libspex
  * is simply the keyword string "initial" for the initial state and
  * "block <hash>" with the associated block hash for other states.
  * (The hash is used to counter-check for consistency and make sure that only
@@ -42,7 +42,7 @@ namespace xaya
  *
  * The undo data for a block is the changeset created by the SQLite session
  * extension for the modifications to the database done by the game itself
- * (but not through the SQLiteStorage, as that is handled by libxayagame).
+ * (but not through the SQLiteStorage, as that is handled by libspex).
  *
  * Note that the SQLite session extension has some weird behaviour together
  * with UNIQUE constraints.  Games need to be careful when using those; it
@@ -125,7 +125,7 @@ protected:
    * Subclasses can override the method to do their own set up.
    *
    * Note that table names starting with "xayagame_" are reserved for use by
-   * libxayagame itself and must not be used by game implementations.
+   * libspex itself and must not be used by game implementations.
    */
   virtual void SetupSchema (SQLiteDatabase& db);
 

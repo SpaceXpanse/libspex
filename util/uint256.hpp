@@ -1,20 +1,20 @@
-// Copyright (C) 2018-2019 The Xaya developers
+// Copyright (C) 2018-2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYAUTIL_UINT256_HPP
-#define XAYAUTIL_UINT256_HPP
+#ifndef SPACEXPANSEUTIL_UINT256_HPP
+#define SPACEXPANSEUTIL_UINT256_HPP
 
 #include <array>
 #include <string>
 
-namespace xaya
+namespace spacexpanse
 {
 
 /**
  * A very basic type representing a constant uint256.  It can be compared
  * and converted to/from hex, but otherwise not manipulated.  This is used
- * to represent block hashes in the storage layer for Xaya games.
+ * to represent block hashes in the storage layer for SpaceXpanse games.
  */
 class uint256 final
 {
@@ -104,6 +104,6 @@ public:
 
 };
 
-} // namespace xaya
+} // namespace spacexpanse
 
-#endif // XAYAUTIL_UINT256_HPP
+#endif // SPACEXPANSEUTIL_UINT256_HPP

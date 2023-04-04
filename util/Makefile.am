@@ -1,13 +1,13 @@
-lib_LTLIBRARIES = libxayautil.la
-xayautildir = $(includedir)/xayautil
+lib_LTLIBRARIES = libspacexpanseutil.la
+spacexpanseutildir = $(includedir)/spacexpanseutil
 
-pkgconfig_DATA = libxayautil.pc
+pkgconfig_DATA = libspacexpanseutil.pc
 
-libxayautil_la_CXXFLAGS = \
+libspacexpanseutil_la_CXXFLAGS = \
   $(JSONCPP_CFLAGS) $(ZLIB_CFLAGS) $(OPENSSL_CFLAGS) $(GLOG_CFLAGS)
-libxayautil_la_LIBADD = \
+libspacexpanseutil_la_LIBADD = \
   $(JSONCPP_LIBS) $(ZLIB_LIBS) $(OPENSSL_LIBS) $(GLOG_LIBS)
-libxayautil_la_SOURCES = \
+libspacexpanseutil_la_SOURCES = \
   base64.cpp \
   compression.cpp \
   cryptorand.cpp \
@@ -15,7 +15,7 @@ libxayautil_la_SOURCES = \
   jsonutils.cpp \
   random.cpp \
   uint256.cpp
-xayautil_HEADERS = \
+spacexpanseutil_HEADERS = \
   base64.hpp \
   compression.hpp \
   cryptorand.hpp \
@@ -30,7 +30,7 @@ check_PROGRAMS = tests
 TESTS = tests
 
 tests_CXXFLAGS = $(JSONCPP_CFLAGS) $(ZLIB_CFLAGS) $(GLOG_CFLAGS) $(GTEST_CFLAGS)
-tests_LDADD = $(builddir)/libxayautil.la \
+tests_LDADD = $(builddir)/libspacexpanseutil.la \
   $(JSONCPP_LIBS) $(ZLIB_LIBS) $(GLOG_LIBS) $(GTEST_LIBS)
 tests_SOURCES = \
   base64_tests.cpp \

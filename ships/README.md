@@ -222,7 +222,7 @@ which will also close the channel.
 #### <a name="disputes">Dispute Handling</a>
 
 Disputes and resolutions can be processed by providing a
-[state proof](https://github.com/spacexpanse/libspex/blob/master/gamechannel/proto/stateproof.proto)
+[state proof](https://github.com/spacexpanse/libspex/blob/master/sidechannel/proto/stateproof.proto)
 in a move.  To open a dispute in a channel, the move looks like this:
 
     {"d": {"id": CHANNEL-ID, "state": STATE-PROOF}}

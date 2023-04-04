@@ -1,14 +1,14 @@
-# Copyright (C) 2018 The Xaya developers
+# Copyright (C) 2018 The SpaceXpanse developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-from xayagametest.testcase import XayaGameTest
+from spacexpansegametest.testcase import SpaceXpanseGameTest
 
 import os
 import os.path
 
 
-class MoverTest (XayaGameTest):
+class MoverTest (SpaceXpanseGameTest):
   """
   An integration test for the Mover game.
   """

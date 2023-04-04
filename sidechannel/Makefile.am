@@ -1,13 +1,13 @@
-lib_LTLIBRARIES = libchannelcore.la libgamechannel.la
+lib_LTLIBRARIES = libchannelcore.la libsidechannel.la
 dist_bin_SCRIPTS = rpc-channel-server.py
 dist_data_DATA = rpc-stubs/channel-gsp-rpc.json
-gamechanneldir = $(includedir)/gamechannel
-rpcstubdir = $(gamechanneldir)/rpc-stubs
-protodir = $(gamechanneldir)/proto
-pydir = $(pythondir)/gamechannel
+sidechanneldir = $(includedir)/sidechannel
+rpcstubdir = $(sidechanneldir)/rpc-stubs
+protodir = $(sidechanneldir)/proto
+pydir = $(pythondir)/sidechannel
 pyprotodir = $(pydir)/proto
 
-pkgconfig_DATA = channelcore.pc gamechannel.pc
+pkgconfig_DATA = channelcore.pc sidechannel.pc
 
 RPC_STUBS = \
   rpc-stubs/channelgsprpcclient.h \
@@ -35,7 +35,7 @@ libchannelcore_la_CXXFLAGS = \
   -I$(top_srcdir) \
   $(JSONCPP_CFLAGS) $(ETHUTILS_CFLAGS) $(GLOG_CFLAGS) $(PROTOBUF_CFLAGS)
 libchannelcore_la_LIBADD = \
-  $(top_builddir)/xayautil/libxayautil.la \
+  $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
   $(JSONCPP_LIBS) $(ETHUTILS_LIBS) $(GLOG_LIBS) $(PROTOBUF_LIBS)
 libchannelcore_la_SOURCES = \
   boardrules.cpp \
@@ -65,17 +65,17 @@ CHANNELCOREHEADERS = \
   signatures.hpp \
   stateproof.hpp
 
-libgamechannel_la_CXXFLAGS = \
+libsidechannel_la_CXXFLAGS = \
   -I$(top_srcdir) \
   $(JSONCPP_CFLAGS) $(JSONRPCCLIENT_CFLAGS) $(JSONRPCSERVER_CFLAGS) \
   $(GLOG_CFLAGS) $(SQLITE3_CFLAGS) $(PROTOBUF_CFLAGS)
-libgamechannel_la_LIBADD = \
+libsidechannel_la_LIBADD = \
   $(builddir)/libchannelcore.la \
-  $(top_builddir)/xayautil/libxayautil.la \
-  $(top_builddir)/xayagame/libxayagame.la \
+  $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
+  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
   $(JSONCPP_LIBS) $(JSONRPCCLIENT_LIBS) $(JSONRPCSERVER_LIBS) \
   $(GLOG_LIBS) $(SQLITE3_LIBS) $(PROTOBUF_LIBS)
-libgamechannel_la_SOURCES = \
+libsidechannel_la_SOURCES = \
   channelgame.cpp \
   chaintochannel.cpp \
   daemon.cpp \
@@ -100,7 +100,7 @@ GAMECHANNELHEADERS = \
   schema.hpp \
   syncmanager.hpp
 
-gamechannel_HEADERS = $(CHANNELCOREHEADERS) $(GAMECHANNELHEADERS)
+sidechannel_HEADERS = $(CHANNELCOREHEADERS) $(GAMECHANNELHEADERS)
 rpcstub_HEADERS = $(RPC_STUBS)
 proto_HEADERS = $(PROTOHEADERS)
 
@@ -126,9 +126,9 @@ libtestutils_la_CXXFLAGS = \
   -I$(top_srcdir) \
   $(GLOG_CFLAGS) $(GTEST_CFLAGS)
 libtestutils_la_LIBADD = \
-  $(builddir)/libgamechannel.la \
+  $(builddir)/libsidechannel.la \
   $(builddir)/libchannelcore.la \
-  $(top_builddir)/xayautil/libxayautil.la \
+  $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
   $(GLOG_LIBS) $(GTEST_LIBS)
 libtestutils_la_SOURCES = \
   testutils.cpp
@@ -141,11 +141,11 @@ tests_CXXFLAGS = \
   $(GLOG_CFLAGS) $(GTEST_CFLAGS) $(SQLITE3_CFLAGS) $(PROTOBUF_CFLAGS)
 tests_LDADD = \
   $(builddir)/libtestutils.la \
-  $(builddir)/libgamechannel.la \
+  $(builddir)/libsidechannel.la \
   $(builddir)/libchannelcore.la \
-  $(top_builddir)/xayautil/libxayautil.la \
-  $(top_builddir)/xayagame/libxayagame.la \
-  $(top_builddir)/xayagame/libtestutils.la \
+  $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
+  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
+  $(top_builddir)/spacexpansegame/libtestutils.la \
   $(JSONCPP_LIBS) $(JSONRPCCLIENT_LIBS) $(JSONRPCSERVER_LIBS) \
   $(GLOG_LIBS) $(GTEST_LIBS) $(SQLITE3_LIBS) $(PROTOBUF_LIBS)
 tests_SOURCES = \
@@ -183,10 +183,10 @@ test_rpcbroadcast_CXXFLAGS = \
   $(JSONCPP_CFLAGS) $(JSONRPCCLIENT_CFLAGS) $(JSONRPCSERVER_CFLAGS) \
   $(GLOG_CFLAGS) $(GFLAGS_CFLAGS) $(PROTOBUF_CFLAGS)
 test_rpcbroadcast_LDADD = \
-  $(builddir)/libgamechannel.la \
+  $(builddir)/libsidechannel.la \
   $(builddir)/libchannelcore.la \
-  $(top_builddir)/xayautil/libxayautil.la \
-  $(top_builddir)/xayagame/libxayagame.la \
+  $(top_builddir)/spacexpanseutil/libspacexpanseutil.la \
+  $(top_builddir)/spacexpansegame/libspacexpansegame.la \
   $(JSONCPP_LIBS) $(JSONRPCCLIENT_LIBS) $(JSONRPCSERVER_LIBS) \
   $(GLOG_LIBS) $(GFLAGS_LIBS) $(PROTOBUF_LIBS)
 test_rpcbroadcast_SOURCES = test_rpcbroadcast.cpp
@@ -204,7 +204,7 @@ rpc-stubs/channelgsprpcserverstub.h: $(srcdir)/rpc-stubs/channel-gsp-rpc.json
 rpc-stubs/rpcbroadcastclient.h: $(srcdir)/rpc-stubs/rpcbroadcast.json
 	jsonrpcstub "$<" --cpp-client=RpcBroadcastClient --cpp-client-file="$@"
 
-proto/%.pb.h proto/%.pb.cc: $(top_srcdir)/gamechannel/proto/%.proto
+proto/%.pb.h proto/%.pb.cc: $(top_srcdir)/sidechannel/proto/%.proto
 	protoc -I$(top_srcdir) --cpp_out=$(top_builddir) "$<"
-proto/%_pb2.py: $(top_srcdir)/gamechannel/proto/%.proto
+proto/%_pb2.py: $(top_srcdir)/sidechannel/proto/%.proto
 	protoc -I$(top_srcdir) --python_out=$(top_builddir) "$<"

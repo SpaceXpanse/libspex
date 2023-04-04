@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Copyright (C) 2022-2023 The Xaya developers
+# Copyright (C) 2022-2023 The SpaceXpanse developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -63,7 +63,7 @@ class SQLiteWalTest (NonFungibleTest):
     self.log.info ("Turning on periodic WAL truncation...")
     self.stopGameDaemon ()
     assert not self.gamenode.logMatches (TRUNCATION_SUCCESS)
-    self.startGameDaemon (extraArgs=["--xaya_sqlite_wal_truncate_ms=1"])
+    self.startGameDaemon (extraArgs=["--spacexpanse_sqlite_wal_truncate_ms=1"])
 
     # We spam RPC requests (that create read snapshots and interfere with
     # WAL truncation) to stress-test the system, and also mine some blocks

@@ -1,4 +1,4 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,11 +8,11 @@
 #include "boardrules.hpp"
 #include "proto/stateproof.pb.h"
 
-#include <xayautil/uint256.hpp>
+#include <spacexpanseutil/uint256.hpp>
 
 #include <json/json.h>
 
-namespace xaya
+namespace spacexpanse
 {
 
 class MoveSender;
@@ -79,6 +79,6 @@ public:
 
 };
 
-} // namespace xaya
+} // namespace spacexpanse
 
 #endif // GAMECHANNEL_OPENCHANNEL_HPP

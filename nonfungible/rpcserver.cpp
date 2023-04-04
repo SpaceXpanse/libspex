@@ -1,4 +1,4 @@
-// Copyright (C) 2020-2023 The Xaya developers
+// Copyright (C) 2020-2023 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,9 +6,9 @@
 
 #include "statejson.hpp"
 
-#include "xayagame/gamerpcserver.hpp"
-#include "xayagame/sqliteintro.hpp"
-#include "xayautil/hash.hpp"
+#include "spacexpansegame/gamerpcserver.hpp"
+#include "spacexpansegame/sqliteintro.hpp"
+#include "spacexpanseutil/hash.hpp"
 
 #include <jsonrpccpp/common/errors.h>
 #include <jsonrpccpp/common/exception.h>
@@ -75,9 +75,9 @@ RpcServer::hashcurrentstate ()
 {
   LOG (INFO) << "RPC method called: hashcurrentstate";
   return logic.GetCustomStateData (game, "data",
-      [] (const xaya::SQLiteDatabase& db)
+      [] (const spacexpanse::SQLiteDatabase& db)
         {
-          xaya::SHA256 h;
+          spacexpanse::SHA256 h;
           WriteAllTables (h, db);
           return h.Finalise ().ToHex ();
         });
@@ -92,15 +92,15 @@ RpcServer::getstatehash (const std::string& block)
         jsonrpc::Errors::ERROR_RPC_METHOD_NOT_FOUND,
         "state hashing is not enabled");
 
-  xaya::uint256 blockHash;
+  spacexpanse::uint256 blockHash;
   if (!blockHash.FromHex (block))
     throw jsonrpc::JsonRpcException (
         jsonrpc::Errors::ERROR_RPC_INVALID_PARAMS, "invalid block hash");
 
   return logic.GetCustomStateData (game, "data",
-      [this, &blockHash] (const xaya::SQLiteDatabase& db) -> Json::Value
+      [this, &blockHash] (const spacexpanse::SQLiteDatabase& db) -> Json::Value
         {
-          xaya::uint256 value;
+          spacexpanse::uint256 value;
           if (!hasher->GetHash (db, blockHash, value))
             return Json::Value ();
           return value.ToHex ();
@@ -112,7 +112,7 @@ RpcServer::settargetblock (const std::string& block)
 {
   LOG (INFO) << "RPC method called: settargetblock " << block;
 
-  xaya::uint256 hash;
+  spacexpanse::uint256 hash;
   if (block.empty ())
     hash.SetNull ();
   else if (!hash.FromHex (block))
@@ -128,7 +128,7 @@ std::string
 RpcServer::waitforchange (const std::string& knownBlock)
 {
   LOG (INFO) << "RPC method called: waitforchange " << knownBlock;
-  return xaya::GameRpcServer::DefaultWaitForChange (game, knownBlock);
+  return spacexpanse::GameRpcServer::DefaultWaitForChange (game, knownBlock);
 }
 
 Json::Value

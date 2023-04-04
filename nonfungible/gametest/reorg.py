@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Copyright (C) 2020-2023 The Xaya developers
+# Copyright (C) 2020-2023 The SpaceXpanse developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -18,7 +18,7 @@ class ReorgTest (NonFungibleTest):
       {"m": {"a": "foo", "n": 10}},
     ])
     self.generate (10)
-    reorgBlk = self.rpc.xaya.getbestblockhash ()
+    reorgBlk = self.rpc.spacexpanse.getbestblockhash ()
 
     # First reality:  Transfer assets and do a new mint.
     self.sendMove ("domob", [
@@ -46,7 +46,7 @@ class ReorgTest (NonFungibleTest):
     # the original transfer is invalid) and also mint the same asset with
     # lower supply.
     oldState = self.getGameState ()
-    self.rpc.xaya.invalidateblock (reorgBlk)
+    self.rpc.spacexpanse.invalidateblock (reorgBlk)
 
     self.sendMove ("domob", [
       {"t": {"a": {"m": "domob", "a": "foo"}, "n": 6, "r": "daniel"}},
@@ -68,7 +68,7 @@ class ReorgTest (NonFungibleTest):
       },
     ])
 
-    self.rpc.xaya.reconsiderblock (reorgBlk)
+    self.rpc.spacexpanse.reconsiderblock (reorgBlk)
     self.expectGameState (oldState)
 
 

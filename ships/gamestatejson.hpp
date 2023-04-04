@@ -1,13 +1,13 @@
-// Copyright (C) 2019-2020 The Xaya developers
+// Copyright (C) 2019-2020 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYASHIPS_GAMESTATEJSON_HPP
-#define XAYASHIPS_GAMESTATEJSON_HPP
+#ifndef SPACEXPANSESHIPS_GAMESTATEJSON_HPP
+#define SPACEXPANSESHIPS_GAMESTATEJSON_HPP
 
 #include "board.hpp"
 
-#include <xayagame/sqlitestorage.hpp>
+#include <spacexpansegame/sqlitestorage.hpp>
 
 #include <json/json.h>
 
@@ -16,7 +16,7 @@ namespace ships
 
 /**
  * Helper class that allows extracting game-state data as JSON from the
- * current Xayaships global state.
+ * current SpaceXpanseships global state.
  */
 class GameStateJson
 {
@@ -24,14 +24,14 @@ class GameStateJson
 private:
 
   /** The underlying database instance.  */
-  const xaya::SQLiteDatabase& db;
+  const spacexpanse::SQLiteDatabase& db;
 
   /** Our board rules.  */
   const ShipsBoardRules& rules;
 
 public:
 
-  GameStateJson (const xaya::SQLiteDatabase& d, const ShipsBoardRules& r)
+  GameStateJson (const spacexpanse::SQLiteDatabase& d, const ShipsBoardRules& r)
     : db(d), rules(r)
   {}
 
@@ -48,4 +48,4 @@ public:
 
 } // namespace ships
 
-#endif // XAYASHIPS_GAMESTATEJSON_HPP
+#endif // SPACEXPANSESHIPS_GAMESTATEJSON_HPP

@@ -1,15 +1,15 @@
-// Copyright (C) 2020 The Xaya developers
+// Copyright (C) 2020 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYAUTIL_JSONUTILS_HPP
-#define XAYAUTIL_JSONUTILS_HPP
+#ifndef SPACEXPANSEUTIL_JSONUTILS_HPP
+#define SPACEXPANSEUTIL_JSONUTILS_HPP
 
 #include <json/json.h>
 
 #include <cstdint>
 
-namespace xaya
+namespace spacexpanse
 {
 
 /**
@@ -24,20 +24,20 @@ namespace xaya
 bool IsIntegerValue (const Json::Value& val);
 
 /**
- * Tries to parse a (non-negative) CHI amount from JSON, e.g. from what the
- * block data contains for moves, or even Xaya Core's RPC interface directly.
+ * Tries to parse a (non-negative) ROD amount from JSON, e.g. from what the
+ * block data contains for moves, or even SpaceXpanse Core's RPC interface directly.
  * Returns true on success and fills in the amount as number of satoshis in
- * this case.  If the value is invalid (e.g. larger than the actual CHI
+ * this case.  If the value is invalid (e.g. larger than the actual ROD
  * supply), false is returned instead.
  */
 bool ChiAmountFromJson (const Json::Value& val, int64_t& sat);
 
 /**
- * Converts a CHI amount given as number of satoshis to a JSON value,
- * e.g. for interacting with Xaya Core's JSON-RPC interface.
+ * Converts a ROD amount given as number of satoshis to a JSON value,
+ * e.g. for interacting with SpaceXpanse Core's JSON-RPC interface.
  */
 Json::Value ChiAmountToJson (int64_t sat);
 
-} // namespace xaya
+} // namespace spacexpanse
 
-#endif // XAYAUTIL_JSONUTILS_HPP
+#endif // SPACEXPANSEUTIL_JSONUTILS_HPP

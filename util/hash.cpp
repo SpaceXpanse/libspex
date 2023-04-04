@@ -1,4 +1,4 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +10,7 @@
 
 #include <cstddef>
 
-namespace xaya
+namespace spacexpanse
 {
 
 /**
@@ -103,4 +103,4 @@ SHA256::Hash (const std::string& data)
   return hasher.Finalise ();
 }
 
-} // namespace xaya
+} // namespace spacexpanse

@@ -1,9 +1,9 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYASHIPS_GRID_HPP
-#define XAYASHIPS_GRID_HPP
+#ifndef SPACEXPANSESHIPS_GRID_HPP
+#define SPACEXPANSESHIPS_GRID_HPP
 
 #include "coord.hpp"
 
@@ -115,4 +115,4 @@ bool VerifyPositionOfShips (const Grid& position);
 
 } // namespace ships
 
-#endif // XAYASHIPS_GRID_HPP
+#endif // SPACEXPANSESHIPS_GRID_HPP

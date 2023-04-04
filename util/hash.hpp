@@ -1,21 +1,21 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYAUTIL_HASH_HPP
-#define XAYAUTIL_HASH_HPP
+#ifndef SPACEXPANSEUTIL_HASH_HPP
+#define SPACEXPANSEUTIL_HASH_HPP
 
 #include "uint256.hpp"
 
 #include <memory>
 #include <string>
 
-namespace xaya
+namespace spacexpanse
 {
 
 /**
  * Utility class to hash data using SHA-256.  This is used for random numbers
- * in libxayagame, but may also be used for games directly e.g. to implement
+ * in libspacexpansegame, but may also be used for games directly e.g. to implement
  * hash commitments.
  */
 class SHA256
@@ -58,6 +58,6 @@ public:
 
 };
 
-} // namespace xaya
+} // namespace spacexpanse
 
-#endif // XAYAUTIL_HASH_HPP
+#endif // SPACEXPANSEUTIL_HASH_HPP

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 
-# Copyright (C) 2023 The Xaya developers
+# Copyright (C) 2023 The SpaceXpanse developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -79,7 +79,7 @@ class StatehashTest (NonFungibleTest):
     # Reorg and build up the second (shorter chain).  Hashing
     # is now turned on, so along the way all even blocks will be
     # hashed (including on the detach).
-    self.rpc.xaya.invalidateblock (reorgBlk)
+    self.rpc.spacexpanse.invalidateblock (reorgBlk)
     self.sendMove ("domob", [
       {"t": {"a": {"m": "domob", "a": "foo"}, "n": 7, "r": "daniel"}},
     ])
@@ -109,7 +109,7 @@ class StatehashTest (NonFungibleTest):
     self.assertEqual (self.getRpc ("getstatehash", blk2), hash2)
 
     # Reorg back to the original chain.
-    self.rpc.xaya.reconsiderblock (reorgBlk)
+    self.rpc.spacexpanse.reconsiderblock (reorgBlk)
     self.syncGame ()
     self.assertEqual (self.env.getChainTip ()[0], blk1)
 

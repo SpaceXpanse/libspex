@@ -1,12 +1,12 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 /* This file contains internal implementation details for compression.cpp,
    but so that they can be shared also with the testing logic.  */
 
-#ifndef XAYAUTIL_COMPRESSION_INTERNAL_HPP
-#define XAYAUTIL_COMPRESSION_INTERNAL_HPP
+#ifndef SPACEXPANSEUTIL_COMPRESSION_INTERNAL_HPP
+#define SPACEXPANSEUTIL_COMPRESSION_INTERNAL_HPP
 
 #include "compression.hpp"
 
@@ -16,7 +16,7 @@
 
 #include <memory>
 
-namespace xaya
+namespace spacexpanse
 {
 
 namespace
@@ -183,6 +183,6 @@ public:
 
 } // anonymous namespace
 
-} // namespace xaya
+} // namespace spacexpanse
 
-#endif // XAYAUTIL_COMPRESSION_INTERNAL_HPP
+#endif // SPACEXPANSEUTIL_COMPRESSION_INTERNAL_HPP

@@ -1,13 +1,13 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYAUTIL_BASE64_HPP
-#define XAYAUTIL_BASE64_HPP
+#ifndef SPACEXPANSEUTIL_BASE64_HPP
+#define SPACEXPANSEUTIL_BASE64_HPP
 
 #include <string>
 
-namespace xaya
+namespace spacexpanse
 {
 
 /**
@@ -22,6 +22,6 @@ std::string EncodeBase64 (const std::string& data);
  */
 bool DecodeBase64 (const std::string& encoded, std::string& data);
 
-} // namespace xaya
+} // namespace spacexpanse
 
-#endif // XAYAUTIL_BASE64_HPP
+#endif // SPACEXPANSEUTIL_BASE64_HPP

@@ -1,4 +1,4 @@
-// Copyright (C) 2018 The Xaya developers
+// Copyright (C) 2018 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,7 +9,7 @@
 #include <string>
 #include <vector>
 
-namespace xaya
+namespace spacexpanse
 {
 namespace
 {
@@ -117,4 +117,4 @@ TEST (Uint256Tests, SetNull)
 }
 
 } // anonymous namespace
-} // namespace xaya
+} // namespace spacexpanse

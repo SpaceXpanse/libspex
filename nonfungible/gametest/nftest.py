@@ -1,14 +1,14 @@
-# Copyright (C) 2020-2023 The Xaya developers
+# Copyright (C) 2020-2023 The SpaceXpanse developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-from xayagametest.testcase import XayaGameTest
+from spacexpansegametest.testcase import SpaceXpanseGameTest
 
 import os
 import os.path
 
 
-class NonFungibleTest (XayaGameTest):
+class NonFungibleTest (SpaceXpanseGameTest):
   """
   An integration test for the non-fungible GSP.
   """
@@ -26,8 +26,8 @@ class NonFungibleTest (XayaGameTest):
     self.collectPremine ()
     sendTo = {}
     for _ in range (10):
-      sendTo[self.rpc.xaya.getnewaddress ()] = 10
-    self.rpc.xaya.sendmany ("", sendTo)
+      sendTo[self.rpc.spacexpanse.getnewaddress ()] = 10
+    self.rpc.spacexpanse.sendmany ("", sendTo)
     self.generate (1)
 
   def getRpc (self, method, *args, **kwargs):

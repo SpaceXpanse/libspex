@@ -1,4 +1,4 @@
-// Copyright (C) 2020 The Xaya developers
+// Copyright (C) 2020 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,12 +9,12 @@
 
 #include <sstream>
 
-namespace xaya
+namespace spacexpanse
 {
 namespace
 {
 
-/** Number of satoshis in one CHI.  */
+/** Number of satoshis in one ROD.  */
 constexpr int64_t COIN = 100'000'000;
 
 /**
@@ -105,4 +105,4 @@ TEST_F (JsonChiAmountTests, InvalidAmountFromJson)
 }
 
 } // anonymous namespace
-} // namespace xaya
+} // namespace spacexpanse

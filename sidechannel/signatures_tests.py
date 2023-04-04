@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-# Copyright (C) 2019-2022 The Xaya developers
+# Copyright (C) 2019-2022 The SpaceXpanse developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-from gamechannel import signatures
+from sidechannel import signatures
 
-from gamechannel.proto import (metadata_pb2, signatures_pb2)
+from sidechannel.proto import (metadata_pb2, signatures_pb2)
 
 from google.protobuf import text_format
 

@@ -6,7 +6,7 @@ case $1 in
   shipsd)
     shift
     exec /usr/local/bin/shipsd \
-      --datadir="${XAYAGAME_DIR}" \
+      --datadir="${SPACEXPANSEGAME_DIR}" \
       --enable_pruning=1000 \
       --game_rpc_port=8600 \
       "$@"

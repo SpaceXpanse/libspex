@@ -1,9 +1,9 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYASHIPS_CHANNEL_HPP
-#define XAYASHIPS_CHANNEL_HPP
+#ifndef SPACEXPANSESHIPS_CHANNEL_HPP
+#define SPACEXPANSESHIPS_CHANNEL_HPP
 
 #include "board.hpp"
 #include "coord.hpp"
@@ -11,12 +11,12 @@
 
 #include "proto/boardmove.pb.h"
 
-#include <gamechannel/boardrules.hpp>
-#include <gamechannel/openchannel.hpp>
-#include <gamechannel/movesender.hpp>
-#include <gamechannel/proto/stateproof.pb.h>
-#include <xayautil/cryptorand.hpp>
-#include <xayautil/uint256.hpp>
+#include <sidechannel/boardrules.hpp>
+#include <sidechannel/openchannel.hpp>
+#include <sidechannel/movesender.hpp>
+#include <sidechannel/proto/stateproof.pb.h>
+#include <spacexpanseutil/cryptorand.hpp>
+#include <spacexpanseutil/uint256.hpp>
 
 #include <json/json.h>
 
@@ -30,7 +30,7 @@ namespace ships
  * Ships-specific data and logic for an open channel the player is involved
  * in.  This mostly takes care of the various commit-reveal schemes.
  */
-class ShipsChannel : public xaya::OpenChannel
+class ShipsChannel : public spacexpanse::OpenChannel
 {
 
 private:
@@ -39,25 +39,25 @@ private:
   const std::string playerName;
 
   /** Generator for random salt values.  */
-  xaya::CryptoRand rnd;
+  spacexpanse::CryptoRand rnd;
 
   /** The position of this player.  */
   Grid position;
 
   /** Salt for the position hash.  */
-  xaya::uint256 positionSalt;
+  spacexpanse::uint256 positionSalt;
 
   /**
    * If this channel corresponds to the first player, then we save the
    * seed for determining the initial player here.
    */
-  xaya::uint256 seed0;
+  spacexpanse::uint256 seed0;
 
   /**
    * Set to the txid of the submitted "close by loss declaration" move,
    * if we sent one already.  Otherwise null.
    */
-  xaya::uint256 txidClose;
+  spacexpanse::uint256 txidClose;
 
   /**
    * Returns the index that the current player has for the given state.
@@ -83,15 +83,15 @@ public:
   ShipsChannel (const ShipsChannel&) = delete;
   void operator= (const ShipsChannel&) = delete;
 
-  Json::Value ResolutionMove (const xaya::uint256& channelId,
-                              const xaya::proto::StateProof& p) const override;
-  Json::Value DisputeMove (const xaya::uint256& channelId,
-                           const xaya::proto::StateProof& p) const override;
+  Json::Value ResolutionMove (const spacexpanse::uint256& channelId,
+                              const spacexpanse::proto::StateProof& p) const override;
+  Json::Value DisputeMove (const spacexpanse::uint256& channelId,
+                           const spacexpanse::proto::StateProof& p) const override;
 
-  bool MaybeAutoMove (const xaya::ParsedBoardState& state,
-                      xaya::BoardMove& mv) override;
-  void MaybeOnChainMove (const xaya::ParsedBoardState& state,
-                         xaya::MoveSender& sender) override;
+  bool MaybeAutoMove (const spacexpanse::ParsedBoardState& state,
+                      spacexpanse::BoardMove& mv) override;
+  void MaybeOnChainMove (const spacexpanse::ParsedBoardState& state,
+                         spacexpanse::MoveSender& sender) override;
 
   /**
    * Returns true if the position has already been initialised.
@@ -128,4 +128,4 @@ public:
 
 } // namespace ships
 
-#endif // XAYASHIPS_CHANNEL_HPP
+#endif // SPACEXPANSESHIPS_CHANNEL_HPP

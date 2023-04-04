@@ -1,13 +1,13 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYAUTIL_CRYPTORAND_HPP
-#define XAYAUTIL_CRYPTORAND_HPP
+#ifndef SPACEXPANSEUTIL_CRYPTORAND_HPP
+#define SPACEXPANSEUTIL_CRYPTORAND_HPP
 
 #include "uint256.hpp"
 
-namespace xaya
+namespace spacexpanse
 {
 
 /**
@@ -33,6 +33,6 @@ public:
 
 };
 
-} // namespace xaya
+} // namespace spacexpanse
 
-#endif // XAYAUTIL_CRYPTORAND_HPP
+#endif // SPACEXPANSEUTIL_CRYPTORAND_HPP

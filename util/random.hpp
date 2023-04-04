@@ -1,15 +1,15 @@
-// Copyright (C) 2019-2022 The Xaya developers
+// Copyright (C) 2019-2022 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYAUTIL_RANDOM_HPP
-#define XAYAUTIL_RANDOM_HPP
+#ifndef SPACEXPANSEUTIL_RANDOM_HPP
+#define SPACEXPANSEUTIL_RANDOM_HPP
 
 #include "uint256.hpp"
 
 #include <vector>
 
-namespace xaya
+namespace spacexpanse
 {
 
 /**
@@ -110,8 +110,8 @@ public:
 
 };
 
-} // namespace xaya
+} // namespace spacexpanse
 
 #include "random.tpp"
 
-#endif // XAYAUTIL_RANDOM_HPP
+#endif // SPACEXPANSEUTIL_RANDOM_HPP

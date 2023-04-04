@@ -1,12 +1,12 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 syntax = "proto2";
 
-import "gamechannel/proto/signatures.proto";
+import "sidechannel/proto/signatures.proto";
 
-package xaya.proto;
+package spacexpanse.proto;
 
 /**
  * A state transition:  This is a move made by the current player together

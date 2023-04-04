@@ -1,16 +1,16 @@
-// Copyright (C) 2019-2020 The Xaya developers
+// Copyright (C) 2019-2020 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYAUTIL_COMPRESSION_HPP
-#define XAYAUTIL_COMPRESSION_HPP
+#ifndef SPACEXPANSEUTIL_COMPRESSION_HPP
+#define SPACEXPANSEUTIL_COMPRESSION_HPP
 
 #include <json/json.h>
 
 #include <cstddef>
 #include <string>
 
-namespace xaya
+namespace spacexpanse
 {
 
 /**
@@ -22,7 +22,7 @@ namespace xaya
  * situations where e.g. compressing the move data makes a clear difference
  * for instance to fit inside the 2k value limit.  It should not be used
  * "just to optimise" the data size, since general compression of transaction
- * data is best handled by Xaya Core itself rather than individual games
+ * data is best handled by SpaceXpanse Core itself rather than individual games
  * (and can then be done in a non-consensus-relevant way, which is more
  * robust and safer).
  */
@@ -82,6 +82,6 @@ bool UncompressJson (const std::string& input,
                      size_t maxOutputSize, unsigned stackLimit,
                      Json::Value& output, std::string& uncompressed);
 
-} // namespace xaya
+} // namespace spacexpanse
 
-#endif // XAYAUTIL_COMPRESSION_HPP
+#endif // SPACEXPANSEUTIL_COMPRESSION_HPP

@@ -1,4 +1,4 @@
-// Copyright (C) 2018-2022 The Xaya developers
+// Copyright (C) 2018-2022 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,7 +8,7 @@
 
 #include <algorithm>
 
-namespace xaya
+namespace spacexpanse
 {
 
 std::string
@@ -103,4 +103,4 @@ uint256::SetNull ()
   std::fill (data.begin (), data.end (), 0);
 }
 
-} // namespace xaya
+} // namespace spacexpanse

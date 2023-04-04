@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2020 The Xaya developers
+// Copyright (C) 2019-2020 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,7 +6,7 @@
 
 #include "base64.hpp"
 
-namespace xaya
+namespace spacexpanse
 {
 
 /* ************************************************************************** */
@@ -167,4 +167,4 @@ UncompressJson (const std::string& input,
 
 /* ************************************************************************** */
 
-} // namespace xaya
+} // namespace spacexpanse

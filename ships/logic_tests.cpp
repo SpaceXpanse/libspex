@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2022 The Xaya developers
+// Copyright (C) 2019-2022 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -7,12 +7,12 @@
 #include "proto/boardstate.pb.h"
 #include "testutils.hpp"
 
-#include <gamechannel/database.hpp>
-#include <gamechannel/proto/stateproof.pb.h>
-#include <gamechannel/protoutils.hpp>
-#include <gamechannel/signatures.hpp>
-#include <xayautil/base64.hpp>
-#include <xayautil/hash.hpp>
+#include <sidechannel/database.hpp>
+#include <sidechannel/proto/stateproof.pb.h>
+#include <sidechannel/protoutils.hpp>
+#include <sidechannel/signatures.hpp>
+#include <spacexpanseutil/base64.hpp>
+#include <spacexpanseutil/hash.hpp>
 
 #include <google/protobuf/text_format.h>
 
@@ -30,7 +30,7 @@ class StateUpdateTests : public InMemoryLogicFixture
 
 protected:
 
-  xaya::ChannelsTable tbl;
+  spacexpanse::ChannelsTable tbl;
 
   StateUpdateTests ()
     : tbl(GetDb ())
@@ -76,8 +76,8 @@ protected:
    * Expects that a channel with the given ID exists and returns the handle
    * to it.
    */
-  xaya::ChannelsTable::Handle
-  ExpectChannel (const xaya::uint256& id)
+  spacexpanse::ChannelsTable::Handle
+  ExpectChannel (const spacexpanse::uint256& id)
   {
     auto h = tbl.GetById (id);
     CHECK (h != nullptr);
@@ -88,7 +88,7 @@ protected:
    * Exposes UpdateStats for testing.
    */
   void
-  UpdateStats (const xaya::proto::ChannelMetadata& meta, const int winner)
+  UpdateStats (const spacexpanse::proto::ChannelMetadata& meta, const int winner)
   {
     game.UpdateStats (GetDb (), meta, winner);
   }
@@ -140,7 +140,7 @@ namespace
  * txid and actual move data).
  */
 Json::Value
-Move (const std::string& name, const xaya::uint256& txid,
+Move (const std::string& name, const spacexpanse::uint256& txid,
       const Json::Value& data)
 {
   Json::Value res(Json::objectValue);
@@ -154,13 +154,13 @@ Move (const std::string& name, const xaya::uint256& txid,
 /**
  * Returns a serialised state for the given text proto.
  */
-xaya::BoardState
+spacexpanse::BoardState
 SerialisedState (const std::string& str)
 {
   proto::BoardState state;
   CHECK (TextFormat::ParseFromString (str, &state));
 
-  xaya::BoardState res;
+  spacexpanse::BoardState res;
   CHECK (state.SerializeToString (&res));
 
   return res;
@@ -173,12 +173,12 @@ SerialisedState (const std::string& str)
  * disputes, respectively.
  */
 Json::Value
-BuildDisputeResolutionMove (const xaya::uint256& channelId,
-                            const xaya::uint256& txid,
+BuildDisputeResolutionMove (const spacexpanse::uint256& channelId,
+                            const spacexpanse::uint256& txid,
                             const std::string& key, const std::string& stateStr,
                             const std::vector<std::string>& signatures)
 {
-  xaya::proto::StateProof proof;
+  spacexpanse::proto::StateProof proof;
   auto* is = proof.mutable_initial_state ();
   *is->mutable_data () = SerialisedState (stateStr);
   for (const auto& sgn : signatures)
@@ -187,14 +187,14 @@ BuildDisputeResolutionMove (const xaya::uint256& channelId,
   Json::Value data(Json::objectValue);
   data[key] = Json::Value (Json::objectValue);
   data[key]["id"] = channelId.ToHex ();
-  data[key]["state"] = xaya::ProtoToBase64 (proof);
+  data[key]["state"] = spacexpanse::ProtoToBase64 (proof);
 
   return Move ("xyz", txid, data);
 }
 
 TEST_F (StateUpdateTests, MoveNotAnObject)
 {
-  const auto txid = xaya::SHA256::Hash ("foo");
+  const auto txid = spacexpanse::SHA256::Hash ("foo");
 
   std::vector<Json::Value> moves;
   for (const std::string& mv : {"10", "\"foo\"", "null", "true", "[42]"})
@@ -206,7 +206,7 @@ TEST_F (StateUpdateTests, MoveNotAnObject)
 
 TEST_F (StateUpdateTests, MultipleActions)
 {
-  UpdateState (10, {Move ("foo", xaya::uint256 (), ParseJson (R"(
+  UpdateState (10, {Move ("foo", spacexpanse::uint256 (), ParseJson (R"(
     {
       "c": {"addr": "my address"},
       "x": "something else"
@@ -218,8 +218,8 @@ TEST_F (StateUpdateTests, MultipleActions)
 TEST_F (StateUpdateTests, InvalidMoveContinuesProcessing)
 {
   UpdateState (10, {
-    Move ("foo", xaya::SHA256::Hash ("foo"), ParseJson ("\"foo\"")),
-    Move ("bar", xaya::SHA256::Hash ("bar"), ParseJson (R"(
+    Move ("foo", spacexpanse::SHA256::Hash ("foo"), ParseJson ("\"foo\"")),
+    Move ("bar", spacexpanse::SHA256::Hash ("bar"), ParseJson (R"(
       {
         "c": {"addr": "my address"}
       }
@@ -234,7 +234,7 @@ using CreateChannelTests = StateUpdateTests;
 
 TEST_F (CreateChannelTests, InvalidCreates)
 {
-  const auto txid = xaya::SHA256::Hash ("foo");
+  const auto txid = spacexpanse::SHA256::Hash ("foo");
 
   std::vector<Json::Value> moves;
   for (const std::string& create : {"42", "null", "{}",
@@ -253,33 +253,33 @@ TEST_F (CreateChannelTests, InvalidCreates)
 TEST_F (CreateChannelTests, CreationSuccessful)
 {
   UpdateState (10, {
-    Move ("foo", xaya::SHA256::Hash ("foo"), ParseJson ("\"invalid\"")),
-    Move ("bar", xaya::SHA256::Hash ("bar"), ParseJson (R"(
+    Move ("foo", spacexpanse::SHA256::Hash ("foo"), ParseJson ("\"invalid\"")),
+    Move ("bar", spacexpanse::SHA256::Hash ("bar"), ParseJson (R"(
       {"c": {"addr": "address 1"}}
     )")),
-    Move ("bar", xaya::SHA256::Hash ("baz"), ParseJson (R"(
+    Move ("bar", spacexpanse::SHA256::Hash ("baz"), ParseJson (R"(
       {"c": {"addr": "address 2"}}
     )")),
-    Move ("bar", xaya::SHA256::Hash ("bah"), ParseJson (R"(
+    Move ("bar", spacexpanse::SHA256::Hash ("bah"), ParseJson (R"(
       {"c": {"addr": "address 2"}}
     )")),
   });
 
   ExpectNumberOfChannels (3);
 
-  auto h = ExpectChannel (xaya::SHA256::Hash ("bar"));
+  auto h = ExpectChannel (spacexpanse::SHA256::Hash ("bar"));
   ASSERT_EQ (h->GetMetadata ().participants_size (), 1);
   EXPECT_EQ (h->GetMetadata ().participants (0).name (), "bar");
   EXPECT_EQ (h->GetMetadata ().participants (0).address (), "address 1");
   EXPECT_EQ (h->GetLatestState (), "");
   EXPECT_FALSE (h->HasDispute ());
 
-  h = ExpectChannel (xaya::SHA256::Hash ("baz"));
+  h = ExpectChannel (spacexpanse::SHA256::Hash ("baz"));
   ASSERT_EQ (h->GetMetadata ().participants_size (), 1);
   EXPECT_EQ (h->GetMetadata ().participants (0).name (), "bar");
   EXPECT_EQ (h->GetMetadata ().participants (0).address (), "address 2");
 
-  h = ExpectChannel (xaya::SHA256::Hash ("bah"));
+  h = ExpectChannel (spacexpanse::SHA256::Hash ("bah"));
   ASSERT_EQ (h->GetMetadata ().participants_size (), 1);
   EXPECT_EQ (h->GetMetadata ().participants (0).name (), "bar");
   EXPECT_EQ (h->GetMetadata ().participants (0).address (), "address 2");
@@ -287,9 +287,9 @@ TEST_F (CreateChannelTests, CreationSuccessful)
 
 TEST_F (CreateChannelTests, MvidIfAvailable)
 {
-  const auto txid = xaya::SHA256::Hash ("txid");
-  const auto id1 = xaya::SHA256::Hash ("mvid 1");
-  const auto id2 = xaya::SHA256::Hash ("mvid 2");
+  const auto txid = spacexpanse::SHA256::Hash ("txid");
+  const auto id1 = spacexpanse::SHA256::Hash ("mvid 1");
+  const auto id2 = spacexpanse::SHA256::Hash ("mvid 2");
 
   auto mv1 = Move ("domob", txid, ParseJson (R"(
     {"c": {"addr": "address 1"}}
@@ -314,8 +314,8 @@ TEST_F (CreateChannelTests, FailsForIdCollision)
     {"c": {"addr": "address"}}
   )");
   EXPECT_DEATH (UpdateState (10, {
-    Move ("foo", xaya::SHA256::Hash ("foo"), data),
-    Move ("bar", xaya::SHA256::Hash ("foo"), data),
+    Move ("foo", spacexpanse::SHA256::Hash ("foo"), data),
+    Move ("bar", spacexpanse::SHA256::Hash ("foo"), data),
   }), "Already have channel with ID");
 }
 
@@ -325,14 +325,14 @@ using JoinChannelTests = StateUpdateTests;
 
 TEST_F (JoinChannelTests, Malformed)
 {
-  const auto existing = xaya::SHA256::Hash ("foo");
+  const auto existing = spacexpanse::SHA256::Hash ("foo");
   auto h = tbl.CreateNew (existing);
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
   meta.add_participants ();
   h->Reinitialise (meta, "");
   h.reset ();
 
-  const auto txid = xaya::SHA256::Hash ("bar");
+  const auto txid = spacexpanse::SHA256::Hash ("bar");
 
   std::vector<Json::Value> moves;
   for (const std::string& create : {"42", "null", "{}",
@@ -353,14 +353,14 @@ TEST_F (JoinChannelTests, Malformed)
 
 TEST_F (JoinChannelTests, NonExistantChannel)
 {
-  const auto existing = xaya::SHA256::Hash ("foo");
+  const auto existing = spacexpanse::SHA256::Hash ("foo");
   auto h = tbl.CreateNew (existing);
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
   meta.add_participants ();
   h->Reinitialise (meta, "");
   h.reset ();
 
-  const auto txid = xaya::SHA256::Hash ("bar");
+  const auto txid = spacexpanse::SHA256::Hash ("bar");
   Json::Value data (Json::objectValue);
   data["j"] = ParseJson (R"({"addr": "address"})");
   data["j"]["id"] = txid.ToHex ();
@@ -372,15 +372,15 @@ TEST_F (JoinChannelTests, NonExistantChannel)
 
 TEST_F (JoinChannelTests, AlreadyTwoParticipants)
 {
-  const auto existing = xaya::SHA256::Hash ("foo");
+  const auto existing = spacexpanse::SHA256::Hash ("foo");
   auto h = tbl.CreateNew (existing);
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
   meta.add_participants ()->set_name ("foo");
   meta.add_participants ()->set_name ("bar");
   h->Reinitialise (meta, SerialisedState ("turn: 0"));
   h.reset ();
 
-  const auto txid = xaya::SHA256::Hash ("bar");
+  const auto txid = spacexpanse::SHA256::Hash ("bar");
   Json::Value data (Json::objectValue);
   data["j"] = ParseJson (R"({"addr": "address"})");
   data["j"]["id"] = existing.ToHex ();
@@ -395,14 +395,14 @@ TEST_F (JoinChannelTests, AlreadyTwoParticipants)
 
 TEST_F (JoinChannelTests, SameNameInChannel)
 {
-  const auto existing = xaya::SHA256::Hash ("foo");
+  const auto existing = spacexpanse::SHA256::Hash ("foo");
   auto h = tbl.CreateNew (existing);
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
   meta.add_participants ()->set_name ("foo");
   h->Reinitialise (meta, "");
   h.reset ();
 
-  const auto txid = xaya::SHA256::Hash ("bar");
+  const auto txid = spacexpanse::SHA256::Hash ("bar");
   Json::Value data (Json::objectValue);
   data["j"] = ParseJson (R"({"addr": "address"})");
   data["j"]["id"] = existing.ToHex ();
@@ -416,8 +416,8 @@ TEST_F (JoinChannelTests, SameNameInChannel)
 
 TEST_F (JoinChannelTests, SuccessfulJoin)
 {
-  const auto id1 = xaya::SHA256::Hash ("foo");
-  const auto id2 = xaya::SHA256::Hash ("bar");
+  const auto id1 = spacexpanse::SHA256::Hash ("foo");
+  const auto id2 = spacexpanse::SHA256::Hash ("bar");
 
   std::vector<Json::Value> moves;
   moves.push_back (Move ("foo", id1, ParseJson (R"({"c": {"addr": "a"}})")));
@@ -449,14 +449,14 @@ using AbortChannelTests = StateUpdateTests;
 
 TEST_F (AbortChannelTests, Malformed)
 {
-  const auto existing = xaya::SHA256::Hash ("foo");
+  const auto existing = spacexpanse::SHA256::Hash ("foo");
   auto h = tbl.CreateNew (existing);
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
   meta.add_participants ();
   h->Reinitialise (meta, "");
   h.reset ();
 
-  const auto txid = xaya::SHA256::Hash ("bar");
+  const auto txid = spacexpanse::SHA256::Hash ("bar");
 
   std::vector<Json::Value> moves;
   for (const std::string& create : {"42", "null", "{}",
@@ -476,14 +476,14 @@ TEST_F (AbortChannelTests, Malformed)
 
 TEST_F (AbortChannelTests, NonExistantChannel)
 {
-  const auto existing = xaya::SHA256::Hash ("foo");
+  const auto existing = spacexpanse::SHA256::Hash ("foo");
   auto h = tbl.CreateNew (existing);
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
   meta.add_participants ();
   h->Reinitialise (meta, "");
   h.reset ();
 
-  const auto txid = xaya::SHA256::Hash ("bar");
+  const auto txid = spacexpanse::SHA256::Hash ("bar");
   Json::Value data (Json::objectValue);
   data["a"] = Json::Value (Json::objectValue);
   data["a"]["id"] = txid.ToHex ();
@@ -495,15 +495,15 @@ TEST_F (AbortChannelTests, NonExistantChannel)
 
 TEST_F (AbortChannelTests, AlreadyTwoParticipants)
 {
-  const auto existing = xaya::SHA256::Hash ("foo");
+  const auto existing = spacexpanse::SHA256::Hash ("foo");
   auto h = tbl.CreateNew (existing);
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
   meta.add_participants ()->set_name ("foo");
   meta.add_participants ()->set_name ("bar");
   h->Reinitialise (meta, SerialisedState ("turn: 0"));
   h.reset ();
 
-  const auto txid = xaya::SHA256::Hash ("bar");
+  const auto txid = spacexpanse::SHA256::Hash ("bar");
   Json::Value data (Json::objectValue);
   data["a"] = Json::Value (Json::objectValue);
   data["a"]["id"] = existing.ToHex ();
@@ -515,14 +515,14 @@ TEST_F (AbortChannelTests, AlreadyTwoParticipants)
 
 TEST_F (AbortChannelTests, DifferentName)
 {
-  const auto existing = xaya::SHA256::Hash ("foo");
+  const auto existing = spacexpanse::SHA256::Hash ("foo");
   auto h = tbl.CreateNew (existing);
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
   meta.add_participants ()->set_name ("foo");
   h->Reinitialise (meta, "");
   h.reset ();
 
-  const auto txid = xaya::SHA256::Hash ("bar");
+  const auto txid = spacexpanse::SHA256::Hash ("bar");
   Json::Value data (Json::objectValue);
   data["a"] = Json::Value (Json::objectValue);
   data["a"]["id"] = existing.ToHex ();
@@ -534,15 +534,15 @@ TEST_F (AbortChannelTests, DifferentName)
 
 TEST_F (AbortChannelTests, SuccessfulAbort)
 {
-  const auto existing = xaya::SHA256::Hash ("existing channel");
+  const auto existing = spacexpanse::SHA256::Hash ("existing channel");
   auto h = tbl.CreateNew (existing);
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
   meta.add_participants ();
   h->Reinitialise (meta, "");
   h.reset ();
 
-  const auto id1 = xaya::SHA256::Hash ("foo");
-  const auto id2 = xaya::SHA256::Hash ("bar");
+  const auto id1 = spacexpanse::SHA256::Hash ("foo");
+  const auto id2 = spacexpanse::SHA256::Hash ("bar");
 
   std::vector<Json::Value> moves;
   moves.push_back (Move ("foo", id1, ParseJson (R"({"c": {"addr": "a"}})")));
@@ -564,19 +564,19 @@ class DeclareLossTests : public StateUpdateTests
 
 protected:
 
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
 
   /**
    * ID of the channel closed in tests (or not).  This channel is set up
    * with players "name 0" and "name 1".
    */
-  const xaya::uint256 channelId = xaya::SHA256::Hash ("test channel");
+  const spacexpanse::uint256 channelId = spacexpanse::SHA256::Hash ("test channel");
 
   /** ID of a channel that should not be affected by any close.  */
-  const xaya::uint256 otherId = xaya::SHA256::Hash ("other channel");
+  const spacexpanse::uint256 otherId = spacexpanse::SHA256::Hash ("other channel");
 
   /** Txid for use with the move.  */
-  const xaya::uint256 txid = xaya::SHA256::Hash ("txid");
+  const spacexpanse::uint256 txid = spacexpanse::SHA256::Hash ("txid");
 
   DeclareLossTests ()
   {
@@ -608,12 +608,12 @@ protected:
    * and based on the reinit value of our metadata instance.
    */
   Json::Value
-  LossMove (const std::string& name, const xaya::uint256& channelId) const
+  LossMove (const std::string& name, const spacexpanse::uint256& channelId) const
   {
     Json::Value data(Json::objectValue);
     data["l"] = Json::Value (Json::objectValue);
     data["l"]["id"] = channelId.ToHex ();
-    data["l"]["r"] = xaya::EncodeBase64 (meta.reinit ());
+    data["l"]["r"] = spacexpanse::EncodeBase64 (meta.reinit ());
 
     return Move (name, txid, data);
   }
@@ -627,7 +627,7 @@ TEST_F (DeclareLossTests, UpdateStats)
   ExpectStatsRow ("foo", 10, 5);
   ExpectStatsRow ("bar", 1, 2);
 
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
   meta.add_participants ()->set_name ("foo");
   meta.add_participants ()->set_name ("baz");
 
@@ -681,7 +681,7 @@ TEST_F (DeclareLossTests, Malformed)
 
 TEST_F (DeclareLossTests, NonExistantChannel)
 {
-  UpdateState (10, {LossMove ("foo", xaya::SHA256::Hash ("does not exist"))});
+  UpdateState (10, {LossMove ("foo", spacexpanse::SHA256::Hash ("does not exist"))});
 
   ExpectNumberOfChannels (2);
   ExpectChannel (channelId);
@@ -691,7 +691,7 @@ TEST_F (DeclareLossTests, NonExistantChannel)
 TEST_F (DeclareLossTests, WrongNumberOfParticipants)
 {
   auto h = ExpectChannel (channelId);
-  xaya::proto::ChannelMetadata meta = h->GetMetadata ();
+  spacexpanse::proto::ChannelMetadata meta = h->GetMetadata ();
   meta.mutable_participants ()->RemoveLast ();
   meta.set_reinit ("init 2");
   h->Reinitialise (meta, "");
@@ -716,7 +716,7 @@ TEST_F (DeclareLossTests, NotAParticipant)
 TEST_F (DeclareLossTests, InvalidReinit)
 {
   auto mv = LossMove ("name 0", channelId);
-  mv["move"]["l"]["r"] = xaya::EncodeBase64 ("wrong reinit");
+  mv["move"]["l"]["r"] = spacexpanse::EncodeBase64 ("wrong reinit");
 
   UpdateState (10, {mv});
 
@@ -750,16 +750,16 @@ protected:
    * ID of the channel closed in tests (or not).  This channel is set up
    * with players "name 0" and "name 1".
    */
-  const xaya::uint256 channelId = xaya::SHA256::Hash ("test channel");
+  const spacexpanse::uint256 channelId = spacexpanse::SHA256::Hash ("test channel");
 
   /** Txid for use with the move.  */
-  const xaya::uint256 txid = xaya::SHA256::Hash ("txid");
+  const spacexpanse::uint256 txid = spacexpanse::SHA256::Hash ("txid");
 
   DisputeResolutionTests ()
   {
     auto h = tbl.CreateNew (channelId);
 
-    xaya::proto::ChannelMetadata meta;
+    spacexpanse::proto::ChannelMetadata meta;
     CHECK (TextFormat::ParseFromString (R"(
       participants:
         {
@@ -842,7 +842,7 @@ TEST_F (DisputeResolutionTests, InvalidStateData)
   data["d"]["state"] = "invalid base64";
   UpdateState (10, {Move ("xyz", txid, data)});
 
-  data["d"]["state"] = xaya::EncodeBase64 ("invalid proto");
+  data["d"]["state"] = spacexpanse::EncodeBase64 ("invalid proto");
   UpdateState (11, {Move ("xyz", txid, data)});
 
   ExpectNumberOfChannels (1);
@@ -852,7 +852,7 @@ TEST_F (DisputeResolutionTests, InvalidStateData)
 TEST_F (DisputeResolutionTests, NonExistantChannel)
 {
   auto mv = BuildMove ("d", "turn: 0", {"sgn 0", "sgn 1"});
-  mv["move"]["d"]["id"] = xaya::SHA256::Hash ("invalid channel").ToHex ();
+  mv["move"]["d"]["id"] = spacexpanse::SHA256::Hash ("invalid channel").ToHex ();
   UpdateState (10, {mv});
 
   ExpectNumberOfChannels (1);
@@ -862,7 +862,7 @@ TEST_F (DisputeResolutionTests, NonExistantChannel)
 TEST_F (DisputeResolutionTests, WrongNumberOfParticipants)
 {
   auto h = ExpectChannel (channelId);
-  xaya::proto::ChannelMetadata meta = h->GetMetadata ();
+  spacexpanse::proto::ChannelMetadata meta = h->GetMetadata ();
   meta.mutable_participants ()->RemoveLast ();
   meta.set_reinit ("init 2");
   h->Reinitialise (meta, h->GetLatestState ());
@@ -927,8 +927,8 @@ using ChannelTimeoutTests = StateUpdateTests;
 
 TEST_F (ChannelTimeoutTests, Works)
 {
-  const auto id1 = xaya::SHA256::Hash ("foo");
-  const auto id2 = xaya::SHA256::Hash ("bar");
+  const auto id1 = spacexpanse::SHA256::Hash ("foo");
+  const auto id2 = spacexpanse::SHA256::Hash ("bar");
 
   std::vector<Json::Value> moves;
   moves.push_back (Move ("foo", id1, ParseJson (R"({"c": {"addr": "a"}})")));
@@ -969,14 +969,14 @@ private:
 
 protected:
 
-  xaya::proto::ChannelMetadata meta;
+  spacexpanse::proto::ChannelMetadata meta;
 
-  xaya::ChannelsTable tbl;
+  spacexpanse::ChannelsTable tbl;
 
   PendingTests ()
     : proc(game), tbl(GetDb ())
   {
-    proc.InitialiseGameContext (xaya::Chain::MAIN, "xs", nullptr);
+    proc.InitialiseGameContext (spacexpanse::Chain::MAIN, "xs", nullptr);
 
     CHECK (TextFormat::ParseFromString (R"(
       participants:
@@ -1021,15 +1021,15 @@ protected:
    * about move parsing and forwarding of data.
    */
   void
-  ExpectPendingChannels (const std::set<xaya::uint256>& expected)
+  ExpectPendingChannels (const std::set<spacexpanse::uint256>& expected)
   {
     const auto actualJson = GetPendingField ("channels");
     ASSERT_TRUE (actualJson.isObject ());
 
-    std::set<xaya::uint256> actual;
+    std::set<spacexpanse::uint256> actual;
     for (auto it = actualJson.begin (); it != actualJson.end (); ++it)
       {
-        xaya::uint256 txid;
+        spacexpanse::uint256 txid;
         ASSERT_TRUE (txid.FromHex (it.key ().asString ()));
         actual.insert (txid);
       }
@@ -1045,12 +1045,12 @@ namespace
 
 TEST_F (PendingTests, NonObjectMove)
 {
-  const auto cid = xaya::SHA256::Hash ("channel");
+  const auto cid = spacexpanse::SHA256::Hash ("channel");
   auto h = tbl.CreateNew (cid);
   h->Reinitialise (meta, SerialisedState ("turn: 0"));
   h.reset ();
 
-  AddPendingMove (Move ("foo", xaya::SHA256::Hash ("foo"), 42));
+  AddPendingMove (Move ("foo", spacexpanse::SHA256::Hash ("foo"), 42));
   ExpectPendingChannels ({});
   EXPECT_EQ (GetPendingField ("create"), ParseJson ("[]"));
 }
@@ -1060,7 +1060,7 @@ TEST_F (PendingTests, MultipleCommands)
   meta.mutable_participants ()->RemoveLast ();
   ASSERT_EQ (meta.participants_size (), 1);
 
-  const auto cid = xaya::SHA256::Hash ("channel");
+  const auto cid = spacexpanse::SHA256::Hash ("channel");
   tbl.CreateNew (cid)->Reinitialise (meta, "");
 
   auto joinMove = ParseJson (R"(
@@ -1071,7 +1071,7 @@ TEST_F (PendingTests, MultipleCommands)
   )");
   joinMove["j"]["id"] = cid.ToHex ();
 
-  const auto txid = xaya::SHA256::Hash ("txid");
+  const auto txid = spacexpanse::SHA256::Hash ("txid");
   AddPendingMove (Move ("domob", txid, joinMove));
 
   EXPECT_EQ (GetPendingField ("create"), ParseJson ("[]"));
@@ -1081,9 +1081,9 @@ TEST_F (PendingTests, MultipleCommands)
 
 TEST_F (PendingTests, CreateChannel)
 {
-  const auto txid1 = xaya::SHA256::Hash ("txid 1");
-  const auto txid2 = xaya::SHA256::Hash ("txid 2");
-  const auto txid3 = xaya::SHA256::Hash ("txid 3");
+  const auto txid1 = spacexpanse::SHA256::Hash ("txid 1");
+  const auto txid2 = spacexpanse::SHA256::Hash ("txid 2");
+  const auto txid3 = spacexpanse::SHA256::Hash ("txid 3");
 
   AddPendingMove (Move ("domob", txid1, ParseJson (R"(
     {"c": {"addr": "addr 1"}}
@@ -1112,7 +1112,7 @@ TEST_F (PendingTests, JoinChannel)
   meta.mutable_participants ()->RemoveLast ();
   ASSERT_EQ (meta.participants_size (), 1);
 
-  const auto cid = xaya::SHA256::Hash ("channel");
+  const auto cid = spacexpanse::SHA256::Hash ("channel");
   tbl.CreateNew (cid)->Reinitialise (meta, "");
 
   auto joinMove = ParseJson (R"(
@@ -1120,7 +1120,7 @@ TEST_F (PendingTests, JoinChannel)
   )");
   joinMove["j"]["id"] = cid.ToHex ();
 
-  const auto txid = xaya::SHA256::Hash ("txid");
+  const auto txid = spacexpanse::SHA256::Hash ("txid");
   AddPendingMove (Move ("domob", txid, joinMove));
   AddPendingMove (Move ("name 0", txid, joinMove));
   AddPendingMove (Move ("andy", txid, joinMove));
@@ -1142,12 +1142,12 @@ TEST_F (PendingTests, AbortChannel)
   meta.mutable_participants ()->RemoveLast ();
   ASSERT_EQ (meta.participants_size (), 1);
 
-  const auto cid1 = xaya::SHA256::Hash ("channel 1");
-  const auto cid2 = xaya::SHA256::Hash ("channel 2");
+  const auto cid1 = spacexpanse::SHA256::Hash ("channel 1");
+  const auto cid2 = spacexpanse::SHA256::Hash ("channel 2");
   tbl.CreateNew (cid1)->Reinitialise (meta, "");
   tbl.CreateNew (cid2)->Reinitialise (meta, "");
 
-  const auto txid = xaya::SHA256::Hash ("txid");
+  const auto txid = spacexpanse::SHA256::Hash ("txid");
   auto abortMove = ParseJson (R"({"a": {}})");
   abortMove["a"]["id"] = cid1.ToHex ();
   AddPendingMove (Move ("name 0", txid, abortMove));
@@ -1163,18 +1163,18 @@ TEST_F (PendingTests, AbortChannel)
 
 TEST_F (PendingTests, ValidStateProof)
 {
-  const auto cid1 = xaya::SHA256::Hash ("channel 1");
+  const auto cid1 = spacexpanse::SHA256::Hash ("channel 1");
   auto h = tbl.CreateNew (cid1);
   h->Reinitialise (meta, SerialisedState ("turn: 0"));
   h.reset ();
 
-  const auto cid2 = xaya::SHA256::Hash ("channel 2");
+  const auto cid2 = spacexpanse::SHA256::Hash ("channel 2");
   h = tbl.CreateNew (cid2);
   h->Reinitialise (meta, SerialisedState ("turn: 0"));
   h.reset ();
 
   const auto mv1 = BuildDisputeResolutionMove (
-      cid1, xaya::SHA256::Hash ("tx 1"), "d",
+      cid1, spacexpanse::SHA256::Hash ("tx 1"), "d",
       R"(
         turn: 1
         position_hashes: "foo 1"
@@ -1183,7 +1183,7 @@ TEST_F (PendingTests, ValidStateProof)
   AddPendingMove (mv1);
 
   const auto mv2 = BuildDisputeResolutionMove (
-      cid2, xaya::SHA256::Hash ("tx 2"), "r",
+      cid2, spacexpanse::SHA256::Hash ("tx 2"), "r",
       R"(
         turn: 0
         position_hashes: "foo 1"
@@ -1198,14 +1198,14 @@ TEST_F (PendingTests, ValidStateProof)
 
 TEST_F (PendingTests, StateForNonExistantChannel)
 {
-  const auto cid = xaya::SHA256::Hash ("channel");
+  const auto cid = spacexpanse::SHA256::Hash ("channel");
   auto h = tbl.CreateNew (cid);
   h->Reinitialise (meta, SerialisedState ("turn: 0"));
   h.reset ();
 
-  const auto wrongCid = xaya::SHA256::Hash ("other channel");
+  const auto wrongCid = spacexpanse::SHA256::Hash ("other channel");
   const auto mv = BuildDisputeResolutionMove (
-      wrongCid, xaya::SHA256::Hash ("tx"), "r",
+      wrongCid, spacexpanse::SHA256::Hash ("tx"), "r",
       R"(
         turn: 0
       )", {"sgn 0", "sgn 1"});
@@ -1216,7 +1216,7 @@ TEST_F (PendingTests, StateForNonExistantChannel)
 
 TEST_F (PendingTests, InvalidStateProof)
 {
-  const auto cid = xaya::SHA256::Hash ("channel");
+  const auto cid = spacexpanse::SHA256::Hash ("channel");
   auto h = tbl.CreateNew (cid);
   h->Reinitialise (meta, SerialisedState ("turn: 0"));
   h.reset ();
@@ -1230,7 +1230,7 @@ TEST_F (PendingTests, InvalidStateProof)
     }
   )");
   mv["move"]["d"]["id"] = cid.ToHex ();
-  AddPendingMove (Move ("xyz", xaya::SHA256::Hash ("foo"), mv));
+  AddPendingMove (Move ("xyz", spacexpanse::SHA256::Hash ("foo"), mv));
 
   ExpectPendingChannels ({});
 }

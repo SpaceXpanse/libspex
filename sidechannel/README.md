@@ -34,6 +34,6 @@ necessarily linked to a SpaceXpanse GSP.
 
 More advanced tasks are implemented in the `sidechannel` library:  They
 contain, for instance, event loops that automatically poll the state of
-a channel from a Xaya GSP to update the local state, or provide the
+a channel from a SpaceXpanse GSP to update the local state, or provide the
 tools necessary to build the on-chain parts for a channel-application easily
 based on a SpaceXpanse GSP.

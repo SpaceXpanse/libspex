@@ -1,11 +1,11 @@
-// Copyright (C) 2019-2020 The Xaya developers
+// Copyright (C) 2019-2020 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include "gamestatejson.hpp"
 
-#include <gamechannel/database.hpp>
-#include <gamechannel/gamestatejson.hpp>
+#include <sidechannel/database.hpp>
+#include <sidechannel/gamestatejson.hpp>
 
 #include <glog/logging.h>
 
@@ -34,8 +34,8 @@ GameStateJson::GetFullJson () const
   Json::Value res(Json::objectValue);
   res["gamestats"] = stats;
 
-  xaya::ChannelsTable tbl(const_cast<xaya::SQLiteDatabase&> (db));
-  res["channels"] = xaya::AllChannelsGameStateJson (tbl, rules);
+  spacexpanse::ChannelsTable tbl(const_cast<spacexpanse::SQLiteDatabase&> (db));
+  res["channels"] = spacexpanse::AllChannelsGameStateJson (tbl, rules);
 
   return res;
 }

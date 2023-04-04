@@ -1,4 +1,4 @@
-// Copyright (C) 2020 The Xaya developers
+// Copyright (C) 2020 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,7 +6,7 @@
 
 #include <algorithm>
 
-namespace xaya
+namespace spacexpanse
 {
 
 template <typename Iterator>
@@ -30,4 +30,4 @@ template <typename Iterator>
   ShuffleN (begin + 1, end, n - 1);
 }
 
-} // namespace xaya
+} // namespace spacexpanse

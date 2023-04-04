@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 
-# Copyright (C) 2023 The Xaya developers
+# Copyright (C) 2023 The SpaceXpanse developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 """
 Tests the "target block" feature in the GSP.  This is the main integration
-test for the feature in libxayagame itself as well.
+test for the feature in libspacexpansegame itself as well.
 """
 
 from nftest import NonFungibleTest
@@ -106,7 +106,7 @@ class TargetBlockTest (NonFungibleTest):
     # to the target state.  So this only works if we trigger detaches
     # externally.
     self.rpc.game._notify.settargetblock (blk2)
-    self.rpc.xaya.invalidateblock (blk1)
+    self.rpc.spacexpanse.invalidateblock (blk1)
     self.assertEqual (self.getStateAtTarget (blk2), [
       {
         "asset": {"m": "domob", "a": "foo"},

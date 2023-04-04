@@ -1,9 +1,9 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYASHIPS_COORD_HPP
-#define XAYASHIPS_COORD_HPP
+#ifndef SPACEXPANSESHIPS_COORD_HPP
+#define SPACEXPANSESHIPS_COORD_HPP
 
 #include <cmath>
 
@@ -105,4 +105,4 @@ public:
 
 } // namespace ships
 
-#endif // XAYASHIPS_COORD_HPP
+#endif // SPACEXPANSESHIPS_COORD_HPP

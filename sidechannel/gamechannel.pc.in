@@ -3,14 +3,14 @@ exec_prefix=@exec_prefix@
 libdir=@libdir@
 includedir=@includedir@
 
-Name: gamechannel
+Name: sidechannel
 Version: @PACKAGE_VERSION@
 
-Description: A library for Xaya games with game channels.
-URL: https://github.com/xaya/libxayagame
+Description: A library for SpaceXpanse games with game channels.
+URL: https://github.com/spacexpanse/libspacexpansegame
 
-Requires: @AX_PACKAGE_REQUIRES@ channelcore libxayagame libxayautil
+Requires: @AX_PACKAGE_REQUIRES@ channelcore libspacexpansegame libspacexpanseutil
 Requires.private: @AX_PACKAGE_REQUIRES_PRIVATE@
 
 Cflags: -I${includedir}
-Libs: -L${libdir} -lgamechannel
+Libs: -L${libdir} -lsidechannel

@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2022 The Xaya developers
+// Copyright (C) 2019-2022 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -6,9 +6,9 @@
 
 #include "testgame.hpp"
 
-#include <xayautil/hash.hpp>
+#include <spacexpanseutil/hash.hpp>
 
-namespace xaya
+namespace spacexpanse
 {
 
 /**

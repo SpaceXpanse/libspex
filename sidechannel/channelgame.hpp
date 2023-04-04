@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2022 The Xaya developers
+// Copyright (C) 2019-2022 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -13,10 +13,10 @@
 #include "proto/metadata.pb.h"
 #include "proto/stateproof.pb.h"
 
-#include <xayagame/sqlitegame.hpp>
-#include <xayautil/uint256.hpp>
+#include <spacexpansegame/sqlitegame.hpp>
+#include <spacexpanseutil/uint256.hpp>
 
-namespace xaya
+namespace spacexpanse
 {
 
 /**
@@ -34,7 +34,7 @@ private:
   /**
    * The default signature verifier based on the game's underlying
    * RPC connection.  This is lazy constructed on first request (and then
-   * uses GetXayaRpc() under the hood).
+   * uses GetSpaceXpanseRpc() under the hood).
    */
   std::unique_ptr<RpcSignatureVerifier> verifier;
 
@@ -58,7 +58,7 @@ protected:
    * It is valid to open a dispute for the state that is currently on-chain
    * (same turn height but only if it actually Equals() that state) if there
    * was not already a dispute for it.  This is necessary to avoid a situation
-   * as in https://github.com/xaya/libxayagame/issues/51.
+   * as in https://github.com/spacexpanse/libspacexpansegame/issues/51.
    */
   bool ProcessDispute (ChannelData& ch, unsigned height,
                        const proto::StateProof& proof);
@@ -75,7 +75,7 @@ protected:
 
   /**
    * Returns the signature verifier to be used for the game's state proofs.
-   * By default, it uses verification based on the Xaya RPC "verifymessage",
+   * By default, it uses verification based on the SpaceXpanse RPC "verifymessage",
    * but that can be overridden by subclasses if desired.
    */
   virtual const SignatureVerifier& GetSignatureVerifier ();
@@ -178,12 +178,12 @@ public:
  * a more suitable update mechanism.
  *
  * The mvid should be a unique identifier for the move / the operation
- * performed.  It can be the txid on Xaya Core, but should be something else
+ * performed.  It can be the txid on SpaceXpanse Core, but should be something else
  * (e.g. a hash of the actual operation, like "bob joins") if a single
  * transaction can trigger multiple moves (e.g. on EVM chains).
  */
 void UpdateMetadataReinit (const uint256& mvid, proto::ChannelMetadata& meta);
 
-} // namespace xaya
+} // namespace spacexpanse
 
 #endif // GAMECHANNEL_CHANNELGAME_HPP

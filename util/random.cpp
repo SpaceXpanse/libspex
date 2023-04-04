@@ -1,4 +1,4 @@
-// Copyright (C) 2019 The Xaya developers
+// Copyright (C) 2019 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -11,7 +11,7 @@
 #include <cstdint>
 #include <limits>
 
-namespace xaya
+namespace spacexpanse
 {
 
 Random::Random ()
@@ -181,4 +181,4 @@ Random::SelectByWeight (const std::vector<uint32_t>& weights)
   LOG (FATAL) << "No option selected";
 }
 
-} // namespace xaya
+} // namespace spacexpanse

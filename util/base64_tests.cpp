@@ -1,4 +1,4 @@
-// Copyright (C) 2019-2020 The Xaya developers
+// Copyright (C) 2019-2020 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,7 +8,7 @@
 
 #include <string>
 
-namespace xaya
+namespace spacexpanse
 {
 namespace
 {
@@ -84,4 +84,4 @@ TEST_F (Base64Tests, InvalidDecode)
 }
 
 } // anonymous namespace
-} // namespace xaya
+} // namespace spacexpanse

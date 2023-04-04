@@ -1,15 +1,15 @@
-// Copyright (C) 2019-2022 The Xaya developers
+// Copyright (C) 2019-2022 The SpaceXpanse developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef XAYASHIPS_BOARD_HPP
-#define XAYASHIPS_BOARD_HPP
+#ifndef SPACEXPANSESHIPS_BOARD_HPP
+#define SPACEXPANSESHIPS_BOARD_HPP
 
 #include "proto/boardmove.pb.h"
 #include "proto/boardstate.pb.h"
 
-#include <gamechannel/protoboard.hpp>
-#include <gamechannel/proto/metadata.pb.h>
+#include <sidechannel/protoboard.hpp>
+#include <sidechannel/proto/metadata.pb.h>
 
 #include <json/json.h>
 
@@ -18,7 +18,7 @@ namespace ships
 
 /** The base ProtoBoardState for our types.  */
 using BaseProtoBoardState
-    = xaya::ProtoBoardState<proto::BoardState, proto::BoardMove>;
+    = spacexpanse::ProtoBoardState<proto::BoardState, proto::BoardMove>;
 
 /**
  * The main implementation of the ships board rules.
@@ -125,13 +125,13 @@ public:
 /**
  * The BoardRules instance we use for the ships game.
  */
-class ShipsBoardRules : public xaya::ProtoBoardRules<ShipsBoardState>
+class ShipsBoardRules : public spacexpanse::ProtoBoardRules<ShipsBoardState>
 {
 
 public:
 
-  xaya::ChannelProtoVersion GetProtoVersion (
-      const xaya::proto::ChannelMetadata& meta) const override;
+  spacexpanse::ChannelProtoVersion GetProtoVersion (
+      const spacexpanse::proto::ChannelMetadata& meta) const override;
 
 };
 
@@ -143,4 +143,4 @@ proto::BoardState InitialBoardState ();
 
 } // namespace ships
 
-#endif // XAYASHIPS_BOARD_HPP
+#endif // SPACEXPANSESHIPS_BOARD_HPP

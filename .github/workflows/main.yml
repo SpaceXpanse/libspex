@@ -62,7 +62,7 @@ jobs:
         #curl -O http://archive.ubuntu.com/ubuntu/pool/main/libj/libjsoncpp/libjsoncpp-dev_1.9.5-3_amd64.deb
         #sudo dpkg -i libjsoncpp25_1.9.5-3_amd64.deb
         #sudo dpkg -i libjsoncpp-dev_1.9.5-3_amd64.deb
-        #cd ~/
+        cd ..
         git clone https://github.com/bitcoin-core/secp256k1.git
         cd secp256k1
         ./autogen.sh
@@ -70,19 +70,39 @@ jobs:
                     --enable-module-recovery
         make
         sudo make install
-        #cd ~/
+        cd ..
         git clone https://github.com/google/googletest
         cd googletest
         cmake .
         make -j4
         sudo make install/strip
-        #cd ~/
+        cd ..
         git clone https://github.com/spacexpanse/eth-utils.git
         cd eth-utils
         ./autogen.sh
         ./configure
         make -j4
         sudo make install
+        cd ..
+        mkdir jsoncpp && cd jsoncpp
+        git clone -b 1.9.4 https://github.com/open-source-parsers/jsoncpp .
+        git config user.email "test@example.com"
+        git config user.name "Cherry Picker"
+        git cherry-pick ac2870298ed5b5a96a688d9df07461b31f83e906
+        cmake . -DJSONCPP_WITH_PKGCONFIG_SUPPORT=ON -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
+        make -j4
+        sudo make install/strip
+        cd ..
+        git clone https://github.com/cinemast/libjson-rpc-cpp
+        cd libjson-rpc-cpp
+        cmake . -DREDIS_SERVER=NO -DREDIS_CLIENT=NO -DCOMPILE_TESTS=NO -DCOMPILE_EXAMPLES=NO -DWITH_COVERAGE=NO
+        make -j4
+        sudo make install/strip
+        cd ..
+        git clone -b v4.7.1 https://github.com/zeromq/cppzmq
+        cd cppzmq
+        sudo cp zmq.hpp /usr/local/include
+        sudo ldconfig
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.ref_name }}

@@ -48,19 +48,41 @@ jobs:
             x86_64-unknown-linux-gnu-ccache-
     - run: |
         sudo apt-get update
-        #sudo apt-get upgrade
-        sudo apt-get install --no-install-recommends --no-upgrade -qq "$APT_BASE" build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 autoconf-archive
-        sudo apt-get install software-properties-common
-        sudo apt-add-repository "ppa:ondrej/php" -y
+        sudo apt-get upgrade
+        sudo apt-get -y install build-essential libargtable2-dev libzmq3-dev zlib1g-dev libsqlite3-dev liblmdb-dev libgoogle-glog-dev libgflags-dev libprotobuf-dev protobuf-compiler python3 python-protobuf autoconf autoconf-archive automake cmake git libtool pkg-config libcurl4-openssl-dev libssl-dev libmicrohttpd-dev make
+        #sudo apt-get install --no-install-recommends --no-upgrade -qq "$APT_BASE" build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 autoconf-archive
+        #sudo apt-get install software-properties-common
+        #sudo apt-add-repository "ppa:ondrej/php" -y
         #sudo apt-add-repository "ppa:bitcoin/bitcoin" -y
-        sudo apt-add-repository "ppa:deadsnakes/ppa" -y
-        sudo apt-get update
+        #sudo apt-add-repository "ppa:deadsnakes/ppa" -y
+        #sudo apt-get update
         #sudo apt-get install --no-install-recommends --no-upgrade -qq "$APT_BASE" git libdb4.8-dev libdb4.8++-dev libminiupnpc-dev libzmq3-dev libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev libboost-program-options-dev    
-        sudo apt-get install --no-install-recommends --no-upgrade -qq "$APT_BASE" git libstdc++6=11.\* libjsonrpccpp-dev libjsonrpccpp-tools libzmq3-dev zlib1g-dev libsqlite3-dev liblmdb-dev libgoogle-glog-dev libgflags-dev python-protobuf libsecp256k1-dev python3-jsonrpclib-pelix
-        curl -O http://archive.ubuntu.com/ubuntu/pool/main/libj/libjsoncpp/libjsoncpp25_1.9.5-3_amd64.deb
-        curl -O http://archive.ubuntu.com/ubuntu/pool/main/libj/libjsoncpp/libjsoncpp-dev_1.9.5-3_amd64.deb
-        sudo dpkg -i libjsoncpp25_1.9.5-3_amd64.deb
-        sudo dpkg -i libjsoncpp-dev_1.9.5-3_amd64.deb
+        #sudo apt-get install --no-install-recommends --no-upgrade -qq "$APT_BASE" git libstdc++6=11.\* libjsonrpccpp-dev libjsonrpccpp-tools libzmq3-dev zlib1g-dev libsqlite3-dev liblmdb-dev libgoogle-glog-dev libgflags-dev python-protobuf libsecp256k1-dev python3-jsonrpclib-pelix
+        #curl -O http://archive.ubuntu.com/ubuntu/pool/main/libj/libjsoncpp/libjsoncpp25_1.9.5-3_amd64.deb
+        #curl -O http://archive.ubuntu.com/ubuntu/pool/main/libj/libjsoncpp/libjsoncpp-dev_1.9.5-3_amd64.deb
+        #sudo dpkg -i libjsoncpp25_1.9.5-3_amd64.deb
+        #sudo dpkg -i libjsoncpp-dev_1.9.5-3_amd64.deb
+        #cd ~/
+        git clone https://github.com/bitcoin-core/secp256k1.git
+        cd secp256k1
+        ./autogen.sh
+        ./configure --disable-tests --disable-benchmark \
+                    --enable-module-recovery
+        make
+        sudo make install
+        #cd ~/
+        git clone https://github.com/google/googletest
+        cd googletest
+        cmake .
+        make -j4
+        sudo make install/strip
+        #cd ~/
+        git clone https://github.com/spacexpanse/eth-utils.git
+        cd eth-utils
+        ./autogen.sh
+        ./configure
+        make -j4
+        sudo make install
     - uses: actions/checkout@v2
       with:
         ref: ${{ github.ref_name }}
@@ -78,7 +100,7 @@ jobs:
     - run: ./configure
     - run: |
         make -j2
-        sudo make install # todo: make check /strip
+        #sudo make install # todo: make check /strip
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |
         mkdir -p deploy

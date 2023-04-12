@@ -124,11 +124,11 @@ jobs:
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |
         mkdir -p deploy
-        ls -lh
-        cp $GITHUB_WORKSPACE/src/* $GITHUB_WORKSPACE/deploy
-        ls -lh 
+        cp $GITHUB_WORKSPACE/ships/shipsd $GITHUB_WORKSPACE/ships/ships-channel $GITHUB_WORKSPACE/nonfungible/nonfungibled $GITHUB_WORKSPACE/mover/moverd $GITHUB_WORKSPACE/deploy
         strip $GITHUB_WORKSPACE/deploy/*
-        zip --junk-paths libxgame-bin-${{ github.job }} $GITHUB_WORKSPACE/deploy/*
+        zip --junk-paths libspex-bin-${{ github.job }} $GITHUB_WORKSPACE/deploy/*
+        #zip --junk-paths libspex-bin-${{ github.job }} $GITHUB_WORKSPACE/*
+        ls -lh 
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -136,7 +136,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         tag_name: v.${{ github.ref_name }}.${{ github.run_number }}.rc1
-        release_name: libXgame ${{ github.ref_name }}.${{ github.run_number }}-${{ github.job }}
+        release_name: libspex ${{ github.ref_name }}.${{ github.run_number }}-${{ github.job }}
         draft: true
         prerelease: false
     - name: Upload Release Asset
@@ -146,8 +146,8 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./libxgame-bin-${{ github.job }}.zip
-        asset_name: libxgame-bin-${{ github.job }}.zip
+        asset_path: ./libspex-bin-${{ github.job }}.zip
+        asset_name: libspex-bin-${{ github.job }}.zip
         asset_content_type: application/zip
 
   win64:

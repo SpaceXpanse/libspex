@@ -13,4 +13,4 @@ Requires: @AX_PACKAGE_REQUIRES@ libspacexpanseutil
 Requires.private: @AX_PACKAGE_REQUIRES_PRIVATE@
 
 Cflags: -I${includedir}
-Libs: -L${libdir} -lspacexpansegame
+Libs: -L${libdir} -llibspex

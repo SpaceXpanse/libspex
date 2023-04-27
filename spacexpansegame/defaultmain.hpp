@@ -177,7 +177,7 @@ struct GameDaemonConfiguration
    * SpaceXpanse Core 1.1.2, since when the extended verifymessage command is available
    * (which is used by GameLogic).
    */
-  unsigned MinSpaceXpanseVersion = 1010200;
+  unsigned MinSpaceXpanseVersion = 60801;
 
   /**
    * The maximum possible SpaceXpanse Core version.  If zero (the default), then

@@ -32,9 +32,9 @@ NonFungibleLogic::GetInitialStateBlock (unsigned& height,
       break;
 
     case spacexpanse::Chain::TEST:
-      height = 112'300;
+      height = 1;
       hashHex
-          = "700f14e07b5d2a8d6836195d8a5f7ecd0aa4bf99d88631e99d29fd8ebb01a63f";
+          = "15d3d57c15dd8dcfdcc03e69c4c0647416789083a17fd1c88902112399855a48";
       break;
 
     case spacexpanse::Chain::REGTEST:

@@ -90,3 +90,5 @@ libspex yourself on a Debian system.)
 image](https://hub.docker.com/repository/docker/spacexpanse/libspex)
 are also published on Docker Hub.
 -->
+### Documentation
+You can find an extensive dotumentation [here](https://github.com/SpaceXpanse/Documentation/wiki#step-3-libspex). 

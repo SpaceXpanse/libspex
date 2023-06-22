@@ -5,6 +5,7 @@
 #ifndef SPACEXPANSEUTIL_RANDOM_HPP
 #define SPACEXPANSEUTIL_RANDOM_HPP
 
+#include <cstdint>
 #include "uint256.hpp"
 
 #include <vector>

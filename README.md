@@ -1,4 +1,4 @@
-# SpeX Library /WIP/
+# SpeX Library
 
 `libspex` is a C++ library that makes it easy to implement DApps on the
 [SpaceXpanse Multiverse platform](https://www.spacexpanse.org/).  It takes care of the interaction with

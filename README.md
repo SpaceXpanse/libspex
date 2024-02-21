@@ -76,6 +76,7 @@ it should be built and installed from source instead.
 For running the integration tests based on Python, install Python3 and
 the [jsonrpclib](https://github.com/tcalmant/jsonrpclib/) library.  On Debian,
 this is `python3-jsonrpclib-pelix`.
+
 <!-- 
 ### Docker Image
 
@@ -90,5 +91,6 @@ libspex yourself on a Debian system.)
 image](https://hub.docker.com/repository/docker/spacexpanse/libspex)
 are also published on Docker Hub.
 -->
+
 ### Documentation
 You can find an extensive dotumentation [here](https://github.com/SpaceXpanse/Documentation/wiki#step-3-libspex). 

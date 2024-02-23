@@ -184,10 +184,11 @@ jobs:
     - uses: actions/cache@v3
       with:
         path: |
-          depends/built
-          depends/sdk-sources
-          depends/work/build
-          depends/x86_64-w64-mingw32          
+          out\build
+          #depends/built
+          #depends/sdk-sources
+          #depends/work/build
+          #depends/x86_64-w64-mingw32          
         key: ubuntu-20.04-depends-x86_64-w64-mingw32-${{ env.NOW }}
         restore-keys: ubuntu-20.04-depends-x86_64-w64-mingw32-
     - run: |
@@ -203,7 +204,7 @@ jobs:
         cmake . -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
         make -j2
         make install
-        cp ./src/argtable2.h /home/../mingw64/include/argtable2.h
+        sudo cp ./src/argtable2.h /home/../mingw64/include/argtable2.h
         cd ..
     - name: Build libjson-rpc-cpp
       run: |
@@ -216,7 +217,7 @@ jobs:
         make -j2
         make install
         cd dist
-        cp -r ./ /home/../mingw64/
+        sudo cp -r ./ /home/../mingw64/
         cd ~/
     - name: Obtain libglog.pc and lmdb.pc files
       run: |

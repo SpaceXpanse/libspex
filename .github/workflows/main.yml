@@ -183,7 +183,11 @@ jobs:
         ref: ${{ github.ref_name }}
     - uses: actions/cache@v3
       with:
-        path: out\build         
+        path: |
+          depends/built
+          depends/sdk-sources
+          depends/work/build
+          depends/x86_64-w64-mingw32          
         key: ubuntu-20.04-depends-x86_64-w64-mingw32-${{ env.NOW }}
         restore-keys: ubuntu-20.04-depends-x86_64-w64-mingw32-
     - run: |
@@ -193,64 +197,6 @@ jobs:
     - run: echo 1 | sudo update-alternatives --config x86_64-w64-mingw32-g++            
     - run: sudo bash -c "echo 0 > /proc/sys/fs/binfmt_misc/status" # Disable WSL support for Win32 applications.
 
-    - name: Build argtable2
-    - run: |
-        git clone https://github.com/RyuMaster/argtable2.git
-        cd argtable2
-        cmake . -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
-        make -j2
-        make install
-        cp ./src/argtable2.h /home/../mingw64/include/argtable2.h
-        cd ..
-
-    - name: Build libjson-rpc-cpp
-    - run: |
-        git clone https://github.com/RyuMaster/libjson-rpc-cpp.git
-        cd libjson-rpc-cpp
-        git checkout listen-locally-0.7.0
-        mkdir win32-deps
-        mkdir win32-deps/include
-        cmake . -G"MSYS Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX -DREDIS_SERVER=NO -DREDIS_CLIENT=NO -DCOMPILE_STUBGEN=YES -DCOMPILE_EXAMPLES=NO -DCOMPILE_TESTS=NO -DBUILD_STATIC_LIBS=YES -DHUNTER_ENABLED=YES -DCMAKE_CXX_FLAGS="-fpermissive"
-        make -j2
-        make install
-        cd dist
-        cp -r ./ /home/../mingw64/
-        cd ~/
-
-    - name: Obtain libglog.pc and lmdb.pc files
-    - run: |
-        curl -o /home/../mingw64/lib/pkgconfig/libglog.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/libglog.pc
-        curl -o /home/../mingw64/lib/pkgconfig/lmdb.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/lmdb.pc
-
-    - name: Build secp256k1
-    - run: |
-        git clone https://github.com/bitcoin-core/secp256k1.git
-        cd secp256k1
-        ./autogen.sh
-        ./configure --disable-tests --disable-benchmark --enable-module-recovery
-        make
-        make install
-        cd ..
-
-    - name: Build eth-utils
-    - run: |
-        git clone https://github.com/xaya/eth-utils.git
-        cd eth-utils
-        ./autogen.sh
-        ./configure
-        make
-        make install
-        cd ..
-
-    - name: Build libspex
-    - run: |
-        git clone https://github.com/spacexpanse/libspex.git
-        cd libspex
-        curl -o configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/configure_patch.diff
-        patch --merge configure.ac configure_patch.diff
-        ./autogen.sh
-        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared
-        make -j2
 
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |

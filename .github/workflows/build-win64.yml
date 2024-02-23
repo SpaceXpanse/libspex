@@ -71,6 +71,16 @@ jobs:
         #cd ..
     - name: Build libjson-rpc-cpp
       run: |
+        cd ..
+        git clone -b 1.9.4 https://github.com/open-source-parsers/jsoncpp .
+        git config user.email "test@example.com"
+        git config user.name "Cherry Picker"
+        git cherry-pick ac2870298ed5b5a96a688d9df07461b31f83e906
+        cd jsoncpp
+        cmake . -DJSONCPP_WITH_PKGCONFIG_SUPPORT=ON -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
+        make -j4
+        sudo make install/strip
+        cd ..
         git clone https://github.com/cinemast/libjson-rpc-cpp
         cd libjson-rpc-cpp
         cmake . -DREDIS_SERVER=NO -DREDIS_CLIENT=NO -DCOMPILE_TESTS=NO -DCOMPILE_EXAMPLES=NO -DWITH_COVERAGE=NO

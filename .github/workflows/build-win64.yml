@@ -50,7 +50,7 @@ jobs:
         sudo apt-get upgrade  
         sudo apt-get install git build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libminiupnpc-dev libnatpmp-dev libzmq3-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
         #sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev
-        sudo apt-get install g++-mingw-w64-x86-64 nsis
+        sudo apt-get install g++-mingw-w64-x86-64 nsis libargtable2-dev
     - uses: actions/checkout@v3
       with:
         ref: ${{ github.ref_name }}
@@ -62,13 +62,13 @@ jobs:
     - run: sudo bash -c "echo 0 > /proc/sys/fs/binfmt_misc/status" # Disable WSL support for Win32 applications.
     - name: Build argtable2
       run: |
-        git clone https://github.com/RyuMaster/argtable2.git
-        cd argtable2
-        cmake . -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
-        make -j2
-        sudo make install
-        sudo cp ./src/argtable2.h /home/../mingw64/include/argtable2.h
-        cd ..
+        #git clone https://github.com/RyuMaster/argtable2.git
+        #cd argtable2
+        #cmake . -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
+        #make -j2
+        #sudo make install
+        #sudo cp ./src/argtable2.h /home/../mingw64/include/argtable2.h
+        #cd ..
     - name: Build libjson-rpc-cpp
       run: |
         git clone https://github.com/RyuMaster/libjson-rpc-cpp.git

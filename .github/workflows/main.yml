@@ -184,10 +184,10 @@ jobs:
     - uses: actions/cache@v3
       with:
         path: |
-          depends/built
-          depends/sdk-sources
-          depends/work/build
-          depends/x86_64-w64-mingw32          
+#          depends/built
+          out
+          out\build
+#          depends/x86_64-w64-mingw32          
         key: ubuntu-20.04-depends-x86_64-w64-mingw32-${{ env.NOW }}
         restore-keys: ubuntu-20.04-depends-x86_64-w64-mingw32-
     - run: |

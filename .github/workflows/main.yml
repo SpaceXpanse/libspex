@@ -199,16 +199,6 @@ jobs:
     - run: echo 1 | sudo update-alternatives --config x86_64-w64-mingw32-g++            
     - run: sudo bash -c "echo 0 > /proc/sys/fs/binfmt_misc/status" # Disable WSL support for Win32 applications.
 
-    - name: Build argtable2
-    - run: |
-        git clone https://github.com/RyuMaster/argtable2.git
-        cd argtable2
-        cmake . -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
-        make -j2
-        make install
-        cp ./src/argtable2.h /home/../mingw64/include/argtable2.h
-        cd ..
-
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |
         mkdir -p deploy

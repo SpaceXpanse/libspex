@@ -197,7 +197,7 @@ jobs:
     - run: echo 1 | sudo update-alternatives --config x86_64-w64-mingw32-g++            
     - run: sudo bash -c "echo 0 > /proc/sys/fs/binfmt_misc/status" # Disable WSL support for Win32 applications.
 
-    -name: Build argtable2
+    - name: Build argtable2
     - run: |
         git clone https://github.com/RyuMaster/argtable2.git
         cd argtable2
@@ -207,7 +207,7 @@ jobs:
         cp ./src/argtable2.h /home/../mingw64/include/argtable2.h
         cd ..
 
-    -name: Build libjson-rpc-cpp
+    - name: Build libjson-rpc-cpp
     - run: |
         git clone https://github.com/RyuMaster/libjson-rpc-cpp.git
         cd libjson-rpc-cpp
@@ -221,12 +221,12 @@ jobs:
         cp -r ./ /home/../mingw64/
         cd ~/
 
-    -name: Obtain libglog.pc and lmdb.pc files
+    - name: Obtain libglog.pc and lmdb.pc files
     - run: |
         curl -o /home/../mingw64/lib/pkgconfig/libglog.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/libglog.pc
         curl -o /home/../mingw64/lib/pkgconfig/lmdb.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/lmdb.pc
 
-    -name: Build secp256k1
+    - name: Build secp256k1
     - run: |
         git clone https://github.com/bitcoin-core/secp256k1.git
         cd secp256k1
@@ -236,7 +236,7 @@ jobs:
         make install
         cd ..
 
-    -name: Build eth-utils
+    - name: Build eth-utils
     - run: |
         git clone https://github.com/xaya/eth-utils.git
         cd eth-utils
@@ -246,7 +246,7 @@ jobs:
         make install
         cd ..
 
-    -name: Build libspex
+    - name: Build libspex
     - run: |
         git clone https://github.com/spacexpanse/libspex.git
         cd libspex

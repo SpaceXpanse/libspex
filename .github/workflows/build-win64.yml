@@ -49,20 +49,11 @@ jobs:
         sudo apt-get update  
         sudo apt-get upgrade  
         sudo apt-get install git build-essential libtool autotools-dev automake pkg-config libssl-dev libevent-dev bsdmainutils python3 libminiupnpc-dev libnatpmp-dev libzmq3-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
-        #sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev g++-mingw-w64-x86-64 nsis
+        #sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev
+        sudo apt-get installg++-mingw-w64-x86-64 nsis
     - uses: actions/checkout@v3
       with:
         ref: ${{ github.ref_name }}
-    - uses: actions/cache@v3
-      with:
-        path: |
-          #out\build
-          #depends/built
-          #depends/sdk-sources
-          #depends/work/build
-          #depends/x86_64-w64-mingw32          
-        key: ubuntu-20.04-depends-x86_64-w64-mingw32-${{ env.NOW }}
-        restore-keys: ubuntu-20.04-depends-x86_64-w64-mingw32-
     - run: |
         export LC_ALL=C.UTF-8
         unset CC CXX DISPLAY                 

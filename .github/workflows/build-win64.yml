@@ -67,7 +67,7 @@ jobs:
         cmake . -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
         make -j2
         sudo make install
-        #sudo cp ./src/argtable2.h /home/../mingw64/include/argtable2.h
+        sudo cp ./src/argtable2.h /home/../mingw64/include/argtable2.h
         cd ..
     - name: Build libjson-rpc-cpp
       run: |

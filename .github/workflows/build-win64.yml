@@ -71,12 +71,9 @@ jobs:
         #cd ..
     - name: Build libjson-rpc-cpp
       run: |
-        git clone https://github.com/RyuMaster/libjson-rpc-cpp.git
+        git clone https://github.com/cinemast/libjson-rpc-cpp
         cd libjson-rpc-cpp
-        git checkout listen-locally-0.7.0
-        mkdir win32-deps
-        mkdir win32-deps/include
-        cmake . -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX -DREDIS_SERVER=NO -DREDIS_CLIENT=NO -DCOMPILE_STUBGEN=YES -DCOMPILE_EXAMPLES=NO -DCOMPILE_TESTS=NO -DBUILD_STATIC_LIBS=YES -DHUNTER_ENABLED=YES -DCMAKE_CXX_FLAGS="-fpermissive"
+        cmake . -DREDIS_SERVER=NO -DREDIS_CLIENT=NO -DCOMPILE_TESTS=NO -DCOMPILE_EXAMPLES=NO -DWITH_COVERAGE=NO
         make -j2
         sudo make install
         cd dist

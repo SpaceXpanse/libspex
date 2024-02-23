@@ -62,6 +62,7 @@ jobs:
     - run: sudo bash -c "echo 0 > /proc/sys/fs/binfmt_misc/status" # Disable WSL support for Win32 applications.
     - name: Build argtable2
       run: |
+        echo "$PATH"
         #git clone https://github.com/RyuMaster/argtable2.git
         #cd argtable2
         #cmake . -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
@@ -71,7 +72,6 @@ jobs:
         #cd ..
     - name: Build libjson-rpc-cpp
       run: |
-        cd ..
         git clone -b 1.9.4 https://github.com/open-source-parsers/jsoncpp .
         git config user.email "test@example.com"
         git config user.name "Cherry Picker"
@@ -88,7 +88,7 @@ jobs:
         sudo make install
         cd dist
         sudo cp -r ./ /home/../mingw64/
-        cd ~/
+        cd ..
     - name: Obtain libglog.pc and lmdb.pc files
       run: |
         curl -o /home/../mingw64/lib/pkgconfig/libglog.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/libglog.pc

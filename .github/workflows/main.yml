@@ -184,19 +184,18 @@ jobs:
     - uses: actions/cache@v3
       with:
         path: |
-          #depends/built
-          #depends/sdk-sources
-          #depends/work/build
-          #depends/x86_64-w64-mingw32
-          out\build          
+          depends/built
+          depends/sdk-sources
+          depends/work/build
+          depends/x86_64-w64-mingw32          
         key: ubuntu-20.04-depends-x86_64-w64-mingw32-${{ env.NOW }}
         restore-keys: ubuntu-20.04-depends-x86_64-w64-mingw32-
-      run: |
+    - run: |
         export LC_ALL=C.UTF-8
         unset CC CXX DISPLAY                 
         PATH=$(echo "$PATH" | sed -e 's/:\/mnt.*//g') # strip out problematic Windows %PATH% imported var
-      run: echo 1 | sudo update-alternatives --config x86_64-w64-mingw32-g++            
-      run: sudo bash -c "echo 0 > /proc/sys/fs/binfmt_misc/status" # Disable WSL support for Win32 applications.
+    - run: echo 1 | sudo update-alternatives --config x86_64-w64-mingw32-g++            
+    - run: sudo bash -c "echo 0 > /proc/sys/fs/binfmt_misc/status" # Disable WSL support for Win32 applications.
     - name: Build argtable2
       run: |
         git clone https://github.com/RyuMaster/argtable2.git

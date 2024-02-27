@@ -107,7 +107,7 @@ jobs:
       run: |
         git clone https://github.com/xaya/eth-utils.git
         cd eth-utils
-        $ grep -rl AX_CXX_COMPILE_STDCXX ./configure.ac | sed -i 's/AX_CXX_COMPILE_STDCXX(14, noext)/AX_CXX_COMPILE_STDCXX(17, noext)/g' ./configure.ac
+        grep -rl AX_CXX_COMPILE_STDCXX ./configure.ac | sed -i 's/AX_CXX_COMPILE_STDCXX(14, noext)/AX_CXX_COMPILE_STDCXX(17, noext)/g' ./configure.ac
         ./autogen.sh
         ./configure
         make

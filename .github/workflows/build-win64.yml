@@ -77,8 +77,8 @@ jobs:
         git config user.name "Cherry Picker"
         git cherry-pick ac2870298ed5b5a96a688d9df07461b31f83e906
         cd jsoncpp
-        cmake . -DJSONCPP_WITH_PKGCONFIG_SUPPORT=ON -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
-        make -j4
+        cmake -DJSONCPP_WITH_PKGCONFIG_SUPPORT=ON -DBUILD_SHARED_LIBS=ON -DBUILD_STATIC_LIBS=OFF
+        make -j2
         sudo make install/strip
         cd ..
         git clone https://github.com/cinemast/libjson-rpc-cpp

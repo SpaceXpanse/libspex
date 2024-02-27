@@ -137,7 +137,7 @@ jobs:
       run: |
         cd $GITHUB_WORKSPACE/ships && ls -la
         mkdir -p deploy
-        cp $GITHUB_WORKSPACE/ships/shipsd.exe $GITHUB_WORKSPACE/ships/ships-channel.exe $GITHUB_WORKSPACE/nonfungible/nonfungibled.exe $GITHUB_WORKSPACE/mover/moverd.exe $GITHUB_WORKSPACE/deploy
+        cp $GITHUB_WORKSPACE/ships/.libs/shipsd.exe $GITHUB_WORKSPACE/ships/.libs/ships-channel.exe $GITHUB_WORKSPACE/nonfungible/.libs/nonfungibled.exe $GITHUB_WORKSPACE/mover/.libs/moverd.exe $GITHUB_WORKSPACE/deploy
         #strip $GITHUB_WORKSPACE/deploy/*
         zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/deploy/*
         #zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/*

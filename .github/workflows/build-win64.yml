@@ -104,16 +104,7 @@ jobs:
         sudo make install
         cd ..
     - name: Build eth-utils
-      run: |
-        git clone https://github.com/xaya/eth-utils.git
-        cd eth-utils
-        ls -la
-        grep -rl AX_CXX_COMPILE_STDCXX ./configure.ac | xargs sed -i 's/AX_CXX_COMPILE_STDCXX\(14, noext\)/AX_CXX_COMPILE_STDCXX\(17, noext\)/g'
-        ./autogen.sh
-        ./configure
-        make
-        sudo make install
-        cd ..
+      run: pip install eth-utils
     - name: Build libspex
       run: |
         git clone https://github.com/spacexpanse/libspex.git

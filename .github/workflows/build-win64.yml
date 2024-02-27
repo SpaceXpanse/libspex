@@ -111,7 +111,7 @@ jobs:
         #autoreconf -if
         #grep -rl AX_CXX_COMPILE_STDCXX ./configure.ac | xargs sed -i 's/AX_CXX_COMPILE_STDCXX\(14, noext\)/AX_CXX_COMPILE_STDCXX\(17, noext\)/g'
         ./autogen.sh
-        ./configure
+        ./configure --host=i686-w64-mingw32
         make
         sudo make install
         cd ..
@@ -130,16 +130,17 @@ jobs:
         ./autogen.sh
         export LD_LIBRARY_PATH=/usr/local/lib
         export CXX_INCLUDE_PATH=/usr/local/include
-        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared
+        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=i686-w64-mingw32
         make -j2
         sudo make install
+        cd ..
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |
-        cd $GITHUB_WORKSPACE/libspex/ships/.libs && ls -la 
+        #cd $GITHUB_WORKSPACE/libspex/ships/.libs && ls -la 
         #sudo updatedb
         #sudo locate *.exe        
-        mkdir deploy
-        cp $GITHUB_WORKSPACE/libspex/ships/.libs/shipsd.exe $GITHUB_WORKSPACE/ships/ships-channel.exe $GITHUB_WORKSPACE/nonfungible/nonfungibled.exe $GITHUB_WORKSPACE/mover/moverd.exe $GITHUB_WORKSPACE/deploy
+        sudo mkdir -p deploy
+        cp $GITHUB_WORKSPACE/libspex/ships/.libs/shipsd.exe $GITHUB_WORKSPACE/libspex/ships/ships-channel.exe $GITHUB_WORKSPACE/libspex/.libs/nonfungible/nonfungibled.exe $GITHUB_WORKSPACE/libspex/.libs/mover/moverd.exe $GITHUB_WORKSPACE/deploy
         #strip $GITHUB_WORKSPACE/deploy/*
         zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/deploy/*
         #zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/*

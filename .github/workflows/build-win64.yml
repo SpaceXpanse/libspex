@@ -111,7 +111,7 @@ jobs:
         #autoreconf -if
         #grep -rl AX_CXX_COMPILE_STDCXX ./configure.ac | xargs sed -i 's/AX_CXX_COMPILE_STDCXX\(14, noext\)/AX_CXX_COMPILE_STDCXX\(17, noext\)/g'
         ./autogen.sh
-        ./configure --host=i686-w64-mingw32
+        ./configure
         make
         sudo make install
         cd ..

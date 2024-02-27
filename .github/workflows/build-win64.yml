@@ -66,7 +66,7 @@ jobs:
         #echo "$PATH"
         #git clone https://github.com/RyuMaster/argtable2.git
         #cd argtable2
-        #cmake . -G"Unix Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
+        #cmake . -G"MinGW Makefiles" -DCMAKE_INSTALL_PREFIX=$MINGW_PREFIX
         #make -j2
         #sudo make install
         #sudo cp ./src/argtable2.h /home/../mingw64/include/argtable2.h
@@ -130,13 +130,13 @@ jobs:
         ./autogen.sh
         export LD_LIBRARY_PATH=/usr/local/lib
         export CXX_INCLUDE_PATH=/usr/local/include
-        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=i686-w64-mingw32
+        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=x86_64-w64-mingw32
         make -j2
         sudo make install
         cd ..
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |
-        #cd $GITHUB_WORKSPACE/libspex/ships/.libs && ls -la 
+        cd $GITHUB_WORKSPACE/libspex/ships/.libs && ls -la 
         #sudo updatedb
         #sudo locate *.exe        
         sudo mkdir -p deploy

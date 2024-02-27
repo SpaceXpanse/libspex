@@ -50,7 +50,7 @@ jobs:
         sudo apt-get upgrade  
         sudo apt-get install git wget curl sed build-essential libtool autotools-dev automake autoconf pkg-config libssl-dev libevent-dev bsdmainutils python3 libminiupnpc-dev libnatpmp-dev libzmq3-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
         #sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev
-        sudo apt-get install g++-mingw-w64-x86-64 nsis libargtable2-dev libcurl4-openssl-dev doxygen libclang1-9 libclang-cpp9 graphviz libmicrohttpd-dev autoconf-archive
+        sudo apt-get install g++-mingw-w64-x86-64 nsis libargtable2-dev libcurl4-openssl-dev doxygen libclang1-9 libclang-cpp9 graphviz libmicrohttpd-dev autoconf-archive libgtest-dev
     - uses: actions/checkout@v3
       with:
         ref: ${{ github.ref_name }}

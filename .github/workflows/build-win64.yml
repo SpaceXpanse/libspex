@@ -87,13 +87,13 @@ jobs:
         cmake . -DREDIS_SERVER=NO -DREDIS_CLIENT=NO -DCOMPILE_TESTS=NO -DCOMPILE_EXAMPLES=NO -DWITH_COVERAGE=NO
         make -j2
         sudo make install
-        cd dist
-        sudo cp -r ./ /home/../mingw64/
+        #cd dist
+        #sudo cp -r ./ /home/../mingw64/
         cd ..
     - name: Obtain libglog.pc and lmdb.pc files
       run: |
-        curl -o /home/../mingw64/lib/pkgconfig/libglog.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/libglog.pc
-        curl -o /home/../mingw64/lib/pkgconfig/lmdb.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/lmdb.pc
+        sudo curl -o /usr/local/lib/pkgconfig/libglog.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/libglog.pc
+        sudo curl -o /usr/local/lib/pkgconfig/lmdb.pc https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/lmdb.pc
     - name: Build secp256k1
       run: |
         git clone https://github.com/bitcoin-core/secp256k1.git

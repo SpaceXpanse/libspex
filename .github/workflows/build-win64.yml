@@ -72,7 +72,7 @@ jobs:
         #cd ..
     - name: Build libjson-rpc-cpp
       run: |
-        mkdir libjson-rpc-cpp && cd libjson-rpc-cpp
+        mkdir jsoncpp && cd jsoncpp
         git clone -b 1.9.4 https://github.com/open-source-parsers/jsoncpp .
         git config user.email "test@example.com"
         git config user.name "Cherry Picker"

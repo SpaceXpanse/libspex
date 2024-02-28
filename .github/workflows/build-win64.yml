@@ -119,7 +119,7 @@ jobs:
       run: |
         git clone -b v4.7.1 https://github.com/zeromq/cppzmq
         cd cppzmq
-        sudo cp zmq.hpp /usr/include
+        sudo cp zmq.hpp /usr/local/include
         sudo ldconfig         
     - name: Build libspex
       run: |
@@ -130,9 +130,9 @@ jobs:
         curl -o configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/configure_patch.diff
         patch --merge configure.ac configure_patch.diff
         ./autogen.sh
-        #export LD_LIBRARY_PATH=/usr/lib
-        #export CXX_INCLUDE_PATH=/usr/include
-        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=x86_64-w64-mingw32 LD_LIBRARY_PATH=/usr/lib CXX_INCLUDE_PATH=/usr/include
+        export LD_LIBRARY_PATH=/usr/local/lib
+        export CXX_INCLUDE_PATH=/usr/local/include
+        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared #--host=x86_64-w64-mingw32  
         make -j2
         sudo make install
         cd ..

@@ -149,7 +149,9 @@ jobs:
         #strip $GITHUB_WORKSPACE/deploy/*
         zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/deploy/*
         #zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/*
-        ls -lh 
+        cd $GITHUB_WORKSPACE/deploy
+        ls -lh
+        cd .. 
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1

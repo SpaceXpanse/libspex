@@ -147,7 +147,7 @@ jobs:
         cp /usr/local/lib/libspa* /usr/local/lib/libspe* $GITHUB_WORKSPACE/deploy
         cp -r /usr/local/include/spacex* /usr/local/include/sidec* $GITHUB_WORKSPACE/deploy
         #strip $GITHUB_WORKSPACE/deploy/*
-        zip --junk-paths libspex-lib-${{ github.job }} $GITHUB_WORKSPACE/deploy/*
+        zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/deploy/*
         #zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/*
         ls -lh 
     - name: Create Release
@@ -156,8 +156,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v.${{ github.ref_name }}.${{ github.run_number }}.rc1.${{ github.job }
-        release_name: libspex ${{ github.ref_name }}.${{ github.run_number }}-${{ github.job }
+        tag_name: v.${{ github.ref_name }}.${{ github.run_number }}.rc1.win64
+        release_name: libspex ${{ github.ref_name }}.${{ github.run_number }}-${{ github.job }}-win64
         draft: true
         prerelease: false
     - name: Upload Release Asset
@@ -167,7 +167,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./libspex-lib-${{ github.job }}.zip
-        asset_name: libspex-lib-${{ github.job }}.zip
+        asset_path: ./libspex-exe-${{ github.job }}.zip
+        asset_name: libspex-exe-${{ github.job }}.zip
         asset_content_type: application/zip
 

@@ -134,7 +134,7 @@ jobs:
         ./autogen.sh
         CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared LDFLAGS=-L/usr/local/lib CFLAGS=-I/usr/local/include --host=i686-w64-mingw32 --build=x86_64-w64-mingw32  
         make -j2
-        #sudo make install
+        sudo make install
         cd ..
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |

@@ -144,7 +144,8 @@ jobs:
         #sudo updatedb
         #sudo locate libsp*      
         #cp $GITHUB_WORKSPACE/libspex/ships/.libs/shipsd.exe $GITHUB_WORKSPACE/libspex/ships/ships-channel.exe $GITHUB_WORKSPACE/libspex/.libs/nonfungible/nonfungibled.exe $GITHUB_WORKSPACE/libspex/.libs/mover/moverd.exe $GITHUB_WORKSPACE/deploy
-        cp /usr/local/lib/libspa* /usr/local/lib/libspe* /usr/local/include/spacex* /usr/local/include/sidec* $GITHUB_WORKSPACE/deploy
+        cp /usr/local/lib/libspa* /usr/local/lib/libspe* $GITHUB_WORKSPACE/deploy
+        cp -r /usr/local/include/spacex* /usr/local/include/sidec* $GITHUB_WORKSPACE/deploy
         #strip $GITHUB_WORKSPACE/deploy/*
         zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/deploy/*
         #zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/*

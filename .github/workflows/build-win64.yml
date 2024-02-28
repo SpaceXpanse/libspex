@@ -51,9 +51,9 @@ jobs:
         sudo apt-get install git wget curl sed build-essential libtool autotools-dev automake autoconf pkg-config libssl-dev libevent-dev bsdmainutils python3 libminiupnpc-dev libnatpmp-dev libzmq3-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
         #sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev
         sudo apt-get install g++-mingw-w64-x86-64 gcc-multilib g++-multilib nsis locate libcurl4-openssl-dev doxygen libclang1-9 libclang-cpp9 graphviz libmicrohttpd-dev autoconf-archive libgtest-dev libgmock-dev libgoogle-glog-dev libgflags-dev libprotobuf-dev protobuf-compiler python-protobuf python3-jsonrpclib-pelix liblmdb-dev
-    - uses: actions/checkout@v3
-      with:
-        ref: ${{ github.ref_name }}
+    #- uses: actions/checkout@v3
+    #  with:
+    #    ref: ${{ github.ref_name }}
     - run: |
         export LC_ALL=C.UTF-8                                                                                                                                 
         unset CC CXX DISPLAY                 
@@ -139,15 +139,15 @@ jobs:
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |
         mkdir $GITHUB_WORKSPACE/deploy
-        ls -la 
-        cd $GITHUB_WORKSPACE/libspex/ships/.libs && ls -la 
+        #ls -la 
+        #cd $GITHUB_WORKSPACE/libspex/ships/.libs && ls -la 
         #sudo updatedb
         #sudo locate libsp*      
         #cp $GITHUB_WORKSPACE/libspex/ships/.libs/shipsd.exe $GITHUB_WORKSPACE/libspex/ships/ships-channel.exe $GITHUB_WORKSPACE/libspex/.libs/nonfungible/nonfungibled.exe $GITHUB_WORKSPACE/libspex/.libs/mover/moverd.exe $GITHUB_WORKSPACE/deploy
         cp /usr/local/lib/libspa* /usr/local/lib/libspe* $GITHUB_WORKSPACE/deploy
         cp -r /usr/local/include/spacex* /usr/local/include/sidec* $GITHUB_WORKSPACE/deploy
         #strip $GITHUB_WORKSPACE/deploy/*
-        zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/deploy/*
+        zip --junk-paths libspex-lib-${{ github.job }} $GITHUB_WORKSPACE/deploy/*
         #zip --junk-paths libspex-exe-${{ github.job }} $GITHUB_WORKSPACE/*
         ls -lh 
     - name: Create Release
@@ -156,8 +156,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        tag_name: v.${{ github.ref_name }}.${{ github.run_number }}.rc1.win64
-        release_name: libspex ${{ github.ref_name }}.${{ github.run_number }}-${{ github.job }}-win64
+        tag_name: v.${{ github.ref_name }}.${{ github.run_number }}.rc1.${{ github.job }
+        release_name: libspex ${{ github.ref_name }}.${{ github.run_number }}-${{ github.job }
         draft: true
         prerelease: false
     - name: Upload Release Asset
@@ -167,7 +167,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-        asset_path: ./libspex-exe-${{ github.job }}.zip
-        asset_name: libspex-exe-${{ github.job }}.zip
+        asset_path: ./libspex-lib-${{ github.job }}.zip
+        asset_name: libspex-lib-${{ github.job }}.zip
         asset_content_type: application/zip
 

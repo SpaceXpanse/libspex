@@ -123,6 +123,8 @@ jobs:
         sudo ldconfig         
     - name: Build libspex
       run: |
+        sudo updatedb
+        sudo locate evp.h  
         git clone https://github.com/spacexpanse/libspex.git
         cd libspex
         curl -o configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/configure_patch.diff

@@ -31,6 +31,9 @@ jobs:
       CCACHE_SIZE: 500M
       CCACHE_COMPRESS: 1
       PARAMS_DIR: ${{ github.workspace }}/.spacexpanse-params
+      PKG_CONFIG_PATH: "/usr/lib/pkgconfig"
+      LD_LIBRARY_PATH: "usr/lib"
+      CXX_INCLUDE_PATH: "/usr/include"  
     defaults:
       run:
         shell: bash
@@ -123,8 +126,8 @@ jobs:
         sudo ldconfig         
     - name: Build libspex
       run: |
-        sudo updatedb
-        sudo locate evp.h  
+        #sudo updatedb
+        #sudo locate evp.h  
         git clone https://github.com/spacexpanse/libspex.git
         cd libspex
         curl -o configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/configure_patch.diff

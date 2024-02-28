@@ -132,7 +132,7 @@ jobs:
         ./autogen.sh
         export LD_LIBRARY_PATH=/usr/local/lib
         export CXX_INCLUDE_PATH=/usr/local/include
-        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=i686-w64-mingw32  
+        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=i686-w64-mingw32 --build=i686-w64-mingw32  
         make -j2
         sudo make install
         cd ..

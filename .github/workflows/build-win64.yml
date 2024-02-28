@@ -130,9 +130,9 @@ jobs:
         curl -o configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/configure_patch.diff
         patch --merge configure.ac configure_patch.diff
         ./autogen.sh
-        export LD_LIBRARY_PATH=/usr/lib
-        export CXX_INCLUDE_PATH=/usr/include
-        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=x86_64-w64-mingw32
+        #export LD_LIBRARY_PATH=/usr/lib
+        #export CXX_INCLUDE_PATH=/usr/include
+        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=x86_64-w64-mingw32 LD_LIBRARY_PATH=/usr/lib CXX_INCLUDE_PATH=/usr/include
         make -j2
         sudo make install
         cd ..

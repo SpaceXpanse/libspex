@@ -119,7 +119,7 @@ jobs:
       run: |
         git clone -b v4.7.1 https://github.com/zeromq/cppzmq
         cd cppzmq
-        sudo cp zmq.hpp /usr/local/include
+        sudo cp zmq.hpp /usr/include
         sudo ldconfig         
     - name: Build libspex
       run: |

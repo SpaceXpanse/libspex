@@ -31,9 +31,6 @@ jobs:
       CCACHE_SIZE: 500M
       CCACHE_COMPRESS: 1
       PARAMS_DIR: ${{ github.workspace }}/.spacexpanse-params
-      PKG_CONFIG_PATH: "/usr/lib/pkgconfig"
-      LD_LIBRARY_PATH: "usr/lib"
-      CXX_INCLUDE_PATH: "/usr/include"  
     defaults:
       run:
         shell: bash
@@ -133,8 +130,8 @@ jobs:
         curl -o configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/configure_patch.diff
         patch --merge configure.ac configure_patch.diff
         ./autogen.sh
-        export LD_LIBRARY_PATH=/usr/local/lib
-        export CXX_INCLUDE_PATH=/usr/local/include
+        export LD_LIBRARY_PATH=/usr/lib
+        export CXX_INCLUDE_PATH=/usr/include
         CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=x86_64-w64-mingw32
         make -j2
         sudo make install

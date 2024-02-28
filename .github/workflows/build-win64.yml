@@ -129,12 +129,12 @@ jobs:
         cd libspex
         curl -o configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/configure_patch.diff
         patch --merge configure.ac configure_patch.diff
-        ./autogen.sh
         export LD_LIBRARY_PATH=/usr/local/lib
         export CXX_INCLUDE_PATH=/usr/local/include
+        ./autogen.sh
         CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=i686-w64-mingw32 --build=i686-w64-mingw32  
         make -j2
-        sudo make install
+        #sudo make install
         cd ..
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |

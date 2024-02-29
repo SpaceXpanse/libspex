@@ -50,8 +50,7 @@ jobs:
         sudo apt-get upgrade  
         sudo apt-get install git wget curl sed build-essential libtool autotools-dev automake autoconf pkg-config libssl-dev libevent-dev bsdmainutils python3 libminiupnpc-dev libnatpmp-dev libzmq3-dev libboost-system-dev libboost-filesystem-dev libboost-chrono-dev libboost-test-dev libboost-thread-dev
         #sudo apt-get install libqt5gui5 libqt5core5a libqt5dbus5 qttools5-dev qttools5-dev-tools libprotobuf-dev protobuf-compiler libqrencode-dev
-        sudo apt-get install mingw-w64 gcc-multilib g++-multilib nsis locate libcurl4-openssl-dev doxygen libclang1-9 libclang-cpp9 graphviz libmicrohttpd-dev autoconf-archive libgtest-dev libgmock-dev libgoogle-glog-dev libgflags-dev libprotobuf-dev protobuf-compiler python-protobuf python3-jsonrpclib-pelix liblmdb-dev
-        # g++-mingw-w64-x86-64
+        sudo apt-get install g++-mingw-w64-x86-64 gcc-multilib g++-multilib nsis locate libcurl4-openssl-dev doxygen libclang1-9 libclang-cpp9 graphviz libmicrohttpd-dev autoconf-archive libgtest-dev libgmock-dev libgoogle-glog-dev libgflags-dev libprotobuf-dev protobuf-compiler python-protobuf python3-jsonrpclib-pelix liblmdb-dev
     #- uses: actions/checkout@v3
     #  with:
     #    ref: ${{ github.ref_name }}
@@ -59,7 +58,7 @@ jobs:
         export LC_ALL=C.UTF-8                                                                                                                                 
         unset CC CXX DISPLAY                 
         PATH=$(echo "$PATH" | sed -e 's/:\/mnt.*//g') # strip out problematic Windows %PATH% imported var
-    - run: echo 1 | sudo update-alternatives --config x86_64-w64-mingw32-g++ #i686-w64-mingw32-g++           
+    - run: echo 1 | sudo update-alternatives --config x86_64-w64-mingw32-g++            
     - run: sudo bash -c "echo 0 > /proc/sys/fs/binfmt_misc/status" # Disable WSL support for Win32 applications.
     - name: Build argtable2
       run: |
@@ -132,7 +131,6 @@ jobs:
         patch --merge configure.ac configure_patch.diff
         export LD_LIBRARY_PATH=/usr/local/lib
         export CXX_INCLUDE_PATH=/usr/local/include
-        #cmake . -G "MinGW Makefiles"
         ./autogen.sh
         CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=i686-w64-mingw32 --build=x86_64-w64-mingw32 #LDFLAGS=-L/usr/local/lib CFLAGS=-I/usr/local/include
         make -j2
@@ -142,11 +140,7 @@ jobs:
       run: |
         mkdir $GITHUB_WORKSPACE/deploy
         #ls -la 
-        cd $GITHUB_WORKSPACE/libspex/include && ls -la
-        cd ..
-        cd $GITHUB_WORKSPACE/libspex/lib && ls -la
-        cd .. 
-        #cd $GITHUB_WORKSPACE/include/.libs && ls -la 
+        #cd $GITHUB_WORKSPACE/libspex/ships/.libs && ls -la 
         #sudo updatedb
         #sudo locate libsp*      
         #cp $GITHUB_WORKSPACE/libspex/ships/.libs/shipsd.exe $GITHUB_WORKSPACE/libspex/ships/ships-channel.exe $GITHUB_WORKSPACE/libspex/.libs/nonfungible/nonfungibled.exe $GITHUB_WORKSPACE/libspex/.libs/mover/moverd.exe $GITHUB_WORKSPACE/deploy

@@ -1,5 +1,5 @@
 Name: libjsonrpccpp-common
 Description: Common libraries for libjson-rpc-cpp
 Version: 0.7.0
-Libs: -LC:/msys64/home/bello\libjson-rpc-cpp/dist/lib/ -ljsoncpp
-Cflags: -IC:/msys64/home/bello\libjson-rpc-cpp/dist\include
+Libs: -LC:/msys64/home/bello/libjson-rpc-cpp/dist/lib/ -ljsoncpp
+Cflags: -IC:/msys64/home/bello/libjson-rpc-cpp/dist/include

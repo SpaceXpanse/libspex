@@ -1,9 +1,9 @@
 # Package Information for pkg-config
 
-prefix=D:\a\helloworld\helloworld
+prefix=/mingw64
 exec_prefix=${prefix}
-libdir=${exec_prefix}\lib
-includedir=${prefix}\include
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
 
 Name: SQLite
 Description: SQL database engine

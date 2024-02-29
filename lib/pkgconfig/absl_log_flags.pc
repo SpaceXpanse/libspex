@@ -1,7 +1,7 @@
-prefix=D:\a\helloworld\helloworld
+prefix=/mingw64
 exec_prefix=${prefix}
-libdir=D:\a\helloworld\helloworld\lib
-includedir=D:\a\helloworld\helloworld\include
+libdir=/mingw64/lib
+includedir=/mingw64/include
 
 Name: absl_log_flags
 Description: Abseil log_flags library

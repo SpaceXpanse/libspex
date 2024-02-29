@@ -82,7 +82,7 @@
 
 // These #includes are for the byte swap functions declared later on.
 #ifdef _MSC_VER
-#include <stdlib.h>  // NOLINT(build\include)
+#include <stdlib.h>  // NOLINT(build/include)
 #include <intrin.h>
 #elif defined(__APPLE__)
 #include <libkern/OSByteOrder.h>

@@ -1,7 +1,7 @@
-prefix=D:\a\helloworld\helloworld
+prefix=/mingw64
 exec_prefix=${prefix}
-libdir=${exec_prefix}\lib
-includedir=${prefix}\include
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
 
 # Uses Requires.private and Libs.private, under the assumption that
 # when using shared libraries, the ELF dependencies from libhogweed.so

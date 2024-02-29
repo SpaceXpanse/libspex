@@ -1,7 +1,7 @@
-prefix=D:\a\helloworld\helloworld
-exec_prefix=D:\a\helloworld\helloworld
-libdir=${prefix}\lib
-includedir=${prefix}\include
+prefix=/mingw64
+exec_prefix=/mingw64
+libdir=${prefix}/lib
+includedir=${prefix}/include
 
 Name: libbrotlicommon
 URL: https://github.com/google/brotli

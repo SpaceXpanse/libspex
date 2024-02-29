@@ -17,14 +17,14 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
 # 02110-1301, USA
 
-prefix=D:\a\helloworld\helloworld
+prefix=/mingw64
 exec_prefix=${prefix}
-libdir=${exec_prefix}\lib
-includedir=${prefix}\include
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
 
 Name: libtasn1
 Description: Library for ASN.1 and DER manipulation
-URL: https://www.gnu.org/software\libtasn1/
+URL: https://www.gnu.org/software/libtasn1/
 Version: 4.19.0
 Libs: -L${libdir} -ltasn1
 Cflags: -I${includedir}

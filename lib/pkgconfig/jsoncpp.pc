@@ -1,7 +1,7 @@
-prefix=D:\a\helloworld\helloworld
-exec_prefix=D:\a\helloworld\helloworld
-libdir=${exec_prefix}\lib
-includedir=${prefix}\include
+prefix=/mingw64
+exec_prefix=/mingw64
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
 
 Name: jsoncpp
 Description: A C++ library for interacting with JSON

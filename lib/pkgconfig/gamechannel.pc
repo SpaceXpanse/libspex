@@ -1,0 +1,16 @@
+prefix=/mingw64
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: gamechannel
+Version: 0.1
+
+Description: A library for Xaya games with game channels.
+URL: https://github.com/xaya/libxayagame
+
+Requires:  jsoncpp libjsonrpccpp-client libjsonrpccpp-server ethutils libcurl sqlite3 lmdb protobuf libglog      channelcore libxayagame libxayautil
+Requires.private:           openssl libmicrohttpd gflags zlib >= 1.2.11 libzmq >= 4.3.1
+
+Cflags: -I${includedir}
+Libs: -L${libdir} -lgamechannel

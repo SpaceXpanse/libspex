@@ -1,13 +1,13 @@
-prefix=D:\a\helloworld\helloworld
+prefix=/mingw64
 exec_prefix=${prefix}
-libdir=${exec_prefix}\lib
-includedir=${prefix}\include
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
 
 Name: libspacexpanseutil
 Version: 0.1
 
 Description: A library of basic utilities for games on the SpaceXpanse platform.
-URL: https://github.com/spacexpanse\libspex
+URL: https://github.com/spacexpanse/libspex
 
 Requires: jsoncpp
 Requires.private: libglog openssl zlib

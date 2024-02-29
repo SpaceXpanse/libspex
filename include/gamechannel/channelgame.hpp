@@ -58,7 +58,7 @@ protected:
    * It is valid to open a dispute for the state that is currently on-chain
    * (same turn height but only if it actually Equals() that state) if there
    * was not already a dispute for it.  This is necessary to avoid a situation
-   * as in https://github.com/xaya\libxayagame/issues/51.
+   * as in https://github.com/xaya/libxayagame/issues/51.
    */
   bool ProcessDispute (ChannelData& ch, unsigned height,
                        const proto::StateProof& proof);

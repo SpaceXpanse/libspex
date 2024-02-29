@@ -1,0 +1,15 @@
+prefix=/mingw64
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: channelcore
+Version: 0.1
+
+Description: Core library for any game-channel applications.
+URL: https://github.com/spacexpanse/libspex
+
+Requires: jsoncpp libglog protobuf ethutils libspacexpanseutil
+
+Cflags: -I${includedir}
+Libs: -L${libdir} -lchannelcore

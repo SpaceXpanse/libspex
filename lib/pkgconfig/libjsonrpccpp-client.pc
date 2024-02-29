@@ -1,5 +1,0 @@
-Name: libjsonrpccpp-client
-Description: A C++ client implementation of json-rpc.
-Version: 0.7.0
-Libs: -LC:/msys64/home/bello/libjson-rpc-cpp/dist/lib/ -ljsoncpp -ljsonrpccpp-common -ljsonrpccpp-client -lcurl
-Cflags: -IC:/msys64/home/bello/libjson-rpc-cpp/dist/include

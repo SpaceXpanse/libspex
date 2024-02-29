@@ -16,14 +16,14 @@ py-compile
 test-driver
 Makefile
 Makefile.in
-.deps
-.libs
+#.deps
+#.libs
 
-*.lo
-*.la
-*.trs
-*.pyc
-*.pc
+#*.lo
+#*.la
+#*.trs
+#*.pyc
+#*.pc
 
 *.pb.h
 *.pb.cc

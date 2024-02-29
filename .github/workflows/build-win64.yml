@@ -69,7 +69,7 @@ jobs:
         #cd mxe
         sudo apt-get install software-properties-common lsb-release
         sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 86B72ED9 && sudo add-apt-repository "deb [arch=amd64] https://pkg.mxe.cc/repos/apt `lsb_release -sc` main" && sudo apt-get update
-        sudo apt-get install mxe-i686-w64-mingw32.static-cc #mxe-{i686,x86-64}-w64-mingw32.{static,shared}-cc        
+        sudo apt-get install mxe-i686-w64-mingw32.shared-cc #mxe-{i686,x86-64}-w64-mingw32.{static,shared}-cc        
         make autotools boost bzip2 ccache cc cppzmq curl googlemock googletest jsoncpp libevent libzmq mingw-w64 ninja nsis openssl openthreads pkgconf protobuf pthreads unzip wget zip 
     - name: Build argtable2
       run: |                                                                                                                                                                                                                                                    
@@ -144,7 +144,7 @@ jobs:
         export CXX_INCLUDE_PATH=include
         #cmake . -G "MinGW Makefiles"
         ./autogen.sh
-        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure  --enable-static --disable-shared --host=i686-w64-mingw32.static #i686-w64-mingw32  --enable-shared --build=x86_64-w64-mingw32 LDFLAGS=-L/usr/local/lib CFLAGS=-I/usr/local/include
+        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure  --enable-shared --host=i686-w64-mingw32 #i686-w64-mingw32  --enable-static --disable-shared --build=x86_64-w64-mingw32 LDFLAGS=-L/usr/local/lib CFLAGS=-I/usr/local/include
         make -j2
         sudo make install
         cd ..

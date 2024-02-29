@@ -124,14 +124,14 @@ jobs:
         sudo ldconfig         
     - name: Build libspex
       run: |
-        cd $GITHUB_WORKSPACE/libspex/include && ls -la
-        cd ..
-        cd $GITHUB_WORKSPACE/libspex/lib && ls -la
-        cd ..                         
         #sudo updatedb
         #sudo locate evp.h  
         git clone https://github.com/spacexpanse/libspex.git
         cd libspex
+        cd include && ls -la
+        cd ..
+        cd lib && ls -la
+        cd ..                 
         curl -o configure_patch.diff https://raw.githubusercontent.com/xaya/XAYA_tutorial_code/master/libxayagame/Compile-scripts/configure_patch.diff
         patch --merge configure.ac configure_patch.diff
         #export LD_LIBRARY_PATH=/usr/local/lib

@@ -124,6 +124,10 @@ jobs:
         sudo ldconfig         
     - name: Build libspex
       run: |
+        cd $GITHUB_WORKSPACE/libspex/include && ls -la
+        cd ..
+        cd $GITHUB_WORKSPACE/libspex/lib && ls -la
+        cd ..                         
         #sudo updatedb
         #sudo locate evp.h  
         git clone https://github.com/spacexpanse/libspex.git
@@ -142,10 +146,6 @@ jobs:
       run: |
         mkdir $GITHUB_WORKSPACE/deploy
         #ls -la 
-        cd $GITHUB_WORKSPACE/libspex/include && ls -la
-        cd ..
-        cd $GITHUB_WORKSPACE/libspex/lib && ls -la
-        cd ..                 
         #cd $GITHUB_WORKSPACE/include/.libs && ls -la 
         #sudo updatedb
         #sudo locate libsp*      

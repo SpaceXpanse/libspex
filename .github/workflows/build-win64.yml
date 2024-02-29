@@ -67,9 +67,9 @@ jobs:
       run: |
         git clone https://github.com/mxe/mxe.git
         cd mxe
-        make
+        make autotools boost bzip2 ccache cc cppzmq curl googlemock googletest jsoncpp libevent libzmq mingw-w64 ninja nsis openssl openthreads pkgconf protobuf pthreads unzip wget zip 
     - name: Build argtable2
-      run: |
+      run: |                                                                                                                                                                                                                                                    
         sudo apt-get install libargtable2-dev
         #echo "$PATH"
         #git clone https://github.com/RyuMaster/argtable2.git

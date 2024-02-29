@@ -143,7 +143,7 @@ jobs:
         cd $GITHUB_WORKSPACE/include && ls -la
         cd ..
         cd $GITHUB_WORKSPACE/lib && ls -la
-        cd ..
+        cd .. 
         #cd $GITHUB_WORKSPACE/include/.libs && ls -la 
         #sudo updatedb
         #sudo locate libsp*      

@@ -131,6 +131,7 @@ jobs:
         patch --merge configure.ac configure_patch.diff
         export LD_LIBRARY_PATH=/usr/local/lib
         export CXX_INCLUDE_PATH=/usr/local/include
+        cmake . -G "MinGW Makefiles"
         ./autogen.sh
         CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=i686-w64-mingw32 --build=x86_64-w64-mingw32 #LDFLAGS=-L/usr/local/lib CFLAGS=-I/usr/local/include
         make -j2
@@ -140,9 +141,9 @@ jobs:
       run: |
         mkdir $GITHUB_WORKSPACE/deploy
         #ls -la 
-        cd $GITHUB_WORKSPACE/include && ls -la
+        cd $GITHUB_WORKSPACE/libspex/include && ls -la
         cd ..
-        cd $GITHUB_WORKSPACE/lib && ls -la
+        cd $GITHUB_WORKSPACE/libspex/lib && ls -la
         cd .. 
         #cd $GITHUB_WORKSPACE/include/.libs && ls -la 
         #sudo updatedb

@@ -63,9 +63,9 @@ jobs:
     - run: sudo bash -c "echo 0 > /proc/sys/fs/binfmt_misc/status" # Disable WSL support for Win32 applications.
     - name: Build MXE
       run: |
-      git clone https://github.com/mxe/mxe.git
-      cd mxe
-      make
+        git clone https://github.com/mxe/mxe.git
+        cd mxe
+        make
     - name: Build argtable2
       run: |
         sudo apt-get install libargtable2-dev

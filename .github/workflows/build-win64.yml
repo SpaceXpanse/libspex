@@ -132,7 +132,7 @@ jobs:
         export LD_LIBRARY_PATH=/usr/local/lib
         export CXX_INCLUDE_PATH=/usr/local/include
         ./autogen.sh
-        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared LDFLAGS=-L/usr/local/lib CFLAGS=-I/usr/local/include --host=i686-w64-mingw32 --build=x86_64-w64-mingw32  
+        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=i686-w64-mingw32 --build=x86_64-w64-mingw32 #LDFLAGS=-L/usr/local/lib CFLAGS=-I/usr/local/include
         make -j2
         sudo make install
         cd ..
@@ -140,7 +140,11 @@ jobs:
       run: |
         mkdir $GITHUB_WORKSPACE/deploy
         #ls -la 
-        #cd $GITHUB_WORKSPACE/libspex/ships/.libs && ls -la 
+        cd $GITHUB_WORKSPACE/include && ls -la
+        cd ..
+        cd $GITHUB_WORKSPACE/lib && ls -la
+        cd ..
+        #cd $GITHUB_WORKSPACE/include/.libs && ls -la 
         #sudo updatedb
         #sudo locate libsp*      
         #cp $GITHUB_WORKSPACE/libspex/ships/.libs/shipsd.exe $GITHUB_WORKSPACE/libspex/ships/ships-channel.exe $GITHUB_WORKSPACE/libspex/.libs/nonfungible/nonfungibled.exe $GITHUB_WORKSPACE/libspex/.libs/mover/moverd.exe $GITHUB_WORKSPACE/deploy

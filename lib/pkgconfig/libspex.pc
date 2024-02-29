@@ -1,0 +1,16 @@
+prefix=D:\a\helloworld\helloworld
+exec_prefix=${prefix}
+libdir=${exec_prefix}\lib
+includedir=${prefix}\include
+
+Name: libspex
+Version: 0.1
+
+Description: A library for development of game backends on the SpaceXpanse platform.
+URL: https://github.com/spacexpanse\libspex
+
+Requires:  jsoncpp libjsonrpccpp-client libjsonrpccpp-server ethutils libcurl sqlite3 lmdb protobuf libglog      libspacexpanseutil
+Requires.private:           openssl libmicrohttpd gflags zlib >= 1.2.11 libzmq >= 4.3.1
+
+Cflags: -I${includedir}
+Libs: -L${libdir} -lspex

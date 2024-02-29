@@ -1,0 +1,5 @@
+Name: libjsonrpccpp-stub
+Description: library for stub-generation of libjson-rpc-cpp servers/clients.
+Version: 0.7.0
+Libs: -L -ljsoncpp -ljsonrpccpp-common
+Cflags: -I

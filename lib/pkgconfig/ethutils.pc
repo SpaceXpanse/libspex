@@ -1,0 +1,15 @@
+prefix=D:\a\helloworld\helloworld
+exec_prefix=${prefix}
+libdir=${exec_prefix}\lib
+includedir=${prefix}\include
+
+Name: eth-utils
+Version: 0.1
+
+Description: A library for basic Ethereum primitives in C++.
+URL: https://github.com/xaya/eth-utils
+
+Requires.private: libglog libsecp256k1
+
+Cflags: -I${includedir}
+Libs: -L${libdir} -lethutils

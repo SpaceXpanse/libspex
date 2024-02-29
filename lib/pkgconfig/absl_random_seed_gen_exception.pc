@@ -1,0 +1,12 @@
+prefix=D:\a\helloworld\helloworld
+exec_prefix=${prefix}
+libdir=D:\a\helloworld\helloworld\lib
+includedir=D:\a\helloworld\helloworld\include
+
+Name: absl_random_seed_gen_exception
+Description: Abseil random_seed_gen_exception library
+URL: https://abseil.io/
+Version: 20230125
+Requires: absl_config = 20230125
+Libs: -L${libdir}   -labsl_random_seed_gen_exception
+Cflags: -I${includedir} -DNOMINMAX

@@ -1,0 +1,5 @@
+Name: libjsonrpccpp-server
+Description: A C++ server implementation of json-rpc.
+Version: 0.7.0
+Libs: -LC:/msys64/home/bello\libjson-rpc-cpp/dist/lib/ -ljsoncpp -ljsonrpccpp-common -ljsonrpccpp-server -lmicrohttpd
+Cflags: -IC:/msys64/home/bello\libjson-rpc-cpp/dist\include

@@ -131,9 +131,9 @@ jobs:
         patch --merge configure.ac configure_patch.diff
         export LD_LIBRARY_PATH=/usr/local/lib
         export CXX_INCLUDE_PATH=/usr/local/include
-        cmake . -G "MinGW Makefiles"
+        #cmake . -G "MinGW Makefiles"
         ./autogen.sh
-        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --host=i686-w64-mingw32 --build=x86_64-w64-mingw32 #LDFLAGS=-L/usr/local/lib CFLAGS=-I/usr/local/include
+        CXXFLAGS="-fpermissive -Wno-deprecated-declarations" ./configure --enable-shared --with-mingw-cross-compiler=g++-mingw-w64-i686 --host=i686-w64-mingw32 --build=x86_64-w64-mingw32 #LDFLAGS=-L/usr/local/lib CFLAGS=-I/usr/local/include
         make -j2
         sudo make install
         cd ..

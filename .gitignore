@@ -35,3 +35,4 @@ Makefile.in
 tests
 
 *.~*
+.vs

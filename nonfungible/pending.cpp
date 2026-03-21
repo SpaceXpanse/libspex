@@ -16,12 +16,14 @@ namespace nf
 bool
 PendingState::IsNewAsset (const Asset& a) const
 {
+  /* Pending mint operations shadow DB lookups immediately.  */
   return assets.count (a) > 0;
 }
 
 void
 PendingState::AddAsset (const Asset& a, const std::string* data)
 {
+  /* Copy optional data payload so pending state owns its memory.  */
   std::unique_ptr<std::string> dataCopy;
   if (data != nullptr)
     dataCopy = std::make_unique<std::string> (*data);
@@ -52,6 +54,7 @@ PendingState::SetBalance (const Asset& a, const std::string& name,
 Json::Value
 PendingState::ToJson () const
 {
+  /* Serialise deterministic snapshots of pending assets and balance deltas.  */
   Json::Value assetsJson(Json::arrayValue);
   for (const auto& entry : assets)
     {
@@ -89,6 +92,7 @@ void
 PendingStateUpdater::UpdateBalance (const Asset& a, const std::string& name,
                                     const Amount num)
 {
+  /* Pending updater keeps only the latest computed balance per key.  */
   state.SetBalance (a, name, GetBalance (a, name) + num);
 }
 
@@ -145,12 +149,14 @@ PendingMoves::PendingMoves (NonFungibleLogic& rules)
 void
 PendingMoves::Clear ()
 {
+  /* Reset pending cache whenever a new recomputation is required.  */
   state = PendingState ();
 }
 
 void
 PendingMoves::AddPendingMove (const Json::Value& mv)
 {
+  /* Validate against confirmed DB plus already accumulated pending effects.  */
   const auto& db = AccessConfirmedState ();
 
   PendingStateUpdater updater(db, state);
@@ -160,6 +166,7 @@ PendingMoves::AddPendingMove (const Json::Value& mv)
 Json::Value
 PendingMoves::ToJson () const
 {
+  /* Delegate final rendering to PendingState's JSON representation.  */
   return state.ToJson ();
 }
 

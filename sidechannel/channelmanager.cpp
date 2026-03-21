@@ -23,6 +23,7 @@ ChannelManager::ChannelManager (const BoardRules& r, OpenChannel& oc,
     gameId(gId), channelId(id), playerName(name),
     boardStates(rules, verifier, gameId, channelId)
 {
+  /* Start with no chain observations and no pending transactions.  */
   blockHash.SetNull ();
   pendingPutStateOnChain.SetNull ();
   pendingDispute.SetNull ();
@@ -45,6 +46,7 @@ ChannelManager::SetMoveSender (MoveSender& s)
 void
 ChannelManager::TryResolveDispute ()
 {
+  /* Auto-send resolution when we are disputed and own a newer state proof.  */
   VLOG (1)
       << "Trying to resolve a potential dispute for channel "
       << channelId.ToHex ();
@@ -100,6 +102,7 @@ ChannelManager::TryResolveDispute ()
 bool
 ChannelManager::ProcessAutoMoves ()
 {
+  /* Consume automoves until state reaches a phase without local automations.  */
   VLOG (1) << "Processing potential auto moves...";
   bool found = false;
   while (true)
@@ -139,6 +142,7 @@ ChannelManager::ProcessAutoMoves ()
 void
 ChannelManager::ProcessStateUpdate (bool broadcast)
 {
+  /* Central post-update pipeline: automoves, broadcast, disputes, callbacks.  */
   if (ProcessAutoMoves ())
     broadcast = true;
 
@@ -269,6 +273,7 @@ ChannelManager::ProcessOnChain (const uint256& blk, const unsigned h,
 bool
 ChannelManager::ApplyLocalMove (const BoardMove& mv)
 {
+  /* Extend signed proof with local move and adopt it as newest known state.  */
   CHECK (exists);
 
   proto::StateProof newProof;
@@ -325,6 +330,7 @@ ChannelManager::TriggerAutoMoves ()
 uint256
 ChannelManager::PutStateOnChain ()
 {
+  /* Explicitly publish latest state as resolution when ahead of on-chain.  */
   LOG (INFO)
       << "Trying to put the latest state on chain for " << channelId.ToHex ();
 
@@ -390,6 +396,7 @@ ChannelManager::FileDispute ()
 Json::Value
 ChannelManager::ToJson () const
 {
+  /* Produce RPC-facing snapshot of chain status, board state, and disputes.  */
   Json::Value res(Json::objectValue);
   res["id"] = channelId.ToHex ();
   res["playername"] = playerName;

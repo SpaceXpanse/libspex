@@ -52,6 +52,7 @@ DEFINE_bool (pending_moves, true,
 int
 main (int argc, char** argv)
 {
+  /* Standard daemon bootstrap: logging, protobuf runtime and CLI flags.  */
   google::InitGoogleLogging (argv[0]);
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -90,6 +91,7 @@ main (int argc, char** argv)
   if (FLAGS_pending_moves)
     config.PendingMoves = &pending;
 
+  /* Run the generic game daemon loop with Mover-specific rules.  */
   mover::MoverLogic rules;
   const int res = spacexpanse::DefaultMain (config, "mv", rules);
 

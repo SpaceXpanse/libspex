@@ -21,6 +21,7 @@ class PendingStateTests : public testing::Test
 
 protected:
 
+  /** Isolated pending-state container used by unit tests.  */
   PendingState state;
 
   /** Utility variable to use as output for GetBalance.  */
@@ -115,7 +116,7 @@ private:
 protected:
 
   /**
-   * Processes the given move on top of our state.
+   * Parses and applies one move on top of the current pending state snapshot.
    */
   void
   Process (const std::string& name, const std::string& str)

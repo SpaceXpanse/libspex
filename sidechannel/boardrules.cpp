@@ -12,6 +12,7 @@ constexpr int ParsedBoardState::NO_TURN;
 Json::Value
 ParsedBoardState::ToJson () const
 {
+  /* Base implementation exposes no game-specific fields.  */
   return Json::Value ();
 }
 

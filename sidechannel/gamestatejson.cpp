@@ -13,6 +13,7 @@ namespace spacexpanse
 Json::Value
 ChannelToGameStateJson (const ChannelData& ch, const BoardRules& r)
 {
+  /* Serialise one channel entry with metadata, latest state, and reinit base.  */
   const auto& id = ch.GetId ();
   const auto& meta = ch.GetMetadata ();
 
@@ -32,6 +33,7 @@ ChannelToGameStateJson (const ChannelData& ch, const BoardRules& r)
 Json::Value
 AllChannelsGameStateJson (ChannelsTable& tbl, const BoardRules& r)
 {
+  /* Enumerate all channels into deterministic JSON object keyed by channel id.  */
   Json::Value res(Json::objectValue);
   auto stmt = tbl.QueryAll ();
   while (stmt.Step ())

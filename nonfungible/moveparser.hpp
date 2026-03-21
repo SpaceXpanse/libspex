@@ -99,6 +99,9 @@ protected:
 
 public:
 
+  /**
+   * Constructs a parser bound to the given database snapshot/state.
+   */
   explicit MoveParser (const spacexpanse::SQLiteDatabase& d)
     : db(d)
   {}

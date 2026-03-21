@@ -38,29 +38,45 @@ private:
 
 public:
 
+  /**
+   * Builds the RPC server bound to the running game instance.
+   */
   explicit RpcServer (spacexpanse::Game& g, NonFungibleLogic& l, spacexpanse::SQLiteHasher* h,
                       jsonrpc::AbstractServerConnector& conn)
     : NFRpcServerStub(conn), game(g), logic(l), hasher(h)
   {}
 
+  /** Requests a graceful daemon shutdown. */
   void stop () override;
 
+  /** Returns the currently confirmed game state JSON. */
   Json::Value getcurrentstate () override;
+  /** Returns the null/initial state JSON. */
   Json::Value getnullstate () override;
+  /** Returns the currently tracked pending state JSON. */
   Json::Value getpendingstate () override;
 
+  /** Computes and returns a full hash of the current SQLite state. */
   Json::Value hashcurrentstate () override;
+  /** Returns a precomputed state hash for a specific block if available. */
   Json::Value getstatehash (const std::string& block) override;
 
+  /** Sets or clears the target block for synchronisation. */
   void settargetblock (const std::string& block) override;
 
+  /** Blocks until the confirmed chain tip differs from knownBlock. */
   std::string waitforchange (const std::string& knownBlock) override;
+  /** Blocks until pending-state version differs from knownVersion. */
   Json::Value waitforpendingchange (int knownVersion) override;
 
+  /** Lists all known assets. */
   Json::Value listassets () override;
+  /** Returns details (metadata, supply, balances) for one asset. */
   Json::Value getassetdetails (const Json::Value& asset) override;
+  /** Returns balance for one (asset, name) tuple. */
   Json::Value getbalance (const Json::Value& asset,
                           const std::string& name) override;
+  /** Returns all balances held by a user. */
   Json::Value getuserbalances (const std::string& name) override;
 
 };

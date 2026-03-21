@@ -13,6 +13,7 @@ Amount
 GetDbBalance (const spacexpanse::SQLiteDatabase& db, const Asset& a,
               const std::string& name)
 {
+  /* Balances are sparse; missing rows are interpreted as zero.  */
   auto stmt = db.PrepareRo (R"(
     SELECT `balance`
       FROM `balances`
@@ -33,6 +34,7 @@ GetDbBalance (const spacexpanse::SQLiteDatabase& db, const Asset& a,
 bool
 MoveParser::AssetExists (const Asset& a) const
 {
+  /* Asset identity is unique by (minter, asset) primary key.  */
   auto stmt = db.PrepareRo (R"(
     SELECT COUNT(*)
       FROM `assets`
@@ -59,6 +61,7 @@ MoveParser::GetBalance (const Asset& a, const std::string& name) const
 void
 MoveParser::HandleOperation (const std::string& name, const Json::Value& mv)
 {
+  /* Exactly one of m/t/b is required for each operation object.  */
   CHECK (mv.isObject ());
   if (mv.size () != 1)
     {
@@ -79,6 +82,7 @@ MoveParser::HandleOperation (const std::string& name, const Json::Value& mv)
 void
 MoveParser::HandleMint (const std::string& name, const Json::Value& op)
 {
+  /* Mint format: {"a": <asset-name>, "n": <supply>, "d"?: <data>}.  */
   if (!op.isObject ())
     {
       LOG (WARNING) << "Invalid mint operation: " << op;
@@ -137,6 +141,7 @@ MoveParser::HandleMint (const std::string& name, const Json::Value& op)
 void
 MoveParser::HandleTransfer (const std::string& name, const Json::Value& op)
 {
+  /* Transfer format: {"a": <asset>, "n": <amount>, "r": <recipient>}.  */
   if (!op.isObject () || op.size () != 3)
     {
       LOG (WARNING) << "Invalid transfer operation: " << op;
@@ -179,6 +184,7 @@ MoveParser::HandleTransfer (const std::string& name, const Json::Value& op)
 void
 MoveParser::HandleBurn (const std::string& name, const Json::Value& op)
 {
+  /* Burn format: {"a": <asset>, "n": <amount>}.  */
   if (!op.isObject () || op.size () != 2)
     {
       LOG (WARNING) << "Invalid burn operation: " << op;
@@ -214,6 +220,7 @@ MoveParser::HandleBurn (const std::string& name, const Json::Value& op)
 void
 MoveParser::ProcessOne (const Json::Value& obj)
 {
+  /* Top-level move may be either one operation object or an operation array.  */
   CHECK (obj.isObject ());
 
   const auto& nameVal = obj["name"];

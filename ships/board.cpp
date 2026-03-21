@@ -45,6 +45,7 @@ CheckHashValue (const spacexpanse::uint256& actual, const std::string& expected)
 bool
 ShipsBoardState::IsValid () const
 {
+  /* Validate both implicit phase progression and explicit field invariants.  */
   /* As a special case, all single-participant states are valid without any
      more processing.  Those are only ever created while waiting for the second
      player to join, and during that time no changes to the state are made at
@@ -110,6 +111,7 @@ ShipsBoardState::IsValid () const
 ShipsBoardState::Phase
 ShipsBoardState::GetPhase () const
 {
+  /* Phase is derived solely from which proto fields are currently populated.  */
   const auto& pb = GetState ();
 
   if (pb.has_winner ())
@@ -155,6 +157,7 @@ ShipsBoardState::GetPhase () const
 Json::Value
 ShipsBoardState::ToJson () const
 {
+  /* Export a frontend-friendly representation of the current board progress.  */
   auto res = BaseProtoBoardState::ToJson ();
 
   if (GetMetadata ().participants_size () == 1)
@@ -273,6 +276,7 @@ ShipsBoardState::WhoseTurn () const
 unsigned
 ShipsBoardState::TurnCount () const
 {
+  /* Derive a deterministic logical turn counter from board data.  */
   if (GetMetadata ().participants_size () == 1)
     return 0;
 
@@ -671,6 +675,7 @@ bool
 ShipsBoardState::ApplyMoveProto (const proto::BoardMove& mv,
                                  proto::BoardState& newState) const
 {
+  /* Apply exactly one move variant to a copy of the current state.  */
   /* Moves do typically incremental changes, so we start by copying the
      current state and then modify it (rather than constructing the new
      state from scratch).  */

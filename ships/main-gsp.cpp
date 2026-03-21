@@ -49,6 +49,7 @@ DEFINE_bool (pending_moves, true,
 int
 main (int argc, char** argv)
 {
+  /* Entrypoint for global ships GSP daemon that tracks on-chain state.  */
   google::InitGoogleLogging (argv[0]);
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 

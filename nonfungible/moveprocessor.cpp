@@ -22,6 +22,7 @@ void
 MoveProcessor::UpdateBalance (const Asset& a, const std::string& name,
                               const Amount num)
 {
+  /* Keep balances canonical: positive rows only, delete zero rows.  */
   const Amount oldBalance = GetBalance (a, name);
   const Amount newBalance = oldBalance + num;
   CHECK_GE (newBalance, 0);
@@ -55,6 +56,7 @@ void
 MoveProcessor::ProcessMint (const Asset& a, const Amount supply,
                             const std::string* data)
 {
+  /* First create the asset record, then optionally credit initial supply.  */
   auto stmt = MutableDb ().Prepare (R"(
     INSERT INTO `assets`
       (`minter`, `asset`, `data`)
@@ -78,6 +80,7 @@ MoveProcessor::ProcessTransfer (const Asset& a, const Amount num,
                                 const std::string& sender,
                                 const std::string& recipient)
 {
+  /* Transfers are represented as two opposing balance deltas.  */
   UpdateBalance (a, sender, -num);
   UpdateBalance (a, recipient, num);
   LOG (INFO)
@@ -89,6 +92,7 @@ void
 MoveProcessor::ProcessBurn (const Asset& a, const Amount num,
                             const std::string& sender)
 {
+  /* Burning only debits the sender and reduces circulating supply implicitly.  */
   UpdateBalance (a, sender, -num);
   LOG (INFO) << sender << " burnt " << num << " of " << a;
 }
@@ -96,6 +100,7 @@ MoveProcessor::ProcessBurn (const Asset& a, const Amount num,
 void
 MoveProcessor::ProcessAll (const Json::Value& moves)
 {
+  /* Block processing preserves order, so dependent operations behave predictably.  */
   CHECK (moves.isArray ());
   LOG_IF (INFO, !moves.empty ())
       << "Processing " << moves.size () << " moves...";

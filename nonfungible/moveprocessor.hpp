@@ -50,6 +50,9 @@ protected:
 
 public:
 
+  /**
+   * Constructs a processor that mutates the provided confirmed-state database.
+   */
   explicit MoveProcessor (spacexpanse::SQLiteDatabase& d)
     : MoveParser(d)
   {}

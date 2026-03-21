@@ -134,6 +134,9 @@ protected:
 
 public:
 
+  /**
+   * Builds a pending-move tracker attached to the given game rules instance.
+   */
   explicit PendingMoves (NonFungibleLogic& rules);
 
   Json::Value ToJson () const override;

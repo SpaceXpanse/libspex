@@ -14,6 +14,7 @@ MoveSender::MoveSender (const std::string& gId,
                         TransactionSender& s, OpenChannel& oc)
   : sender(s), game(oc), channelId(chId), playerName(nm), gameId(gId)
 {
+  /* Compact deterministic JSON formatting for mempool move payloads.  */
   jsonWriterBuilder["commentStyle"] = "None";
   jsonWriterBuilder["indentation"] = "";
   jsonWriterBuilder["enableYAMLCompatibility"] = false;
@@ -22,6 +23,7 @@ MoveSender::MoveSender (const std::string& gId,
 uint256
 MoveSender::SendMove (const Json::Value& mv)
 {
+  /* Wrap move under game id and submit through transaction backend.  */
   Json::Value fullValue(Json::objectValue);
   fullValue["g"][gameId] = mv;
 

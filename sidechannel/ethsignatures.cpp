@@ -15,6 +15,7 @@ std::string
 EthSignatureVerifier::RecoverSigner (const std::string& msg,
                                      const std::string& sgn) const
 {
+  /* Verify Ethereum-style signed message and normalise to checksum address.  */
   const std::string sgnHex = "0x" + ethutils::Hexlify (sgn);
   const ethutils::Address addr = ctx.VerifyMessage (msg, sgnHex);
   return addr ? addr.GetChecksummed () : "invalid";
@@ -37,6 +38,7 @@ EthSignatureSigner::GetAddress () const
 std::string
 EthSignatureSigner::SignMessage (const std::string& msg)
 {
+  /* Convert eth-utils hex signature format into raw 65-byte binary payload.  */
   const std::string sgnHex = ctx.SignMessage (msg, key);
   CHECK_EQ (sgnHex.substr (0, 2), "0x")
       << "Signature from eth-utils is not hex: " << sgnHex;

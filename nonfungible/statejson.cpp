@@ -14,6 +14,7 @@ namespace nf
 Json::Value
 StateJsonExtractor::ListAssets () const
 {
+  /* Return a stable ordering so RPC responses are deterministic.  */
   auto stmt = db.PrepareRo (R"(
     SELECT `minter`, `asset`
       FROM `assets`
@@ -30,6 +31,7 @@ StateJsonExtractor::ListAssets () const
 Json::Value
 StateJsonExtractor::GetAssetDetails (const Asset& a) const
 {
+  /* Fetch optional metadata first; null means asset does not exist.  */
   auto stmt = db.PrepareRo (R"(
     SELECT `data`
       FROM `assets`
@@ -64,6 +66,7 @@ StateJsonExtractor::GetAssetDetails (const Asset& a) const
       CHECK_GT (val, 0);
       CHECK (!balances.isMember (name)) << "Duplicate user: " << name;
 
+      /* Supply is reconstructed from per-holder balances.  */
       total += val;
       balances[name] = val;
     }
@@ -113,6 +116,7 @@ StateJsonExtractor::GetUserBalances (const std::string& name) const
 Json::Value
 StateJsonExtractor::FullState () const
 {
+  /* Compose a full snapshot by expanding each known asset into details.  */
   auto stmt = db.PrepareRo (R"(
     SELECT `minter`, `asset`
       FROM `assets`

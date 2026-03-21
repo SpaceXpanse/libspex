@@ -15,19 +15,22 @@ namespace mover
 void
 PendingMoves::Clear ()
 {
+  /* Drop all remembered projections of pending player moves.  */
   pending = Json::Value (Json::objectValue);
 }
 
 Json::Value
 PendingMoves::ToJson () const
 {
+  /* Pending state is already stored in externally visible JSON form.  */
   return pending;
 }
 
 void
 PendingMoves::AddPendingMoveInternal (const spacexpanse::GameStateData& stateStr,
-                                           const Json::Value& mv)
+                                            const Json::Value& mv)
 {
+  /* Pending representation is keyed by name, so later moves overwrite earlier.  */
   const std::string name = mv["name"].asString ();
 
   proto::Direction dir;
@@ -74,6 +77,7 @@ PendingMoves::AddPendingMoveInternal (const spacexpanse::GameStateData& stateStr
 void
 PendingMoves::AddPendingMove (const Json::Value& mv)
 {
+  /* Use the current confirmed chain state as baseline for projections.  */
   AddPendingMoveInternal (GetConfirmedState (), mv);
 }
 

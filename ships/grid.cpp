@@ -37,6 +37,7 @@ constexpr AvailableShipType AVAILABLE_SHIPS[] =
 std::string
 Grid::ToString () const
 {
+  /* Render the grid row-by-row for logs / RPC interaction.  */
   std::ostringstream res;
   for (int r = 0; r < Coord::SIDE; ++r)
     {
@@ -51,6 +52,7 @@ Grid::ToString () const
 bool
 Grid::FromString (const std::string& str)
 {
+  /* Parsing resets the current content first.  */
   bits = 0;
 
   int next = 0;
@@ -107,6 +109,7 @@ Grid::Set (const Coord& c)
 int
 Grid::CountOnes () const
 {
+  /* Portable bit-count implementation without compiler intrinsics.  */
   uint64_t remaining = bits;
 
   int res = 0;
@@ -122,6 +125,7 @@ Grid::CountOnes () const
 std::string
 Grid::Blob () const
 {
+  /* Serialise as fixed-size little-endian byte blob for hashing.  */
   uint64_t remaining = bits;
 
   std::string res(8, '\0');
@@ -226,6 +230,7 @@ CheckShip (const Grid& g, Coord c,
 bool
 VerifyPositionOfShips (const Grid& position)
 {
+  /* Scan the board and classify each discovered ship by its size.  */
   std::map<unsigned, unsigned> foundShips;
   for (int i = 0; i < Coord::CELLS; ++i)
     {

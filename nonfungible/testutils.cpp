@@ -16,6 +16,7 @@ namespace nf
 Json::Value
 ParseJson (const std::string& val)
 {
+  /* Test utility parser intentionally assumes valid JSON in fixtures.  */
   std::istringstream in(val);
   Json::Value res;
   in >> res;
@@ -25,12 +26,14 @@ ParseJson (const std::string& val)
 DBTest::DBTest ()
   : db("test", SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE | SQLITE_OPEN_MEMORY)
 {
+  /* Each test starts from a clean in-memory DB with full schema installed.  */
   SetupDatabaseSchema (GetDb ());
 }
 
 void
 DBTest::InsertAsset (const Asset& a, const std::string& data)
 {
+  /* Helper for concise test setup of asset table rows.  */
   auto stmt = db.Prepare (R"(
     INSERT INTO `assets`
       (`minter`, `asset`, `data`)
@@ -50,6 +53,7 @@ void
 DBTest::InsertBalance (const Asset& a, const std::string& name,
                        const Amount num)
 {
+  /* Helper for concise test setup of balance table rows.  */
   auto stmt = db.Prepare (R"(
     INSERT INTO `balances`
       (`name`, `minter`, `asset`, `balance`)

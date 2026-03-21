@@ -16,6 +16,7 @@ namespace ships
 ShipsChannel::ShipsChannel (const std::string& nm)
   : playerName(nm)
 {
+  /* No close tx was sent yet for this channel instance.  */
   txidClose.SetNull ();
 }
 
@@ -35,6 +36,7 @@ ShipsChannel::GetPosition () const
 void
 ShipsChannel::SetPosition (const Grid& g)
 {
+  /* Position can only be set once per local channel daemon instance.  */
   CHECK (!IsPositionSet ());
 
   if (!VerifyPositionOfShips (g))
@@ -56,6 +58,7 @@ ShipsChannel::SetPosition (const Grid& g)
 proto::BoardMove
 ShipsChannel::GetShotMove (const Coord& c) const
 {
+  /* Build a move proto that targets exactly one board coordinate.  */
   CHECK (c.IsOnBoard ());
 
   proto::BoardMove res;
@@ -80,6 +83,7 @@ ShipsChannel::GetPositionRevealMove () const
 int
 ShipsChannel::GetPlayerIndex (const ShipsBoardState& state) const
 {
+  /* Resolve local player's participant index from metadata.  */
   const auto& meta = state.GetMetadata ();
 
   int res = -1;
@@ -98,6 +102,7 @@ ShipsChannel::GetPlayerIndex (const ShipsBoardState& state) const
 bool
 ShipsChannel::AutoPositionCommitment (proto::BoardMove& mv)
 {
+  /* Commit to board position through hash(position || salt).  */
   if (!IsPositionSet ())
     return false;
 
@@ -113,6 +118,7 @@ bool
 ShipsChannel::InternalAutoMove (const ShipsBoardState& state,
                                 proto::BoardMove& mv)
 {
+  /* Generate deterministic automoves for protocol-mandated phases.  */
   const auto& pb = state.GetState ();
 
   const int index = GetPlayerIndex (state);
@@ -229,6 +235,7 @@ Json::Value
 ShipsChannel::ResolutionMove (const spacexpanse::uint256& channelId,
                               const spacexpanse::proto::StateProof& p) const
 {
+  /* Channel-game move payload for submitting a resolution on-chain.  */
   return DisputeResolutionMove ("r", channelId, p);
 }
 
@@ -243,6 +250,7 @@ bool
 ShipsChannel::MaybeAutoMove (const spacexpanse::ParsedBoardState& state,
                              spacexpanse::BoardMove& mv)
 {
+  /* Bridge generic board API to ships-specific proto move generation.  */
   const auto& shipsState = dynamic_cast<const ShipsBoardState&> (state);
 
   proto::BoardMove mvPb;
@@ -257,6 +265,7 @@ void
 ShipsChannel::MaybeOnChainMove (const spacexpanse::ParsedBoardState& state,
                                 spacexpanse::MoveSender& sender)
 {
+  /* Submit close-by-loss declaration when local player is confirmed loser.  */
   const auto& shipsState = dynamic_cast<const ShipsBoardState&> (state);
   const auto& id = shipsState.GetChannelId ();
   const auto& meta = shipsState.GetMetadata ();

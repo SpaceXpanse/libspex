@@ -66,6 +66,9 @@ private:
 
 public:
 
+  /**
+   * Configures optional state hashing and wires it into the logic processor list.
+   */
   explicit NFInstanceFactory (nf::NonFungibleLogic& l)
     : logic(l)
   {
@@ -77,6 +80,9 @@ public:
       }
   }
 
+  /**
+   * Instantiates the custom NF RPC server wrapper for this daemon.
+   */
   std::unique_ptr<spacexpanse::RpcServerInterface>
   BuildRpcServer (spacexpanse::Game& game,
                   jsonrpc::AbstractServerConnector& conn) override
@@ -88,6 +94,9 @@ public:
     return res;
   }
 
+  /**
+   * Uses component creation hook to apply CLI target-block configuration.
+   */
   std::vector<std::unique_ptr<spacexpanse::GameComponent>>
   BuildGameComponents (spacexpanse::Game& g)
   {
@@ -111,6 +120,7 @@ public:
 int
 main (int argc, char** argv)
 {
+  /* Parse daemon configuration and validate required endpoint/directories.  */
   google::InitGoogleLogging (argv[0]);
 
   gflags::SetUsageMessage ("Run nonfungible GSP");
@@ -150,5 +160,6 @@ main (int argc, char** argv)
   if (FLAGS_pending_moves)
     config.PendingMoves = &pending;
 
+  /* Start the generic SQLite-backed daemon with NF-specific logic.  */
   return spacexpanse::SQLiteMain (config, "nf", logic);
 }

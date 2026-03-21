@@ -18,8 +18,10 @@ class StateJsonTests : public DBTest
 
 protected:
 
+  /** Read-only extractor bound to this fixture's temporary DB.  */
   const StateJsonExtractor ext;
 
+  /** Initialises extractor after DB schema/setup from DBTest base class.  */
   StateJsonTests ()
     : ext(GetDb ())
   {}

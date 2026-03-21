@@ -35,3 +35,5 @@ Makefile.in
 tests
 
 *.~*
+test*
+.kilocode

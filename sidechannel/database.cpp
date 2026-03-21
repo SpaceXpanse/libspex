@@ -81,6 +81,7 @@ ChannelData::ChannelData (SQLiteDatabase& d,
 
 ChannelData::~ChannelData ()
 {
+  /* Persist deferred in-memory edits atomically on handle destruction.  */
   CHECK (initialised);
 
   if (!dirty)
@@ -132,6 +133,7 @@ void
 ChannelData::Reinitialise (const proto::ChannelMetadata& m,
                            const BoardState& initialisedState)
 {
+  /* Reset per-channel lifecycle to new metadata/reinit boundary.  */
   LOG (INFO)
       << "Reinitialising channel " << id.ToHex ()
       << " to new state: " << initialisedState;
@@ -194,6 +196,7 @@ ChannelsTable::GetFromResult (const SQLiteDatabase::Statement& row)
 ChannelsTable::Handle
 ChannelsTable::GetById (const uint256& id)
 {
+  /* Retrieve exactly one row and materialise it as a ChannelData handle.  */
   auto stmt = db.PrepareRo (R"(
     SELECT `id`, `metadata`, `reinit`, `stateproof`, `disputeHeight`
       FROM `spacexpansegame_game_channels`

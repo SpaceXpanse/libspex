@@ -19,6 +19,7 @@ ShipsChannelRpcServer::stop ()
 Json::Value
 ShipsChannelRpcServer::getcurrentstate ()
 {
+  /* Fetch state under manager lock and then augment with ships-local data.  */
   LOG (INFO) << "RPC method called: getcurrentstate";
   Json::Value state;
   {
@@ -68,6 +69,7 @@ ParseAndValidatePosition (const std::string& str, Grid& grid)
 void
 ShipsChannelRpcServer::setposition (const std::string& str)
 {
+  /* Set player board once and immediately trigger potential automoves.  */
   LOG (INFO) << "RPC method called: setposition\n" << str;
 
   if (channel.IsPositionSet ())
@@ -99,6 +101,7 @@ ShipsChannelRpcServer::validateposition (const std::string& str)
 void
 ShipsChannelRpcServer::shoot (const int column, const int row)
 {
+  /* User-initiated shot move, forwarded as local off-chain state update.  */
   LOG (INFO) << "RPC method called: shoot " << row << " " << column;
 
   const Coord target(row, column);
@@ -128,6 +131,7 @@ ShipsChannelRpcServer::revealposition ()
 std::string
 ShipsChannelRpcServer::filedispute ()
 {
+  /* File dispute unless game already ended, then publish latest state instead.  */
   LOG (INFO) << "RPC method called: filedispute";
   auto cm = daemon.GetChannelManager ().Access ();
 
@@ -151,6 +155,7 @@ ShipsChannelRpcServer::filedispute ()
 Json::Value
 ShipsChannelRpcServer::ExtendStateJson (Json::Value&& state) const
 {
+  /* Merge deterministic channel manager view with local private ships data.  */
   /* We abuse the channel manager lock also as internal lock for the
      ships channel.  There is a bit of a possible race condition between
      the state passed in here and when we re-lock to add our ships, but that

@@ -25,19 +25,35 @@ class MoverLogic : public spacexpanse::GameLogic
 
 protected:
 
+  /**
+   * Declares the chain-specific null block (height/hash) and returns
+   * the encoded empty initial game state.
+   */
   spacexpanse::GameStateData GetInitialStateInternal (unsigned& height,
                                                std::string& hashHex) override;
 
+  /**
+   * Applies all moves for one block and records the undo payload needed
+   * to roll the transition back exactly.
+   */
   spacexpanse::GameStateData ProcessForwardInternal (
       const spacexpanse::GameStateData& oldState, const Json::Value& blockData,
       spacexpanse::UndoData& undo) override;
 
+  /**
+   * Reverts a previously applied block transition using the corresponding
+   * undo data.
+   */
   spacexpanse::GameStateData ProcessBackwardsInternal (
       const spacexpanse::GameStateData& newState, const Json::Value& blockData,
       const spacexpanse::UndoData& undo) override;
 
 public:
 
+  /**
+   * Converts the encoded protobuf state into the public JSON representation
+   * used by RPC/state output.
+   */
   Json::Value GameStateToJson (const spacexpanse::GameStateData& state) override;
 
 };

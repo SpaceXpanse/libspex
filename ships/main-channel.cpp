@@ -58,6 +58,7 @@ DEFINE_string (channelid, "", "ID of the channel to manage as hex string");
 int
 main (int argc, char** argv)
 {
+  /* Entrypoint for per-channel daemon that tracks one specific side channel.  */
   google::InitGoogleLogging (argv[0]);
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
@@ -123,6 +124,7 @@ main (int argc, char** argv)
   std::unique_ptr<jsonrpc::AbstractServerConnector> serverConnector;
   if (FLAGS_rpc_port != 0)
     {
+      /* Optional local RPC API for UI / operator interactions.  */
       auto srv = std::make_unique<jsonrpc::HttpServer> (FLAGS_rpc_port);
       if (FLAGS_rpc_listen_locally)
         srv->BindLocalhost ();

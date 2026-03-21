@@ -12,6 +12,7 @@ namespace mover
 void
 GetDirectionOffset (const proto::Direction dir, int& dx, int& dy)
 {
+  /* Map each direction enum to one-step Cartesian movement.  */
   switch (dir)
     {
     case proto::RIGHT:
@@ -63,6 +64,7 @@ GetDirectionOffset (const proto::Direction dir, int& dx, int& dy)
 std::string
 DirectionToString (const proto::Direction dir)
 {
+  /* Keep string literals aligned with the JSON API schema.  */
   switch (dir)
     {
     case proto::NONE:
@@ -122,6 +124,7 @@ ParseDirection (const std::string& str)
 bool
 ParseMove (const Json::Value& obj, proto::Direction& dir, unsigned& steps)
 {
+  /* Moves must be exactly {"d": <direction>, "n": <uint>}.  */
   if (!obj.isObject ())
     return false;
   if (obj.size () != 2)

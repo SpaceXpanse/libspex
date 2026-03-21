@@ -26,15 +26,31 @@ class NonFungibleLogic : public spacexpanse::SQLiteGame
 
 protected:
 
+  /**
+   * Creates (or validates) the SQLite schema used for confirmed game state.
+   */
   void SetupSchema (spacexpanse::SQLiteDatabase& db) override;
 
+  /**
+   * Provides the chain-specific anchor block for deterministic initial sync.
+   */
   void GetInitialStateBlock (unsigned& height,
                              std::string& hashHex) const override;
+
+  /**
+   * Initialises an empty state database at the anchor block.
+   */
   void InitialiseState (spacexpanse::SQLiteDatabase& db) override;
 
+  /**
+   * Applies all block moves to the confirmed SQLite state.
+   */
   void UpdateState (spacexpanse::SQLiteDatabase& db,
                     const Json::Value& blockData) override;
 
+  /**
+   * Serialises the full confirmed state into JSON.
+   */
   Json::Value GetStateAsJson (const spacexpanse::SQLiteDatabase& db) override;
 
 public:

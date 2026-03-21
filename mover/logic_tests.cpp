@@ -95,6 +95,9 @@ private:
 
 protected:
 
+  /**
+   * Initialises rules and snapshots the empty baseline state used in tests.
+   */
   StateProcessingTests ()
   {
     rules.InitialiseGameContext (Chain::MAIN, "mv", nullptr);
@@ -105,6 +108,9 @@ protected:
     currentState = initialState;
   }
 
+  /**
+   * Verifies rollback for all recorded forward steps in reverse order.
+   */
   ~StateProcessingTests ()
   {
     /* Roll back all performed forward steps and verify that the undoing

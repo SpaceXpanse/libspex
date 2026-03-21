@@ -34,6 +34,7 @@ ChannelDaemon::WalletBasedInstances::WalletBasedInstances (
            d.gameId, d.channelId, d.playerName),
     cm(realCm)
 {
+  /* Wire transaction sender into manager once wallet primitives are present.  */
   realCm.SetMoveSender (sender);
 }
 
@@ -86,6 +87,7 @@ ChannelDaemon::SetOffChainBroadcast (ReceivingOffChainBroadcast& b)
 void
 ChannelDaemon::Start ()
 {
+  /* Start inbound feeds after all external interfaces are connected.  */
   CHECK (walletBased != nullptr);
   CHECK (feeder != nullptr);
   CHECK (offChain != nullptr);
@@ -112,6 +114,7 @@ ChannelDaemon::Stop ()
 void
 ChannelDaemon::Run ()
 {
+  /* Main loop owns startup/shutdown lifecycle and signal handling semantics.  */
   internal::MainLoop::Functor startAction = [this] () { Start (); };
   internal::MainLoop::Functor stopAction = [this] () { Stop (); };
 

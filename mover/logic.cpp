@@ -18,6 +18,7 @@ namespace mover
 GameStateData
 MoverLogic::GetInitialStateInternal (unsigned& height, std::string& hashHex)
 {
+  /* Pick the chain-specific anchor block the game starts from.  */
   const Chain chain = GetContext ().GetChain ();
   switch (chain)
     {
@@ -57,6 +58,7 @@ MoverLogic::ProcessForwardInternal (const GameStateData& oldState,
                                     const Json::Value& blockData,
                                     UndoData& undoData)
 {
+  /* Decode current state and start collecting undo information.  */
   proto::GameState state;
   CHECK (state.ParseFromString (oldState));
   proto::UndoData undo;
@@ -86,6 +88,7 @@ MoverLogic::ProcessForwardInternal (const GameStateData& oldState,
       proto::PlayerUndo& u = (*undo.mutable_players ())[name];
       if (isNew)
         {
+          /* New players start at origin before their first movement update.  */
           u.set_is_new (true);
           p->set_x (0);
           p->set_y (0);
@@ -118,6 +121,7 @@ MoverLogic::ProcessForwardInternal (const GameStateData& oldState,
       p.set_steps_left (p.steps_left () - 1);
       if (p.steps_left () == 0)
         {
+          /* Remember that movement ended this block so rollback can restore it.  */
           proto::PlayerUndo& u = (*undo.mutable_players ())[name];
           u.set_finished_dir (p.dir ());
           p.set_dir (proto::NONE);
@@ -139,6 +143,7 @@ MoverLogic::ProcessBackwardsInternal (const GameStateData& newState,
                                       const Json::Value& blockData,
                                       const UndoData& undoData)
 {
+  /* Recreate state and undo payload that were produced during forward pass.  */
   proto::GameState state;
   CHECK (state.ParseFromString (newState));
   proto::UndoData undo;
@@ -165,6 +170,7 @@ MoverLogic::ProcessBackwardsInternal (const GameStateData& newState,
       /* Restore "finished directions".  */
       if (u != nullptr && u->has_finished_dir ())
         {
+          /* A move reached zero steps in forward processing; re-open it first.  */
           CHECK (p.dir () == proto::NONE && p.steps_left () == 0);
           p.set_dir (u->finished_dir ());
         }
@@ -208,6 +214,7 @@ MoverLogic::ProcessBackwardsInternal (const GameStateData& newState,
 Json::Value
 MoverLogic::GameStateToJson (const GameStateData& encodedState)
 {
+  /* Decode protobuf state and emit the external JSON schema.  */
   proto::GameState state;
   CHECK (state.ParseFromString (encodedState));
 

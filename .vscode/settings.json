@@ -1,0 +1,12 @@
+{
+  // Exclude build-time source fragments from IntelliSense analysis.
+  // These files (schema_head.cpp, schema_tail.cpp) are never compiled
+  // directly – the Makefile concatenates them with the SQL file via
+  //   cat schema_head.cpp schema.sql schema_tail.cpp > schema.cpp
+  // Analysing them in isolation produces spurious "expected a declaration"
+  // and "missing closing quote" errors for the raw-string-literal boundary.
+  "C_Cpp.files.exclude": {
+    "**/schema_head.cpp": true,
+    "**/schema_tail.cpp": true
+  }
+}

@@ -31,6 +31,7 @@ constexpr size_t MAX_MESSAGE_SIZE = 1'024 * 1'024;
 void
 OffChainBroadcast::SetParticipants (const proto::ChannelMetadata& meta)
 {
+  /* Keep an exact participant set for filtering/routing peer messages.  */
   std::set<std::string> newParticipants;
   for (const auto& p : meta.participants ())
     newParticipants.insert (p.name ());
@@ -51,6 +52,7 @@ void
 OffChainBroadcast::SendNewState (const std::string& reinitId,
                                  const proto::StateProof& proof)
 {
+  /* Wrap state proof in broadcast envelope and hand to transport backend.  */
   VLOG (1) << "Broadcasting new state for reinit " << EncodeBase64 (reinitId);
 
   proto::BroadcastMessage pb;
@@ -67,6 +69,7 @@ void
 OffChainBroadcast::ProcessIncoming (ChannelManager& m,
                                     const std::string& msg) const
 {
+  /* Decode incoming envelope and forward validated payload to manager.  */
   if (msg.size () > MAX_MESSAGE_SIZE)
     {
       LOG (ERROR)

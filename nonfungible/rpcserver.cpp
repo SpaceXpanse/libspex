@@ -45,6 +45,7 @@ GetAsset (const Json::Value& val)
 void
 RpcServer::stop ()
 {
+  /* RequestStop is asynchronous; daemon loop exits shortly afterwards.  */
   LOG (INFO) << "RPC method called: stop";
   game.RequestStop ();
 }
@@ -74,6 +75,7 @@ Json::Value
 RpcServer::hashcurrentstate ()
 {
   LOG (INFO) << "RPC method called: hashcurrentstate";
+  /* Compute an on-demand digest over all DB tables in canonical order.  */
   return logic.GetCustomStateData (game, "data",
       [] (const spacexpanse::SQLiteDatabase& db)
         {
@@ -112,6 +114,7 @@ RpcServer::settargetblock (const std::string& block)
 {
   LOG (INFO) << "RPC method called: settargetblock " << block;
 
+  /* Empty string clears targeting and resumes normal tip following.  */
   spacexpanse::uint256 hash;
   if (block.empty ())
     hash.SetNull ();
@@ -142,6 +145,7 @@ Json::Value
 RpcServer::listassets ()
 {
   LOG (INFO) << "RPC method called: listassets";
+  /* Use StateJsonExtractor via logic callback to ensure a DB-consistent view.  */
   return logic.GetCustomStateData (game,
       [] (const StateJsonExtractor& ext)
         {

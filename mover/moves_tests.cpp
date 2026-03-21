@@ -18,6 +18,10 @@ class ParseMoveTests : public testing::Test
 
 protected:
 
+  /**
+   * Parses the provided JSON and verifies that ParseMove succeeds and
+   * extracts the expected direction and step count.
+   */
   void
   ExpectValid (const std::string& jsonStr, const proto::Direction expectedDir,
                const unsigned expectedSteps) const
@@ -33,6 +37,9 @@ protected:
     EXPECT_EQ (steps, expectedSteps);
   }
 
+  /**
+   * Parses the provided JSON and verifies that ParseMove rejects it.
+   */
   void
   ExpectInvalid (const std::string& jsonStr) const
   {

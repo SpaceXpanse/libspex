@@ -12,6 +12,7 @@ namespace ships
 Direction
 operator- (const Direction d)
 {
+  /* Map every direction to its opposite.  */
   switch (d)
     {
     case Direction::LEFT:
@@ -30,6 +31,7 @@ operator- (const Direction d)
 
 Coord::Coord (const int ind)
 {
+  /* Convert linear index to matrix coordinates.  */
   column = ind % SIDE;
   row = ind / SIDE;
 
@@ -43,6 +45,7 @@ Coord::Coord (const int ind)
 bool
 Coord::IsOnBoard () const
 {
+  /* Board bounds are checked independently for row and column.  */
   if (row < 0 || row >= SIDE)
     return false;
   if (column < 0 || column >= SIDE)
@@ -54,6 +57,7 @@ Coord::IsOnBoard () const
 int
 Coord::GetIndex () const
 {
+  /* Convert matrix coordinates back to a linear index.  */
   CHECK (IsOnBoard ());
 
   const int res = row * SIDE + column;
@@ -66,6 +70,7 @@ Coord::GetIndex () const
 Coord
 Coord::operator+ (const Direction d) const
 {
+  /* Return neighbouring coordinates in the selected direction.  */
   switch (d)
     {
     case Direction::LEFT:
@@ -91,6 +96,7 @@ Coord::operator- (const Direction d) const
 bool
 operator== (const Coord& a, const Coord& b)
 {
+  /* Coordinates are equal only if both row and column match.  */
   return a.row == b.row && a.column == b.column;
 }
 

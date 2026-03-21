@@ -15,6 +15,7 @@ namespace nf
 void
 NonFungibleLogic::SetupSchema (spacexpanse::SQLiteDatabase& db)
 {
+  /* Schema setup is centralised in schema.cpp generated from schema.sql.  */
   SetupDatabaseSchema (db);
 }
 
@@ -22,6 +23,7 @@ void
 NonFungibleLogic::GetInitialStateBlock (unsigned& height,
                                         std::string& hashHex) const
 {
+  /* Anchor values define from which chain block NF state tracking starts.  */
   const spacexpanse::Chain chain = GetChain ();
   switch (chain)
     {
@@ -59,6 +61,7 @@ void
 NonFungibleLogic::UpdateState (spacexpanse::SQLiteDatabase& db,
                                const Json::Value& blockData)
 {
+  /* Confirmed-state updates are delegated to the move processor.  */
   MoveProcessor proc(db);
   proc.ProcessAll (blockData["moves"]);
 }
@@ -72,6 +75,7 @@ NonFungibleLogic::GetStateAsJson (const spacexpanse::SQLiteDatabase& db)
 Json::Value
 NonFungibleLogic::GetCustomStateData (spacexpanse::Game& game, const StateCallback& cb)
 {
+  /* Expose read-only extractor callbacks through the standard custom-state hook.  */
   return SQLiteGame::GetCustomStateData (game, "data",
       [this, &cb] (const spacexpanse::SQLiteDatabase& db)
         {

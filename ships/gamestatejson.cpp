@@ -15,6 +15,7 @@ namespace ships
 Json::Value
 GameStateJson::GetFullJson () const
 {
+  /* Build full public game state: global stats plus all channel snapshots.  */
   Json::Value stats(Json::objectValue);
   auto stmt = db.PrepareRo (R"(
     SELECT `name`, `won`, `lost`

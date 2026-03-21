@@ -16,6 +16,7 @@ namespace spacexpanse
 Json::Value
 ChannelMetadataToJson (const proto::ChannelMetadata& meta)
 {
+  /* Canonical JSON representation of metadata for RPC and game-state dumps.  */
   Json::Value res(Json::objectValue);
 
   Json::Value participants(Json::arrayValue);
@@ -39,6 +40,7 @@ BoardStateToJson (const BoardRules& r,
                   const uint256& channelId, const proto::ChannelMetadata& meta,
                   const BoardState& state)
 {
+  /* Include raw state plus parsed helpers (turn, count, game-specific JSON).  */
   Json::Value res(Json::objectValue);
   res["base64"] = EncodeBase64 (state);
 

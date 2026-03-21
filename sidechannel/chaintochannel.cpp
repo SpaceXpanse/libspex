@@ -23,6 +23,7 @@ ChainToChannelFeeder::ChainToChannelFeeder (ChannelGspRpcClient& r,
                                             SynchronisedChannelManager& cm)
   : rpc(r), manager(cm)
 {
+  /* Cache immutable channel ID once to avoid repeated lock+conversion work.  */
   auto cmLocked = manager.Read ();
   channelIdHex = cmLocked->GetChannelId ().ToHex ();
 
@@ -59,6 +60,7 @@ template <typename Proto>
 void
 ChainToChannelFeeder::UpdateOnce ()
 {
+  /* Pull fresh chain state snapshot from GSP and apply to local manager.  */
   const auto data = rpc.getchannel (channelIdHex);
 
   if (data["state"] != "up-to-date")
@@ -126,6 +128,7 @@ ChainToChannelFeeder::UpdateOnce ()
 void
 ChainToChannelFeeder::RunLoop ()
 {
+  /* Long-running sync loop driven by GSP wait-for-change notifications.  */
   UpdateOnce ();
 
   while (!stopLoop)
@@ -166,6 +169,7 @@ ChainToChannelFeeder::RunLoop ()
 void
 ChainToChannelFeeder::Start ()
 {
+  /* Spawn background thread that keeps channel manager in sync with chain.  */
   LOG (INFO) << "Starting chain-to-channel feeder loop...";
   CHECK (loop == nullptr) << "Feeder loop is already running";
 

@@ -70,6 +70,7 @@ Json::Value
 ChannelGspRpcServer::DefaultGetChannel (const Game& g, ChannelGame& chg,
                                         const std::string& channelId)
 {
+  /* Resolve one channel from DB and expose game-specific JSON projection.  */
   uint256 id;
   if (!id.FromHex (channelId))
     throw jsonrpc::JsonRpcException (jsonrpc::Errors::ERROR_RPC_INVALID_PARAMS,

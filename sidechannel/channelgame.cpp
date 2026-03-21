@@ -21,6 +21,7 @@ namespace spacexpanse
 void
 ChannelGame::SetupGameChannelsSchema (SQLiteDatabase& db)
 {
+  /* Install side-channel core schema shared by all channel-enabled games.  */
   InternalSetupGameChannelsSchema (db);
 }
 
@@ -28,6 +29,7 @@ bool
 ChannelGame::ProcessDispute (ChannelData& ch, const unsigned height,
                              const proto::StateProof& proof)
 {
+  /* Accept only valid proofs that are not older than on-chain knowledge.  */
   /* If there is already a dispute in the on-chain game state, then it can only
      have been placed there by an earlier block (or perhaps the same block
      in edge cases).  */
@@ -108,6 +110,7 @@ ChannelGame::ProcessDispute (ChannelData& ch, const unsigned height,
 bool
 ChannelGame::ProcessResolution (ChannelData& ch, const proto::StateProof& proof)
 {
+  /* Resolution requires a strictly newer valid state proof than on-chain.  */
   const auto& id = ch.GetId ();
   const auto& meta = ch.GetMetadata ();
   const auto& rules = GetBoardRules ();
@@ -166,6 +169,7 @@ void
 ChannelGame::PendingMoves::AddPendingStateProof (ChannelData& ch,
                                                  const proto::StateProof& proof)
 {
+  /* Track freshest valid pending proof per channel for dispute preemption.  */
   ChannelGame& game = dynamic_cast<ChannelGame&> (GetSQLiteGame ());
 
   const auto& id = ch.GetId ();
@@ -243,6 +247,7 @@ ChannelGame::PendingMoves::ToJson () const
 void
 UpdateMetadataReinit (const uint256& mvid, proto::ChannelMetadata& meta)
 {
+  /* Derive next reinit id by hashing previous id and unique move identifier.  */
   SHA256 hasher;
   hasher << meta.reinit ();
   hasher << mvid;

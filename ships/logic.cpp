@@ -28,6 +28,7 @@ ShipsLogic::GetBoardRules () const
 void
 ShipsLogic::SetupSchema (spacexpanse::SQLiteDatabase& db)
 {
+  /* Install both reusable channel schema and ships-specific tables.  */
   SetupGameChannelsSchema (db);
   SetupShipsSchema (db);
 }
@@ -35,6 +36,7 @@ ShipsLogic::SetupSchema (spacexpanse::SQLiteDatabase& db)
 void
 ShipsLogic::GetInitialStateBlock (unsigned& height, std::string& hashHex) const
 {
+  /* Pin chain-specific initial sync checkpoints for deterministic startup.  */
   const spacexpanse::Chain chain = GetChain ();
   switch (chain)
     {
@@ -363,6 +365,7 @@ void
 ShipsLogic::HandleDeclareLoss (spacexpanse::SQLiteDatabase& db,
                                const Json::Value& obj, const std::string& name)
 {
+  /* Process explicit loser declaration and settle channel immediately.  */
   if (!obj.isObject ())
     return;
 
@@ -473,6 +476,7 @@ ShipsLogic::HandleDisputeResolution (spacexpanse::SQLiteDatabase& db,
                                      const unsigned height,
                                      const bool isDispute)
 {
+  /* Validate and apply dispute/resolution requests against channel state.  */
   spacexpanse::ChannelsTable tbl(db);
   spacexpanse::proto::StateProof proof;
   auto h = ParseDisputeResolutionMove (obj, tbl, proof);
@@ -536,6 +540,7 @@ void
 ShipsLogic::ProcessExpiredDisputes (spacexpanse::SQLiteDatabase& db,
                                     const unsigned height)
 {
+  /* Force-close channels whose dispute window elapsed without valid response.  */
   LOG (INFO) << "Processing expired disputes for height " << height << "...";
 
   spacexpanse::ChannelsTable tbl(db);
@@ -677,6 +682,7 @@ GetIdFromMove (const Json::Value& mv)
 void
 ShipsLogic::UpdateState (spacexpanse::SQLiteDatabase& db, const Json::Value& blockData)
 {
+  /* Replay all game moves from one block into the canonical game database.  */
   const auto& blk = blockData["block"];
   CHECK (blk.isObject ());
   const auto& heightVal = blk["height"];
@@ -730,6 +736,7 @@ ShipsLogic::UpdateState (spacexpanse::SQLiteDatabase& db, const Json::Value& blo
 Json::Value
 ShipsLogic::GetStateAsJson (const spacexpanse::SQLiteDatabase& db)
 {
+  /* Delegates JSON state materialisation to dedicated helper object.  */
   GameStateJson gsj(db, boardRules);
   return gsj.GetFullJson ();
 }
@@ -739,6 +746,7 @@ ShipsLogic::GetStateAsJson (const spacexpanse::SQLiteDatabase& db)
 void
 ShipsPending::ClearShips ()
 {
+  /* Reset ships-specific pending caches while base class resets common data.  */
   create = Json::Value (Json::arrayValue);
   join = Json::Value (Json::arrayValue);
   abort.clear ();
@@ -826,6 +834,7 @@ void
 ShipsPending::AddPendingMoveUnsafe (const spacexpanse::SQLiteDatabase& db,
                                     const Json::Value& mv)
 {
+  /* Parse pending move with relaxed checks to still extract useful proofs.  */
   CHECK (mv.isObject ()) << "Not an object: " << mv;
 
   const auto& nameVal = mv["name"];
@@ -878,6 +887,7 @@ ShipsPending::AddPendingMove (const Json::Value& mv)
 Json::Value
 ShipsPending::ToJson () const
 {
+  /* Extend generic pending JSON with ships game-specific move collections.  */
   Json::Value res = PendingMoves::ToJson ();
   res["create"] = create;
   res["join"] = join;
